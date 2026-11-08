@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mes projets Atom</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#e0730f">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout : une colonne téléphone d'abord, recherche collante en haut, dossiers repliables */
+:root{
+  --bg:#f3f4f8; --surface:#ffffff; --ink:#151a2b; --muted:#5d6479; --line:#dfe2ec;
+  --accent:#e0730f; --accent-soft:#fdeedd; --chip:#eef0f6;
+  --site:#1f7a5a; --panel:#2f5bd3; --app:#8a3fc4; --git:#24292f; --old:#8a90a3;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1220; --surface:#181c2e; --ink:#eceef6; --muted:#9aa1b8; --line:#2a3048;
+  --accent:#f5953a; --accent-soft:#3a2614; --chip:#232842;
+  --site:#4cc79a; --panel:#7d9bff; --app:#c48af0; --git:#c9d1d9; --old:#6f768d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1220; --surface:#181c2e; --ink:#eceef6; --muted:#9aa1b8; --line:#2a3048;
+  --accent:#f5953a; --accent-soft:#3a2614; --chip:#232842;
+  --site:#4cc79a; --panel:#7d9bff; --app:#c48af0; --git:#c9d1d9; --old:#6f768d; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 48px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+h1{font-family:var(--display);font-weight:800;font-size:1.7rem;margin:0;letter-spacing:-.01em}
+h1 span{color:var(--accent)}
+.sub{color:var(--muted);margin:2px 0 0;font-size:.9rem}
+.theme{border:1px solid var(--line);background:var(--surface);color:var(--ink);width:44px;height:44px;border-radius:12px;font-size:1.2rem;cursor:pointer;flex:none}
+.searchbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:14px 10px}
+.search{display:flex;align-items:center;gap:8px;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:0 12px}
+.search:focus-within{border-color:var(--accent)}
+.search svg{flex:none;color:var(--muted)}
+#q{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:inherit;font-size:1rem;padding:13px 0;outline:none}
+#clear{border:0;background:var(--chip);color:var(--muted);border-radius:8px;padding:6px 10px;font:inherit;font-size:.85rem;cursor:pointer}
+.filters{display:flex;gap:8px;overflow-x:auto;padding-top:10px;scrollbar-width:none}
+.filters button{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:.88rem;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.group-title{font-family:var(--display);font-weight:700;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+.folders{display:flex;flex-direction:column;gap:10px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:16px}
+summary{list-style:none;display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer}
+summary::-webkit-details-marker{display:none}
+.ico{width:38px;height:38px;border-radius:11px;background:var(--accent-soft);display:grid;place-items:center;font-size:1.15rem;flex:none}
+.name{flex:1;min-width:0}
+.name b{display:block;font-family:var(--display);font-weight:700;font-size:1.05rem}
+.name small{color:var(--muted);font-size:.83rem}
+.count{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.85rem;background:var(--chip);border-radius:999px;padding:3px 9px}
+.chev{color:var(--muted);transition:transform .2s}
+details[open] .chev{transform:rotate(90deg)}
+ul{list-style:none;margin:0;padding:0 8px 10px}
+li a{display:flex;align-items:center;gap:10px;padding:11px 10px;border-radius:10px;color:var(--ink);text-decoration:none}
+li a.is-chat{background:var(--accent-soft);font-weight:600;margin-bottom:4px}
+li a:hover,li a:focus-visible{background:var(--chip);outline:none}
+.tag{flex:none;font-size:.7rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;border-radius:6px;padding:3px 7px;min-width:52px;text-align:center;color:var(--surface)}
+.t-chat{background:var(--accent);min-width:96px}.t-site{background:var(--site)}.t-panel{background:var(--panel)}.t-app{background:var(--app)}.t-git{background:var(--git)}.t-autre{background:var(--old)}
+.lbl{flex:1;min-width:0}
+.lbl em{font-style:normal;color:var(--muted);font-size:.82rem;display:block}
+.new{font-size:.72rem;font-weight:600;color:var(--accent);flex:none}
+.empty-folder{color:var(--muted);font-size:.88rem;padding:4px 10px 12px}
+.none{color:var(--muted);text-align:center;padding:30px 0;display:none}
+mark{background:var(--accent-soft);color:inherit;border-radius:3px}
+.foot{color:var(--muted);font-size:.82rem;margin-top:26px}
+.foot a{color:var(--accent)}
+.sheet-bg{position:fixed;inset:0;background:rgba(10,12,24,.45);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);color:var(--ink);width:100%;max-width:520px;border-radius:20px 20px 0 0;padding:18px max(16px,env(safe-area-inset-left,0px)) calc(18px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;box-shadow:0 -10px 40px -10px #0006}
+.sheet h3{font-family:var(--display);margin:0 0 4px;font-size:1.1rem}
+.sheet p{margin:0;color:var(--muted);font-size:.88rem}
+.sheet a,.sheet button{display:flex;align-items:center;gap:10px;justify-content:center;border-radius:14px;padding:14px;font:600 1rem var(--body);text-decoration:none;cursor:pointer;border:1px solid var(--line)}
+.sheet .go{background:var(--accent);color:#fff;border-color:var(--accent)}
+.sheet .stay{background:var(--chip);color:var(--ink)}
+.sheet .cancel{background:transparent;color:var(--muted);border:0}
+#lock{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:24px}
+#lock h2{font-family:var(--display);margin:0;font-size:1.5rem}#lock h2 span{color:var(--accent)}
+#dots{display:flex;gap:12px}#dots i{width:16px;height:16px;border-radius:50%;border:2px solid var(--accent)}#dots i.on{background:var(--accent)}
+#pad{display:grid;grid-template-columns:repeat(3,72px);gap:12px}
+#pad button{height:72px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 1.5rem var(--body);cursor:pointer}
+#lock.err #dots{animation:shake .35s}@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@media (prefers-reduced-motion:reduce){.chev{transition:none}}
+</style>
+<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0;font-size:14px}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<div id="lock"><h2>Mes projets <span>Atom</span></h2><p class="sub">Entre ton code</p><div id="dots"><i></i><i></i><i></i><i></i></div>
+<div id="pad"><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button><button>6</button><button>7</button><button>8</button><button>9</button><span></span><button>0</button><button data-k="del">⌫</button></div></div>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Mes projets <span>Atom</span></h1>
+      <p class="sub">Un dossier par client et par projet · discussion, site et panel ensemble</p>
+    </div>
+    <button class="theme" id="theme" aria-label="Changer mode jour / nuit">🌙</button>
+  </header>
+
+  <div class="searchbar">
+    <label class="search" for="q">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Chercher un client, un panel, une app…" autocomplete="off">
+      <button id="clear" type="button" hidden>Effacer</button>
+    </label>
+    <div class="filters" id="filters">
+      <button type="button" data-f="tout" aria-pressed="true">Tout</button>
+      <button type="button" data-f="chat" aria-pressed="false">Discussions</button>
+      <button type="button" data-f="site" aria-pressed="false">Sites</button>
+      <button type="button" data-f="panel" aria-pressed="false">Panels</button>
+      <button type="button" data-f="app" aria-pressed="false">Apps</button>
+      <button type="button" data-f="git" aria-pressed="false">GitHub</button>
+    </div>
+  </div>
+
+  <div id="list"></div>
+  <div class="sheet-bg" id="sheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="shT">
+    <h3 id="shT">Ouvrir la discussion</h3>
+    <p id="shName"></p>
+    <a class="go" id="shGo" href="#" target="_blank" rel="noopener">🌐 Ouvrir dans Chrome</a>
+    <button class="stay" id="shStay" type="button">💬 Rester dans l'app Claude</button>
+    <p id="shHint" hidden>Nom copié ✓ Dans l'app, clique sur la loupe 🔎 en haut à gauche et colle le nom : la discussion s'ouvre sans quitter Claude.</p>
+    <button class="cancel" id="shX" type="button">Annuler</button>
+  </div>
+</div>
+<p class="none" id="none">Rien trouvé pour cette recherche.</p>
+
+  <p class="foot">Tu as 71 pages en tout : les 21 plus anciennes ne sont pas encore listées ici. Toutes tes pages : <a href="https://claude.ai/code/artifacts" target="_blank" rel="noopener">claude.ai/code/artifacts</a> · Ton GitHub : <a href="https://github.com/islamatom" target="_blank" rel="noopener">github.com/islamatom</a></p>
+</div>
+
+<script>
+const A = id => "https://claude.ai/code/artifact/" + id;
+const G = r => "https://github.com/islamatom/" + r;
+const DATA = [
+ {g:"✅ Clients actifs", items:[
+  {n:"Reflet Ambré", i:"👰", d:"Robes de mariée · site + panel RDV", k:"reflet ambre amie robes mariée costumes", l:[
+   ["chat","Signature du contrat (Dori)","https://claude.ai/chat/77fc030c-3f72-4036-85a6-c770e0e02767","5 nov."],
+   ["chat","RDV avec Dori","https://claude.ai/chat/2f56699f-55d8-49ef-8766-10c5cb51c369","5 nov."],
+   ["site","Site Reflet Ambré Andenne",A("7210107e-3386-4c8c-98e2-651cc296f16d"),"6 nov."],
+   ["panel","Panel Reflet Ambré",A("0a414b26-513f-4e0d-ab5d-307ecd30d0d5"),"6 nov."],
+   ["git","GitHub reflet-ambre",G("reflet-ambre"),"public"]]},
+  {n:"Garage Caruso", i:"🔧", d:"Garage d'Andenne · site + panel RDV", k:"caruso garage ami andenne rdv", l:[
+   ["chat","Garage Caruso · site + panel","https://claude.ai/chat/c1432802-64b5-439c-84a2-a1a2c13751f9","2 nov."],
+   ["chat","Logo et couleurs","https://claude.ai/chat/2ee1da27-c784-49cc-82fe-8d699a20caba","2 nov."],
+   ["site","Site Garage Caruso",A("03d1b9f0-8baa-4ae4-a672-d0d77ba8f732"),"2 nov."],
+   ["panel","Panel Caruso",A("0798d901-2aa8-4a10-97e7-db2597915801"),"2 nov."]]},
+  {n:"LT Autos", i:"🚗", d:"Garage d'Andenne · contrat signé", k:"lt autos ltautos garage", l:[
+   ["site","LT Autos v2.9","https://claude.ai/artifact/XaPwSZyJa4bjB2z24Ua1zb","7 nov.",1],
+   ["chat","Site LT Autos","https://claude.ai/chat/efaa571f-69b5-43fd-a005-ec8bc7c0c136","7 nov."],]},
+  {n:"Les Mariés de Marie", i:"💍", d:"Boutique de Huy · site + panel RDV + logo", k:"maries marie huy robes", l:[]},
+  {n:"Comptable", i:"📊", d:"Fabrice Camus · nouveau site", k:"fabrice camus comptable fabricecamus", l:[
+   ["chat","Site du comptable","https://claude.ai/chat/64a99ebb-d085-4390-af79-1efecdf6c8db","4 nov."],]},
+  {n:"Les Evans", i:"🎤", d:"Duo de chanteurs · site vitrine + agenda + RDV", k:"les evans evan's chanteurs musique clip allo la terre", l:[
+   ["chat","Projet Les Evans","https://claude.ai/chat/1d0165aa-f838-4a0d-b8c8-228f6084042a","8 nov.",1],
+   ["site","Aperçu site Les Evans","https://claude.ai/artifact/XDe59Q7JbfJZh5oAamyjBS","8 nov.",1]]},
+  {n:"Express Repair", i:"📱", d:"Réparation GSM · site + panel de suivi · expressrepair-namur.be", k:"express repair namur gsm telephone reparation voisin", l:[
+   ["chat","Express Repair","https://claude.ai/chat/87f90022-46c8-48c4-99b7-5f8c42ec0d7b","8 nov.",1]]},
+  {n:"H&K Shipping", i:"📦", d:"Cliente Khadija · site + panel", k:"hk shipping khadija express", l:[
+   ["chat","H&K Shipping","https://claude.ai/chat/1436458d-6998-42b3-bc75-90824580b53d","6 oct."],]}
+ ]},
+ {g:"✅ Mes projets actifs", items:[
+  {n:"Foot 213", i:"🇩🇿", d:"Foot de quartier en Algérie · app + panel", k:"foot 213 algerie quartier", l:[
+   ["chat","Règles de Foot 213","https://claude.ai/chat/56732cda-7a2c-47ec-844d-7067806c7465","25 oct."],
+   ["app","App Football Algérie v1.0",A("39404b07-2d9d-4ffc-90aa-160166fe730e"),"28 oct.",1],
+   ["panel","Panel Admin v1.0",A("d0c1c1db-81a0-43ac-978b-e05110b30f07"),"28 oct.",1],
+   ["git","GitHub Foot213",G("Foot213"),"public"],
+   ["autre","Logos Foot 213",A("3a3b5318-30f6-4b5b-9d45-ccc7190bd027"),"25 oct."],
+   ["autre","Inscription",A("233379a2-a33b-4d64-8418-83d465072095"),"25 oct."],
+   ["panel","Panel Admin · ancien",A("33fa1fd7-1089-4865-ab30-72f25d274ef7"),"27 oct."],
+   ["panel","Panel · ancien",A("1587565b-bcf6-4a69-b4a3-25548b9c9d81"),"25 oct."],
+   ["app","App foot quartier · ancienne",A("c99de48f-68b7-4c86-a464-b989fd5a100c"),"25 oct."]]},
+  {n:"Hsab", i:"🧾", d:"Prêts et dettes · حساب", k:"hsab حساب dayn dettes prets comptes", l:[
+   ["chat","Hsab","https://claude.ai/chat/2f240b1b-f524-4ce1-b698-c671e8d6e68c","27 oct."],
+   ["chat","Hsab · validation Apple","https://claude.ai/chat/00be4521-8ddb-4b91-9eaa-7ab36cf61d88","31 oct."],
+   ["app","Aperçu Hsab 1.5",A("32ae864c-88bf-4127-bfeb-42c523cf5258"),"25 oct.",1]]},
+  {n:"Atom TV", i:"📺", d:"Atom Pro Max 3 · Atom Premium · Gestion · IBO", k:"atom tv pro max premium atmos gestion fox ibo iptv", l:[
+   ["chat","Atom Premium TV","https://claude.ai/chat/6a233e9b-50e7-4525-ae59-fdfda7438106","17 oct."],
+   ["panel","Panel Atmos 48",A("5b37a441-5034-40e1-a37f-28bbffe7122e"),"17 oct.",1],
+   ["app","App Atom 0.10.4",A("8275d8bc-ed67-46eb-a6eb-062c3c91691a"),"12 oct."],
+   ["git","GitHub atom-pro-max-3",G("atom-pro-max-3"),"privé"],
+   ["git","GitHub atom-premium",G("atom-premium"),"privé"],
+   ["git","GitHub atom-gestion",G("atom-gestion"),"privé"],
+   ["autre","Fonds Atom TV",A("0d68c6e5-4d59-490c-9164-efc7ebd85ff3"),"17 oct."],
+   ["autre","Fond Aurore Atom",A("32cb7008-0551-49ab-a48e-83a2d6e4ad74"),"17 oct."],
+   ["autre","Photos accueil Atom",A("0dfa88df-f394-41bc-997f-02cae08c3748"),"18 oct."],
+   ["autre","Animation box 1 Go",A("9b639997-bb7a-4938-9bb6-853eb31757fd"),"12 oct."],
+   ["autre","Sons Tak Atom",A("c1827753-b29b-4f58-a8b2-45c7e639be20"),"11 oct."],
+   ["autre","Vidéo d'attente Atom",A("dfef2124-b9a7-4270-ba0f-ce4377c5403a"),"11 oct."],
+   ["panel","Panel Atmos 45 · ancien",A("c606aba5-45fb-47f5-9a14-f92d02f9e581"),"12 oct."]]},
+  {n:"Place53 / Yeston", i:"👕", d:"Magasin + marque de hoodies", k:"place53 place 53 yeston hoodies efashion magasin", l:[
+   ["chat","Place53 · site Efashion","https://claude.ai/chat/2fdba8e8-565b-42f6-9476-406bef74bb4e","4 nov."],
+   ["chat","Yeston + location voiture","https://claude.ai/chat/7ca71627-d072-4d6f-be3c-968b0eb286c4","30 oct."],]},
+  {n:"Atom Clients", i:"🗂️", d:"Mon panel de suivi des clients", k:"atom clients suivi", l:[
+   ["chat","Panel Atom Clients","https://claude.ai/chat/646c7004-e6b7-4055-b291-a76bc2e83abe","7 nov."],
+   ["panel","Atom Clients",A("c94ed272-6258-4052-80e9-2810c7777ba0"),"7 nov.",1]]},
+  {n:"Divers", i:"🧩", d:"MyAtomDZ, location voiture Algérie…", k:"myatomdz atomdz location voiture divers", l:[
+   ["chat","Site MyAtomDZ v10","https://claude.ai/chat/82ed6342-711e-484e-a034-0eef539a9807","8 nov.",1],
+   ["chat","Premier panel atomdz","https://claude.ai/chat/07326ee8-6ddd-40c0-9a84-7439147fbde0","24 sept."],
+   ["site","Site MyAtomDZ",A("51ce85f9-e375-41e6-bc15-8f7d7538e22a"),"14 oct."],
+   ["autre","Sans titre (aujourd'hui)",A("a9c73734-74e4-4201-ac14-4039bfe493b8"),"7 nov."]]}
+ ]},
+ {g:"⏸️ En pause · on y revient après", items:[
+  {n:"Ferka", i:"🏆", d:"Gestion de club · app + panel", k:"ferka amendes club boetekas joueurs carte", l:[
+   ["chat","Ferka","https://claude.ai/chat/d1bd9476-9919-44ca-bc7e-399c3e1f0424","26 oct."],
+   ["app","Ferka (dernière version)",A("04534679-f8a0-4f3c-b477-87393a3551f8"),"15 oct. 23:03",1],
+   ["autre","Ferka Facturation",A("cd5828de-b47c-4c00-93f6-609a5128d940"),"16 oct."],
+   ["autre","Politique de confidentialité",A("8fc0b1ef-7c9b-423a-b225-9063780e4792"),"16 oct."],
+   ["autre","Carte coach",A("905a638e-42a5-46ba-bee8-4363c42ef5ca"),"18 oct."],
+   ["autre","Inscription joueur",A("f1f992a2-926f-4495-9f10-79228a3423bb"),"18 oct."],
+   ["autre","Carte électrique",A("44cadbc9-b260-4186-b44c-f4c587c1662c"),"18 oct."],
+   ["autre","Débloque ta carte",A("4c4d7545-96cc-48dc-b991-948d2c9d508e"),"18 oct."],
+   ["autre","Cartes joueurs",A("29e0985e-efee-47f6-87a5-f3ecbda9b8fe"),"16 oct."],
+   ["autre","Notes carte joueur",A("864ddced-00db-4ec5-bb37-921e7e31fe08"),"16 oct."],
+   ["autre","Équipes dames",A("ca1e8d0c-d442-4989-a245-5eddec43b89f"),"16 oct."],
+   ["autre","Aperçu invitation joueurs",A("98b36e42-a047-435a-8077-875e715afce8"),"16 oct."],
+   ["autre","Pièces Friks",A("3caf8eac-3a6e-4a2f-9bc2-db40146fbfc4"),"16 oct."],
+   ["autre","Styles app joueur",A("7d0f366f-1ba7-4614-af0e-c1ca1abf067a"),"16 oct."],
+   ["autre","Aperçu lien de club",A("c273a712-d387-4847-89d5-15db4e73478a"),"15 oct."],
+   ["autre","Aperçu couleurs",A("39a22e5c-cc74-421e-b5dc-a239e4dc0c07"),"15 oct."],
+   ["autre","Logos Ferka",A("5f24bdf5-246a-4d57-af50-eaeabdd92be4"),"15 oct."],
+   ["autre","Ferka aperçu",A("0ff2483c-8bef-45a5-8366-030bfb561a73"),"15 oct."],
+   ["autre","Clube Belgique",A("aba75399-bcaa-4e3d-85ba-4f09a79cf9c5"),"14 oct."],
+   ["autre","Ferka · ancienne version",A("77951f8b-dce9-437e-824b-c8448de17811"),"15 oct. 21:44"],
+   ["autre","Ferka · ancienne version",A("945220f1-a0b3-40d5-ab16-edd0ddd20daf"),"15 oct. 20:32"],
+   ["autre","Ferka · ancienne version",A("7aad9e19-b0a4-4ec9-9a0a-0abfd386e962"),"15 oct. 20:26"],
+   ["autre","Ferka · ancienne version",A("a50a055f-2425-4cee-8441-39bfae3f4767"),"15 oct. 15:33"],
+   ["autre","Ferka · ancienne version",A("6d1bbe84-2d69-4dd4-943d-b38b2f20c456"),"15 oct. 15:30"],
+   ["autre","Ferka · ancienne version",A("2ce5db72-1e86-4745-9b59-5b86eba205ea"),"15 oct. 12:12"]]},
+  {n:"RSC Petit-Waret", i:"⚽", d:"Club de foot d'Andenne · nouveau site", k:"petit waret rscpw biwacks club foot", l:[]},
+  {n:"Zéro Retard", i:"⏰", d:"Rappels de factures", k:"zero retard factures robot comptabilite", l:[
+   ["chat","Zéro Retard","https://claude.ai/chat/62466567-e055-49c1-8d22-07cf2467096c","27 oct."],
+   ["app","Zéro Retard",A("6b74fca9-3ac9-48f4-8124-d82335e2ddd5"),"14 oct."],
+   ["autre","Zéro Retard Aide",A("db81dded-dfc1-4bc4-8568-c5b889a1ca3b"),"24 oct."]]},
+  {n:"Fox", i:"🦊", d:"Panel revendeur (base Atmos)", k:"fox panel revendeur digital tv", l:[]},
+  {n:"Sayegh / Bijoutier", i:"💎", d:"Panel El Hadj El Hachemi + app Sayegh", k:"sayegh siyagh bijoutier bijouterie el hadj hachemi or", l:[
+   ["chat","Panel bijouterie","https://claude.ai/chat/c449d4bf-4392-4829-b1b3-54641f49fee5","14 oct."],
+   ["chat","Idée Sayegh (app ouverte)","https://claude.ai/chat/93d0bd3c-945c-4f0f-851b-08d9498dd990","25 oct."],]}
+ ]}
+];
+const TAG={chat:"💬 Discussion",site:"Site",panel:"Panel",app:"App",git:"GitHub",autre:"Page"};
+const list=document.getElementById("list"), q=document.getElementById("q"), none=document.getElementById("none"), clr=document.getElementById("clear");
+let filter="tout";
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function hl(text,term){ if(!term) return esc(text);
+  const t=norm(text), i=t.indexOf(term); if(i<0) return esc(text);
+  return esc(text.slice(0,i))+"<mark>"+esc(text.slice(i,i+term.length))+"</mark>"+esc(text.slice(i+term.length)); }
+function render(){
+  const term=norm(q.value.trim()); clr.hidden=!q.value; let shown=0; let html="";
+  DATA.forEach(grp=>{
+    let gh="";
+    grp.items.forEach(f=>{
+      const folderHit=!term||norm(f.n+" "+f.d+" "+f.k).includes(term);
+      let links=f.l.filter(x=>filter==="tout"||x[0]===filter);
+      if(term&&!folderHit) links=links.filter(x=>norm(x[1]).includes(term));
+      if(!folderHit&&!links.length) return;
+      if(filter!=="tout"&&!links.length) return;
+      shown++;
+      const open=term||filter!=="tout";
+      gh+=`<details ${open?"open":""}><summary><span class="ico">${f.i}</span><span class="name"><b>${hl(f.n,term)}</b><small>${esc(f.d)}</small></span><span class="count">${f.l.length}</span><span class="chev">›</span></summary>`+
+        (links.length?`<ul>${links.map(x=>`<li><a href="${x[2]}" target="_blank" rel="noopener" class="${x[0]==="chat"?"is-chat":""}" data-title="${esc(x[1])}"><span class="tag t-${x[0]}">${TAG[x[0]]}</span><span class="lbl">${hl(x[1],term)}<em>${esc(x[3])}</em></span>${x[4]?'<span class="new">● actuelle</span>':""}</a></li>`).join("")}</ul>`
+        :`<p class="empty-folder">Pas encore de page ici.</p>`)+`</details>`;
+    });
+    if(gh) html+=`<h2 class="group-title">${grp.g}</h2><div class="folders">${gh}</div>`;
+  });
+  list.innerHTML=html; none.style.display=shown?"none":"block";
+}
+q.addEventListener("input",render);
+clr.addEventListener("click",()=>{q.value="";render();q.focus();});
+document.getElementById("filters").addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return; filter=b.dataset.f;
+  document.querySelectorAll("#filters button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  render();
+});
+const tb=document.getElementById("theme"), root=document.documentElement;
+function isDark(){const t=root.getAttribute("data-theme"); return t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;}
+function setIcon(){tb.textContent=isDark()?"☀️":"🌙";}
+try{const s=localStorage.getItem("theme"); if(s) root.setAttribute("data-theme",s);}catch(e){}
+tb.addEventListener("click",()=>{const n=isDark()?"light":"dark"; root.setAttribute("data-theme",n); try{localStorage.setItem("theme",n);}catch(e){} setIcon();});
+
+const sh=document.getElementById("sheet"),shGo=document.getElementById("shGo"),shName=document.getElementById("shName"),shHint=document.getElementById("shHint");
+let shTitle="";const REAL={"1d0165aa": "Projet Evans", "87f90022": "express repaire", "efaa571f": "lt autos", "646c7004": "Panel Atom client", "d1bd9476": "Ferka", "2f240b1b": "hsab", "00be4521": "App Store review issue", "62466567": "zero retarde", "6a233e9b": "Atom premium tv", "2fdba8e8": "efashion place 53", "7ca71627": "Greeting in French", "c1432802": "caruso", "2ee1da27": "Logo et couleurs", "64a99ebb": "Site et texte pour contable", "1436458d": "hk shiping", "c449d4bf": "Panel de gestion bijouterie", "93d0bd3c": "Demande de disponibilité", "56732cda": "Salutation", "82ed6342": "Site web personnel en Algérie", "77fc030c": "Salutation à Eva", "2f56699f": "Greeting in French", "07326ee8": "Super"};
+list.addEventListener("click",e=>{const a=e.target.closest("a.is-chat"); if(!a) return; e.preventDefault();
+  const id=(a.href.split("/chat/")[1]||"").slice(0,8);shTitle=REAL[id]||a.dataset.title; shName.textContent="Nom dans l'app : « "+shTitle+" »"; shGo.href=a.href; shHint.hidden=true; sh.hidden=false;});
+document.getElementById("shStay").addEventListener("click",()=>{
+  const done=()=>{shHint.hidden=false;};
+  try{navigator.clipboard.writeText(shTitle).then(done,done);}catch(e){done();}
+});
+shGo.addEventListener("click",()=>{sh.hidden=true;});
+document.getElementById("shX").addEventListener("click",()=>{sh.hidden=true;});
+sh.addEventListener("click",e=>{if(e.target===sh) sh.hidden=true;});
+
+(function(){const CODE_HASH="a1aad45cfe3d09cb233c148d89196a641a9a12b665616060b2a962c9a51144b0";const L=document.getElementById("lock"),D=[...document.querySelectorAll("#dots i")];let v="";
+async function h(x){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode("atom:"+x));return [...new Uint8Array(b)].map(n=>n.toString(16).padStart(2,"0")).join("")}
+try{if(sessionStorage.getItem("mp_ok")===CODE_HASH){L.hidden=true}}catch(e){}
+document.getElementById("pad").addEventListener("click",async e=>{const b=e.target.closest("button");if(!b)return;
+ if(b.dataset.k==="del")v=v.slice(0,-1);else if(v.length<4)v+=b.textContent;
+ D.forEach((d,i)=>d.classList.toggle("on",i<v.length));
+ if(v.length===4){const ok=(await h(v))===CODE_HASH;if(ok){try{sessionStorage.setItem("mp_ok",CODE_HASH)}catch(e){}L.hidden=true}else{L.classList.add("err");setTimeout(()=>L.classList.remove("err"),400)}v="";D.forEach(d=>d.classList.remove("on"))}});})();
+setIcon(); render();
+</script>
+
+</body>
+</html>
