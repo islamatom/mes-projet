@@ -70,6 +70,7 @@ li a:hover,li a:focus-visible{background:var(--chip);outline:none}
 mark{background:var(--accent-soft);color:inherit;border-radius:3px}
 .foot{color:var(--muted);font-size:.82rem;margin-top:26px}
 .foot a{color:var(--accent)}
+.sheet-bg[hidden]{display:none!important}
 .sheet-bg{position:fixed;inset:0;background:rgba(10,12,24,.45);z-index:50;display:flex;align-items:flex-end;justify-content:center}
 .sheet{background:var(--surface);color:var(--ink);width:100%;max-width:520px;border-radius:20px 20px 0 0;padding:18px max(16px,env(safe-area-inset-left,0px)) calc(18px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;box-shadow:0 -10px 40px -10px #0006}
 .sheet h3{font-family:var(--display);margin:0 0 4px;font-size:1.1rem}
@@ -142,6 +143,8 @@ const DATA = [
   {n:"Reflet Ambré", i:"👰", d:"Robes de mariée · site + panel RDV", k:"reflet ambre amie robes mariée costumes", l:[
    ["chat","Signature du contrat (Dori)","https://claude.ai/chat/77fc030c-3f72-4036-85a6-c770e0e02767","5 nov."],
    ["chat","RDV avec Dori","https://claude.ai/chat/2f56699f-55d8-49ef-8766-10c5cb51c369","5 nov."],
+   ["site","Site en ligne (refletambre.be)","https://islamatom.github.io/reflet-ambre/","en ligne",1],
+   ["panel","Panel en ligne","https://islamatom.github.io/reflet-ambre/panel.html","en ligne",1],
    ["site","Site Reflet Ambré Andenne",A("7210107e-3386-4c8c-98e2-651cc296f16d"),"6 nov."],
    ["panel","Panel Reflet Ambré",A("0a414b26-513f-4e0d-ab5d-307ecd30d0d5"),"6 nov."],
    ["git","GitHub reflet-ambre",G("reflet-ambre"),"public"]]},
@@ -151,6 +154,9 @@ const DATA = [
    ["site","Site Garage Caruso",A("03d1b9f0-8baa-4ae4-a672-d0d77ba8f732"),"2 nov."],
    ["panel","Panel Caruso",A("0798d901-2aa8-4a10-97e7-db2597915801"),"2 nov."]]},
   {n:"LT Autos", i:"🚗", d:"Garage d'Andenne · contrat signé", k:"lt autos ltautos garage", l:[
+   ["site","Site en ligne (ltautos.be)","https://islamatom.github.io/lt-autos/","en ligne",1],
+   ["panel","Panel en ligne","https://islamatom.github.io/lt-autos/panel.html","en ligne",1],
+   ["git","GitHub lt-autos","https://github.com/islamatom/lt-autos","public"],
    ["site","LT Autos v2.9","https://claude.ai/artifact/XaPwSZyJa4bjB2z24Ua1zb","7 nov.",1],
    ["chat","Site LT Autos","https://claude.ai/chat/efaa571f-69b5-43fd-a005-ec8bc7c0c136","7 nov."],]},
   {n:"Les Mariés de Marie", i:"💍", d:"Boutique de Huy · site + panel RDV + logo", k:"maries marie huy robes", l:[]},
