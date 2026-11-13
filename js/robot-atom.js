@@ -19,7 +19,8 @@ const IT={'reçu':['📨','Reçu','ra-p1'],'en cours':['🙋','Pris en charge','
 /* ---------- données ---------- */
 function demo(){const d=new Date(Date.now()-864e5).toISOString().slice(0,10);
  return [{id:'demo1',date:d,heure:'17:12',statut:'en cours',items:[{cat:'logo',txt:'Mettre le nouveau logo rouge',statut:'à vérifier',reponse:'Nouveau logo mis en ligne 👍'},{cat:'police',txt:'Une écriture plus moderne pour les titres',statut:'en cours'}]}]}
-async function charger(){try{st.L=live()?(await rpc('robot_liste',{p_cle:R.cle})||[]):(ls.get(LSK)||demo())}catch(e){}maj()}
+async function charger(){const av=JSON.stringify(st.L.map(d=>(d.items||[]).map(y=>y.statut)));try{st.L=live()?(await rpc('robot_liste',{p_cle:R.cle})||[]):(ls.get(LSK)||demo())}catch(e){}
+  const ap=JSON.stringify(st.L.map(d=>(d.items||[]).map(y=>y.statut)));if(st.L.length&&av!=='[]'&&av!==ap&&/à vérifier|validé/.test(ap))faireLaFete();maj()}
 function sauverDemo(){ls.set(LSK,st.L)}
 const statutDem=x=>{const L=x.items||[];if(L.every(y=>y.statut==='validé'))return'terminée';if(L.every(y=>y.statut==='reçu'))return'reçue';return'en cours'};
 async function envoyer(){if(bloque())throw new Error('attente');const items=st.liste.map(x=>({cat:x.cat,txt:x.txt}));
@@ -35,37 +36,29 @@ const ouverts=()=>items().filter(o=>o.y.statut!=='validé');
 const bloque=()=>items().some(o=>o.y.statut==='reçu');
 
 /* ---------- dessin du robot ---------- */
-let _sid=0;
-function svg(eveille,grand){const u='ra'+(++_sid),w=grand?86:56;return `<svg viewBox="0 0 80 80" class="ra-svg${eveille?' on':''}" aria-hidden="true" width="${w}" height="${w}">
- <defs><linearGradient id="${u}c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dfe5ee"/></linearGradient>
-  <linearGradient id="${u}v" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e2a44"/><stop offset="1" stop-color="#0a0f1c"/></linearGradient>
-  <radialGradient id="${u}g"><stop offset="0" stop-color="#9ff6ff"/><stop offset="1" stop-color="#22d3ee"/></radialGradient></defs>
- <ellipse cx="40" cy="76" rx="18" ry="2.6" fill="#000" opacity=".12" class="ra-ombre"/>
- <path d="M26 62q14 8 28 0v6q-14 7-28 0z" class="ra-col"/>
- <rect x="27" y="58" width="26" height="14" rx="7" fill="url(#${u}c)" stroke="#c9d1dc" stroke-width="1"/>
- <circle cx="40" cy="65" r="3" class="ra-coeur"/>
- <line x1="40" y1="14" x2="40" y2="6" stroke="#b7c0cc" stroke-width="2.4" stroke-linecap="round"/>
- <circle cx="40" cy="6" r="4.2" class="ra-ant"/>
- <rect x="8" y="27" width="7" height="16" rx="3.5" class="ra-or"/><rect x="65" y="27" width="7" height="16" rx="3.5" class="ra-or"/>
- <rect x="12" y="13" width="56" height="45" rx="20" fill="url(#${u}c)" stroke="#c9d1dc" stroke-width="1.2"/>
- <path d="M22 20q8-4 18-4" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".9"/>
- <rect x="18" y="22" width="44" height="27" rx="13" fill="url(#${u}v)"/>
- <path d="M23 27q6-3 14-3" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none" opacity=".18"/>
- ${eveille?`<g class="ra-yeux"><rect x="27" y="29" width="7" height="11" rx="3.5" fill="url(#${u}g)"/><rect x="46" y="29" width="7" height="11" rx="3.5" fill="url(#${u}g)"/></g>
-   <path d="M35 43q5 3.2 10 0" stroke="#7DF9FF" stroke-width="2" stroke-linecap="round" fill="none"/>
-   <ellipse cx="23.5" cy="44" rx="3" ry="1.8" fill="#ff7aa8" opacity=".55"/><ellipse cx="56.5" cy="44" rx="3" ry="1.8" fill="#ff7aa8" opacity=".55"/>`
-  :`<path d="M26 36q4.5 3.5 9 0M45 36q4.5 3.5 9 0" stroke="#7DF9FF" stroke-width="2.4" stroke-linecap="round" fill="none" opacity=".75"/>`}
-</svg>`}
+const IMGB='https://islamatom.github.io/mes-projet/img/';
+const IMG=Object.assign({},...['dort','bonjour','fete','inquiet','noel'].map(k=>({[k]:IMGB+'tomi-'+k+'.png'})),R.img||{});
+const NOM_ROBOT=R.nomRobot||'Tomi';
+let fete=0;
+function humeur(eveille){if(fete>Date.now())return'fete';try{if(R.inquiet&&R.inquiet())return'inquiet'}catch(e){}
+  if(!eveille)return'dort';const d=new Date();if(d.getMonth()===11&&d.getDate()<=26&&IMG.noel)return'noel';return'bonjour'}
+function svg(eveille,grand){const h=grand&&eveille===true&&humeur(true)==='dort'?'bonjour':humeur(eveille);return `<img src="${IMG[h]||IMG.bonjour}" class="ra-svg ra-img${grand?' g':''}${eveille?' on':''}" alt="" draggable="false">`}
+function faireLaFete(){fete=Date.now()+5000;maj();setTimeout(maj,5200)}
 const fdate=s=>{if(!s)return'';const d=new Date(s+'T12:00:00');return d.toLocaleDateString('fr-BE',{day:'numeric',month:'long'})};
 
 /* ---------- bouton flottant ---------- */
-const btn=document.createElement('button');btn.id='robotAtom';btn.type='button';btn.setAttribute('aria-label','Robot Atom : demander un changement');
+const btn=document.createElement('button');btn.id='robotAtom';btn.type='button';btn.setAttribute('aria-label',NOM_ROBOT+', le petit Atom : demander un changement');
 btn.onclick=ouvrir;
-function maj(){const ev=ouverts().length>0||st.liste.length>0,n=aVerifier().length;
-  btn.innerHTML=svg(ev)+(ev?'':'<span class="ra-z" aria-hidden="true"><i>z</i><i>z</i><i>Z</i></span>')+(n?`<b class="ra-n">${n}</b>`:'');
+function maj(){const ev=ouverts().length>0||st.liste.length>0||btn.classList.contains('salut'),n=aVerifier().length;
+  btn.innerHTML=svg(ev)+''+(n?`<b class="ra-n">${n}</b>`:'');
   btn.classList.toggle('dort',!ev);if(st.open)corps()}
 function vis(){let v=true;try{v=R.visible?!!R.visible():true}catch(e){}btn.hidden=!v}
-function go(){if(!btn.isConnected)document.body.appendChild(btn);vis();charger()}
+function bulleBonjour(){const k=LSK+'_bjr',auj=new Date().toDateString();if(ls.get(k)===auj||btn.hidden)return;ls.set(k,auj);
+  const b=document.createElement('div');b.className='ra-hello';b.textContent=`${humeur(true)==='noel'?'Joyeux Noël':'Bonjour'}${R.nom?' '+R.nom:''} ! 👋`;document.body.appendChild(b);
+  const pos=()=>{const r=btn.getBoundingClientRect();b.style.bottom=(innerHeight-r.top+8)+'px';if(R.cote==='gauche')b.style.left='14px';else b.style.right='14px'};pos();
+  fete=0;btn.classList.add('salut');setTimeout(()=>{b.classList.add('out');btn.classList.remove('salut')},4200);setTimeout(()=>b.remove(),4700)}
+function go(){if(!btn.isConnected)document.body.appendChild(btn);vis();charger();let n=0;const t=setInterval(()=>{if(!btn.hidden){clearInterval(t);setTimeout(bulleBonjour,600)}else if(++n>60)clearInterval(t)},1000)}
+window.ROBOT_ATOM_FETE=faireLaFete;
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();
 setInterval(vis,700);setInterval(()=>{if(!document.hidden&&!btn.hidden&&!st.open)charger()},60000);
 
@@ -96,8 +89,8 @@ function corps(){if(!ov)return;const sh=ov.querySelector('.ra-sh');let h='<butto
  }else{
   const av=aVerifier(),n=ouverts().length;
   h+=av.length?bulle('Atom a traité ta demande ! 🎉','Va voir sur ton site ou ton panel, puis dis-moi si c\'est bon.')
-   :n?bulle(`Salut${R.nom?' '+esc(R.nom):''} ! 🤖`,'Atom a pris tes demandes en charge. Je te préviens dès qu\'il y a quelque chose à vérifier.')
-   :bulle(`Salut${R.nom?' '+esc(R.nom):''} ! Moi c'est Atom 🤖`,'Tu veux changer quelque chose sur ton site ou ton panel ? On le fait ensemble, étape par étape.<span class="ra-free">🎁 Les changements sont gratuits, c\'est compris dans ton abonnement.</span>');
+   :n?bulle(`Salut${R.nom?' '+esc(R.nom):''} ! C'est ${NOM_ROBOT} 💙`,'Atom a pris tes demandes en charge. Je te préviens dès qu\'il y a quelque chose à vérifier.')
+   :bulle(`Salut${R.nom?' '+esc(R.nom):''} ! Moi c'est ${NOM_ROBOT}, le petit Atom 💙`,'Tu veux changer quelque chose sur ton site ou ton panel ? On le fait ensemble, étape par étape.<span class="ra-free">🎁 Les changements sont gratuits, c\'est compris dans ton abonnement.</span>');
   if(av.length)h+=`<div class="ra-h">👀 À vérifier <span>${av.length}</span></div>`+av.map(o=>`<div class="ra-d ra-vf"><b>${CAT[o.y.cat]?CAT[o.y.cat][0]+' '+CAT[o.y.cat][1]:'Changement'}</b>${o.y.txt?`<p>${esc(o.y.txt)}</p>`:''}
     ${o.y.reponse?`<div class="ra-rep"><b>Atom :</b> ${esc(o.y.reponse)}</div>`:''}
     ${st.nonId===o.d.id+'#'+o.i?`<textarea id="raNon" rows="2" maxlength="300" placeholder="Qu'est-ce qui ne va pas ?"></textarea><div class="ra-ok"><button class="ra-b2" data-non2="${o.d.id}#${o.i}">📨 Renvoyer à Atom</button><button class="ra-b3" data-ann="1">Annuler</button></div>`
@@ -106,7 +99,7 @@ function corps(){if(!ov)return;const sh=ov.querySelector('.ra-sh');let h='<butto
    :`<button class="ra-go" id="raNew">➕ Demander un changement</button><p class="ra-free2">🎁 Gratuit · compris dans ton abonnement</p>`;
   h+=`<div class="ra-h">Mes demandes ${n?`<span>${n} en cours</span>`:''}</div>`;
   h+=st.L.length?st.L.slice().reverse().map(d=>`<div class="ra-d"><small class="ra-dd">Envoyée le ${fdate(d.date)}${d.heure?' à '+esc(d.heure):''}</small>${(d.items||[]).map((y,i)=>`<div class="ra-it"><span><b>${i+1}. ${CAT[y.cat]?CAT[y.cat][0]+' '+CAT[y.cat][1]:'Changement'}</b>${y.txt?`<small>${esc(y.txt)}</small>`:''}</span></div>${suivi(y)}`).join('')||`<p>${esc(d.txt||'')}</p>`}</div>`).join('')
-   :`<div class="ra-vide">${svg(false)}<span>Pas encore de demande. Le robot dort… 😴</span></div>`;
+   :`<div class="ra-vide">${svg(false)}<span>Pas encore de demande. ${NOM_ROBOT} fait la sieste… 😴</span></div>`;
   h+=`<p class="ra-tel">Urgent ? Appelle Atom : <a href="tel:${esc(R.tel||'0499374830')}">${esc(R.telAff||'0499 37 48 30')}</a></p>`;
  }
  sh.innerHTML=h;const $=q=>sh.querySelector(q);
@@ -119,10 +112,10 @@ function corps(){if(!ov)return;const sh=ov.querySelector('.ra-sh');let h='<butto
  b('#raAdd',()=>{const t=$('#raTxt'),v=t.value.trim();if(st.cat==='autre'&&v.length<3){t.classList.add('bad');t.focus();return}
    if(st.liste.length>=10)return;st.liste.push({cat:st.cat,txt:v});ls.set(LSK+'_liste',st.liste);st.cat=null;corps();maj();sh.scrollTop=0});
  b('#raGo',async g=>{if(!st.liste.length)return;g.disabled=true;g.textContent='Envoi…';
-   const n=st.liste.length;try{await envoyer();await livraison(sh,n);st.vue='accueil';corps();maj();const u=ov&&ov.querySelector('.ra-bul');if(u)u.innerHTML='<b>Bien arrivé chez l\'équipe Atom ! ✅</b>Je te préviens dès que c\'est traité. Tu pourras vérifier et me dire si c\'est bon.'}
+   const n=st.liste.length;try{await envoyer();await livraison(sh,n);faireLaFete();st.vue='accueil';corps();maj();const u=ov&&ov.querySelector('.ra-bul');if(u)u.innerHTML='<b>Bien arrivé chez l\'équipe Atom ! ✅</b>Je te préviens dès que c\'est traité. Tu pourras vérifier et me dire si c\'est bon.'}
    catch(e){g.disabled=false;g.textContent='📨 Envoyer à Atom';alert('Pas envoyé : vérifie ta connexion internet et réessaie.')}});
  const cle=v=>{const k=v.lastIndexOf('#');return[v.slice(0,k),+v.slice(k+1)]};
- b('[data-oui]',async x=>{const [d,i]=cle(x.dataset.oui);x.disabled=true;try{await valider(d,i,true);corps();maj()}catch(e){x.disabled=false;alert('Pas envoyé : vérifie ta connexion.')}});
+ b('[data-oui]',async x=>{const [d,i]=cle(x.dataset.oui);x.disabled=true;try{await valider(d,i,true);faireLaFete();corps();maj()}catch(e){x.disabled=false;alert('Pas envoyé : vérifie ta connexion.')}});
  b('[data-non]',x=>{st.nonId=x.dataset.non;corps();const t=$('#raNon');if(t)t.focus()});
  b('[data-ann]',()=>{st.nonId=null;corps()});
  b('[data-non2]',async x=>{const [d,i]=cle(x.dataset.non2),t=$('#raNon');x.disabled=true;try{await valider(d,i,false,t?t.value.trim():'');st.nonId=null;corps();maj();const u=ov&&ov.querySelector('.ra-bul');if(u)u.innerHTML='<b>OK, c\'est renvoyé à Atom 🔧</b>Il va le refaire. Je te préviens quand c\'est prêt.'}catch(e){x.disabled=false;alert('Pas envoyé : vérifie ta connexion.')}});
@@ -146,6 +139,13 @@ const css=document.createElement('style');css.textContent=`
 #robotAtom:not(.dort) .ra-svg{animation:ra-saut 2.4s ease-in-out infinite}
 #robotAtom .ra-n{position:absolute;top:-4px;right:-4px;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:#E11D48;color:#fff;font:700 12px/22px system-ui,sans-serif;border:2px solid #fff;animation:ra-pop 1.6s infinite}
 @keyframes ra-pop{50%{transform:scale(1.18)}}
+.ra-img{display:block;height:58px;width:auto;pointer-events:none;user-select:none}.ra-img.g{height:92px}
+.ra-vide .ra-img{height:48px}
+#robotAtom .ra-img{margin-top:4px}
+.ra-hello{position:fixed;z-index:121;background:#fff;color:#14171c;border-radius:16px 16px 4px 16px;padding:10px 14px;font:700 15px/1.2 system-ui,sans-serif;box-shadow:0 10px 26px -10px rgba(0,0,0,.4);border:2px solid var(--acc,var(--rose,#2F6BFF));animation:ra-in2 .35s;transition:opacity .4s,transform .4s}
+.ra-hello.out{opacity:0;transform:translateY(6px)}@keyframes ra-in2{from{opacity:0;transform:translateY(8px) scale(.9)}}
+#robotAtom.salut .ra-img{animation:ra-saut .6s ease-in-out 3}
+[data-theme="dark"] .ra-hello{background:#15181e;color:#f2f4f7}
 .ra-z{position:absolute;right:2px;top:-6px;pointer-events:none}
 .ra-z i{position:absolute;right:0;top:0;font:800 11px/1 system-ui,sans-serif;color:var(--ra);opacity:0;animation:ra-z 3s infinite}
 .ra-z i:nth-child(2){animation-delay:1s;font-size:13px}.ra-z i:nth-child(3){animation-delay:2s;font-size:15px}
