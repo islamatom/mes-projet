@@ -1,4 +1,7 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}.dmi{border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-top:8px}.dmi.bad{border-color:var(--bad)}
+.dmi-t{display:flex;justify-content:space-between;gap:8px;align-items:center}.dmi-t b{font-size:15px}.dmi p{font-size:14.5px;margin:6px 0 0;white-space:pre-line}
+.dmi-no{color:var(--bad);font-weight:700}.dmi-b{display:flex;gap:6px;margin-top:8px}.dmi-b .btn{flex:1;color:var(--ink)}.dmi-b .btn.b-acc{color:#fff}
+</style></head><body>
 
 <title>Atom</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -200,6 +203,11 @@ h2 .c{font-family:var(--body);font-size:13px;color:var(--ink2);font-weight:600}
 .chips1::-webkit-scrollbar{display:none}
 .chips1 .chip{flex:0 0 auto;padding:10px 16px;font-size:14px}
 .thm{font-size:18px;padding:9px 12px}
+.hd .btn{width:42px;height:42px;padding:0;font-size:17px;border-radius:12px}
+.hd{gap:8px}.hd small{white-space:nowrap}
+.kpis{grid-template-columns:1fr 1fr!important}
+.kline{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;background:var(--card);border-radius:14px;padding:10px 14px;font-size:13.5px;font-weight:700;color:var(--ink2);box-shadow:0 10px 30px -22px rgba(15,26,46,.5)}
+.kline b{color:var(--ink)}
 #tabs{position:fixed;left:0;right:0;bottom:0;z-index:55;display:grid;grid-template-columns:1fr 1fr;background:var(--card);border-top:1px solid var(--line);padding:6px max(10px,env(safe-area-inset-left)) calc(6px + env(safe-area-inset-bottom))}
 #tabs button{border:0;background:none;color:var(--ink2);font-weight:800;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px;border-radius:12px}
 #tabs button span{font-size:22px;line-height:1}
@@ -243,6 +251,8 @@ main{padding-bottom:90px!important}
 :root[data-theme="light"] #login .thm{background:#fff;color:#111827;border:1px solid #D5DCE8}
 :root[data-theme="light"] #login .atom ellipse{stroke:#3B6CF6}:root[data-theme="light"] #login .atom circle{fill:#3B6CF6}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.mrow{padding:12px 0;border-bottom:1px solid var(--line)}.mrow:last-child{border-bottom:0}.mrow-t{display:flex;justify-content:space-between;align-items:center}.mrow-t b{font-size:15.5px}
+.mrow-s{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.mrow-b{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.mrow-b .btn{flex:1 1 30%;min-width:0;padding:9px 6px;font-size:13px;color:var(--ink);white-space:nowrap}
 </style>
 
 
@@ -259,11 +269,11 @@ main{padding-bottom:90px!important}
 
 <header><div class="hd">
   <svg class="atom" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="#7C9CFF" stroke-width="4"><ellipse cx="50" cy="50" rx="44" ry="16"/><ellipse cx="50" cy="50" rx="44" ry="16" transform="rotate(60 50 50)"/><ellipse cx="50" cy="50" rx="44" ry="16" transform="rotate(120 50 50)"/></g><circle cx="50" cy="50" r="8" fill="#fff"/></svg>
-  <div><b>Atom Clients</b><small id="today"></small></div>
+  <div style="min-width:0"><b style="white-space:nowrap">Atom</b><small id="today"></small></div>
   <div class="sp"></div>
-  <button class="btn b-ghost" onclick="bientot()" aria-label="Paiements bientôt">⏰<span class="lb"> Bientôt</span></button>
-  <button class="btn b-ghost" onclick="envoiTous()" aria-label="Paiements">✉<span class="lb"> Paiements</span></button>
-  <button class="btn b-acc" onclick="editClient(0,'mission')" aria-label="Ajouter">+<span class="lb"> Client</span></button>
+  <button class="btn b-ghost" onclick="bientot()" aria-label="Paiements bientôt" title="Paiements bientôt">⏰</button>
+  <button class="btn b-ghost" onclick="envoiTous()" aria-label="Demander les paiements" title="Demander les paiements">✉</button>
+  <button class="btn b-acc" onclick="editClient(0,'mission')" aria-label="Ajouter" title="Ajouter">＋</button>
   <button class="btn b-ghost thm" id="thm" onclick="theme()" aria-label="Mode jour / nuit">🌙</button>
   <button class="btn b-ghost" onclick="reglages()" title="Mes infos">⚙</button>
 </div></header>
@@ -283,7 +293,7 @@ main{padding-bottom:90px!important}
     <div class="sig-l">Atom · Hassani Mohamed Islam · Rue du Commerce 9, 5300 Andenne<br>TVA BE0748661737 · <a href="tel:+32499374830">0499 37 48 30</a></div>
     <a class="credit" href="https://www.hassanimohamedislam.com" target="_blank" rel="noopener">Développé avec <span>♡</span> par le développeur <b>Atom</b></a>
     <div class="atom-ct"><a href="https://www.instagram.com/islem_atom/" target="_blank" rel="noopener">📷 @islem_atom</a><a href="mailto:islematom@gmail.com">✉️ islematom@gmail.com</a><a href="tel:+32499374830">📞 0499 37 48 30</a></div>
-    <div class="sig-v">Atom · v5.0 · site privé, synchronisé sur ton PC et ton téléphone</div>
+    <div class="sig-v">Atom · v5.6 · site privé, synchronisé sur ton PC et ton téléphone</div>
   </footer>
 </main>
 
@@ -544,6 +554,7 @@ function reglClient(id,zone){const c=D.clients.find(x=>x.id===id);const [et,cl]=
     ${B('msg','💬','Envoyer un message')}
     ${A?B('sumup','💳','Lien SumUp pour payer'):''}
     ${A?B('notif','🔔','Envoyer une notification'):''}
+    ${A?B('mensuel','🗓','Facture du mois'+((c.mensuel&&c.mensuel.on)?(()=>{const n=(c.mensuel.liste||[]).filter(f=>f.statut!=='payé').length;return n?`<i>${n}</i>`:' ✓'})():'')):''}
     ${A?B('peppol','🧾','Facture Peppol'):''}
     ${A?B('demandes','📩','Ses messages'+(nd?`<i>${nd}</i>`:'')):''}
     ${A?(s.etat==='bloque'?`<button class="rgb ok" onclick="etatPanel(${c.id},'actif')"><span>✅</span>Débloquer</button>`:B('bloquer','⛔','Avertir / bloquer','bad')):''}
@@ -600,9 +611,27 @@ function zoneRegl(c,z){const m=D.moi,id=c.id;
   if(z==='peppol')return `<div class="box"><h4>🧾 Facture Peppol</h4><p class="meta" style="font-size:14px;line-height:1.5">Prépare la facture (${eur(lignesFac(c).reduce((t,l)=>t+l[1],0))} HTVA), crée-la dans ton compte Peppol avec les mêmes lignes, puis note son numéro.</p>
     <button class="btn b-acc" style="width:100%;margin-top:10px" onclick="facture(${id},true)">Préparer la facture Peppol</button>
     ${(c.factures||[]).filter(f=>f.peppolOk).length?`<p class="meta" style="margin-top:8px">${c.factures.filter(f=>f.peppolOk).length} facture(s) déjà envoyée(s) par Peppol ✓</p>`:''}</div>`;
-  if(z==='demandes'){const d=c.demandes||[];return `<div class="box"><h4>📩 Ce que le client t'a écrit</h4>${d.length?d.slice().reverse().map((x,k)=>{const i=d.length-1-k;return `<div style="padding:10px 0;border-bottom:1px solid var(--line)"><small class="meta">${fmt(x.date)}</small><p style="font-size:14px;margin:4px 0 8px;white-space:pre-line">${esc(x.txt)}</p>
-     <select class="inp" onchange="rgDem(${id},${i},this.value)">${['reçue','en cours','terminée'].map(v=>`<option ${x.statut===v?'selected':''}>${v}</option>`).join('')}</select></div>`}).join('')
-     :'<p class="meta" style="font-size:14px;line-height:1.5">Aucun message pour l\'instant. Quand son panel sera branché, ce qu\'il écrit au petit robot Atom arrivera ici, avec le statut reçue / en cours / terminée.</p>'}</div>`}
+  if(z==='demandes'){const d=c.demandes||[];return `<div class="box"><h4>🤖 Ses demandes (robot Atom)</h4>${d.length?d.slice().reverse().map((x,k)=>{const i=d.length-1-k;const it=x.items;
+     return `<div style="padding:12px 0;border-bottom:1px solid var(--line)"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><small class="meta">🤖 ${fmt(x.date)}${x.heure?' à '+esc(x.heure):''}</small>${demPill(x.statut)}</div>
+     ${it&&x.statut!=='terminée'?`<button class="btn b-acc" style="width:100%;margin-top:10px;padding:14px;font-size:15px" onclick="majClaude(${id},${i})">💬 Faire la mise à jour avec Claude</button><small class="meta" style="display:block;margin-top:4px;font-size:12px">Prend en charge, copie la demande et ouvre ${c.chat?'votre discussion':'Claude'}. Tu n'as qu'à coller.</small>`:''}
+     ${it?it.map((y,j)=>`<div class="dmi ${y.statut==='pas bon'?'bad':''}"><div class="dmi-t"><b>${j+1}. ${esc(CATR[y.cat]||'➕ Autre')}</b>${itPill(y.statut)}</div>
+       ${y.txt?`<p>${esc(y.txt)}</p>`:''}${y.statut==='pas bon'?`<p class="dmi-no">👎 Le client dit que ce n'est pas bon${y.note?' : « '+esc(y.note)+' »':''}</p>`:''}
+       ${y.statut!=='validé'?`<div class="dmi-b"><button class="btn ${y.statut==='en cours'?'b-acc':'b-line'} b-sm" onclick="rgIt(${id},${i},${j},'en cours')">🙋 Je prends en charge</button><button class="btn ${y.statut==='à vérifier'?'b-acc':'b-line'} b-sm" onclick="rgIt(${id},${i},${j},'à vérifier')">✅ Traité</button></div>
+       <input class="inp" style="margin-top:6px" placeholder="Petit mot pour lui (ex : nouveau logo en ligne)" value="${esc(y.reponse||'')}" onchange="rgItRep(${id},${i},${j},this.value)">`:''}</div>`).join('')
+     :`<p style="font-size:15px;margin:4px 0 8px;white-space:pre-line">${esc(x.txt)}</p>
+     <div style="display:flex;gap:6px">${[['reçue','📨 Reçue'],['en cours','🔧 En cours'],['terminée','✅ Fini']].map(([v,l])=>`<button class="btn ${x.statut===v?'b-acc':'b-line'}" style="flex:1;padding:10px 4px;font-size:13.5px;color:${x.statut===v?'#fff':'var(--ink)'}" onclick="rgDem(${id},${i},'${v}')">${l}</button>`).join('')}</div>`}</div>`}).join('')
+     :'<p class="meta" style="font-size:14px;line-height:1.5">Aucune demande pour l\'instant. Ce que le client demande au robot Atom de son panel arrive ici, rangé étape par étape.</p>'}
+     <p class="meta" style="font-size:12.5px;margin-top:10px">« Je prends en charge » → il voit que tu t'en occupes. « Traité » → le robot lui demande de vérifier, il répond 👍 c'est bon ou 👎 pas bon.</p></div>`}
+  if(z==='mensuel'){const M=c.mensuel||{on:false,ttc:55,jour:2,peppol:true,liste:[]};const L=(M.liste||[]).slice().sort((a,b)=>b.mois.localeCompare(a.mois));
+    return `<div class="box"><h4>🗓 Facture chaque mois</h4>
+     <div class="grid2"><label class="meta">Montant TVAC<input class="inp" type="number" step="0.01" value="${M.ttc}" onchange="mensSet(${id},'ttc',+this.value)"></label><label class="meta">Le … du mois<input class="inp" type="number" min="1" max="28" value="${M.jour}" onchange="mensSet(${id},'jour',+this.value)"></label></div>
+     <div style="display:flex;gap:8px;margin-top:10px"><button class="btn ${M.on?'b-ok':'b-line'}" style="flex:1;color:${M.on?'#fff':'var(--ink)'}" onclick="mensSet(${id},'on',${!M.on})">${M.on?'✅ Activée':'Activer'}</button><button class="btn ${M.peppol?'b-acc':'b-line'}" style="flex:1;color:${M.peppol?'#fff':'var(--ink)'}" onclick="mensSet(${id},'peppol',${!M.peppol})">🧾 Peppol ${M.peppol?'oui':'non'}</button></div>
+     <p class="meta" style="font-size:12.5px;margin-top:8px">Le ${M.jour} de chaque mois, le client reçoit dans son panel sa facture de ${eur(M.ttc)} TVAC avec « 💳 Payer maintenant » (ton lien SumUp). Quand SumUp te prévient, appuie sur « ✅ Payé SumUp » : +1 mois sur son compteur.</p></div>
+     <div class="box"><h4>Mois par mois</h4>${L.length?L.map(f=>`<div class="mrow"><div class="mrow-t"><b>${moisTxt(f.mois)}</b><span class="num">${eur(f.montant)} TVAC</span></div>
+       <div class="mrow-s">${f.statut==='payé'?`<span class="tag t-paye">✅ Payé${f.payeLe?' le '+fmt(f.payeLe).replace(/ \d{4}$/,''):''}${f.mode?' · '+esc(f.mode):''}</span>`:`<span class="tag t-jaune">⏳ Pas encore payé</span>`}
+       ${M.peppol?(f.peppolOk?`<span class="tag" style="background:#E7EEFF;color:#2F4FB8">Peppol ✓${f.peppolNo?' '+esc(f.peppolNo):''}</span>`:`<span class="tag" style="background:#FDE2E1;color:#B42318">Peppol à envoyer</span>`):''}</div>
+       <div class="mrow-b">${M.peppol?`<button class="btn b-line b-sm" onclick="factureMois(${id},'${f.id}')">🧾 Facture${f.peppolOk?'':' → Peppol'}</button>`:''}${f.statut!=='payé'?`<button class="btn b-ok b-sm" style="color:#fff" onclick="payeMois(${id},'${f.id}','SumUp')">✅ Payé SumUp</button><button class="btn b-line b-sm" onclick="payeMois(${id},'${f.id}','Cash')">💶 Cash</button>`:''}</div></div>`).join('')
+       :`<p class="meta" style="font-size:14px">${M.on?'La première facture arrive le '+M.jour+' '+(M.depuis?moisTxt(M.depuis):'du mois')+'.':'Active la facture mensuelle au-dessus.'}</p>`}</div>`}
   if(z==='bloquer'){const s=c.sp||{};return `<div class="box"><h4>⛔ Avertir ou bloquer son panel</h4>
     ${s.etat==='averti'&&s.avertiLe?`<p class="meta" style="font-size:14px;margin-bottom:8px">Averti le ${fmt(s.avertiLe)} · à bloquer le ${fmt(addD(s.avertiLe,7))} s'il ne paie pas.</p>`:''}
     <button class="btn b-line" style="width:100%" onclick="avertir(${id})">⚠ Avertir d'abord (suspendu dans 7 jours)</button>
@@ -652,7 +681,23 @@ async function rgSumup(id){const c=D.clients.find(x=>x.id===id);const mt=+$('#zm
   envoyerWA(c,t);journal(c,'💳 Lien SumUp · '+eur(mt),t);await saveC(c);reglClient(id)}
 async function rgNotif(id){const c=D.clients.find(x=>x.id===id);const ti=$('#zn1').value.trim(),tx=$('#zn2').value.trim();if(!ti&&!tx){toast('Écris la notification');return}
   c.notifs=c.notifs||[];c.notifs.push({date:T,titre:ti||'Message d\'Atom',txt:tx,lu:false});journal(c,'🔔 Notification',ti);await saveC(c);reglClient(id,'notif');toast('Notification envoyée ✓')}
-async function rgDem(id,i,v){const c=D.clients.find(x=>x.id===id);c.demandes[i].statut=v;await saveC(c);render();toast('Statut : '+v)}
+async function rgDem(id,i,v){const c=D.clients.find(x=>x.id===id);c.demandes[i].statut=v;await saveC(c);render();reglClient(id,'demandes');toast('Statut : '+v+' · le client le voit dans son robot')}
+async function rgRep(id,i,v){const c=D.clients.find(x=>x.id===id);c.demandes[i].reponse=v.trim();await saveC(c);toast('Réponse envoyée dans son robot')}
+const CATR={logo:'🖼️ Logo',police:'🔤 Écriture (police)',couleurs:'🎨 Couleurs',photos:'📷 Photos',horaires:'🕒 Horaires',prix:'💶 Prix',texte:'📝 Texte',autre:'➕ Autre chose'};
+const IT={'reçu':['📨','Reçu','#E7EEFF','#2F4FB8'],'en cours':['🙋','Pris en charge','#FEF3C7','#92400E'],'à vérifier':['✅','Traité · il vérifie','#EDE9FE','#5B21B6'],'validé':['✅','Validé','#DCFCE7','#166534'],'pas bon':['👎','Pas bon','#FDE2E1','#B42318']};
+const itPill=v=>{const p=IT[v]||IT['reçu'];return `<span class="tag" style="background:${p[2]};color:${p[3]}">${p[0]} ${p[1]}</span>`};
+const demPill=v=>v==='terminée'?itPill('validé'):v==='en cours'?itPill('en cours'):itPill('reçu');
+function demStatut(x){const L=x.items||[];if(!L.length)return x.statut;if(L.every(y=>y.statut==='validé'))return'terminée';if(L.every(y=>y.statut==='reçu'))return'reçue';return'en cours'}
+async function rgIt(id,i,j,v){const c=D.clients.find(x=>x.id===id),d=c.demandes[i];d.items[j].statut=v;d.statut=demStatut(d);await saveC(c);render();reglClient(id,'demandes');toast(v==='à vérifier'?'✅ Traité : le robot lui demande de vérifier':'🙋 Pris en charge : il le voit dans son robot')}
+function majClaude(id,i){const c=D.clients.find(x=>x.id===id),d=c.demandes[i];
+  const L=d.items.filter(y=>y.statut!=='validé').map((y,j)=>`${j+1}. ${CATR[y.cat]||'➕ Autre'}${y.txt?' : '+y.txt:''}${y.statut==='pas bon'?`  ⚠ refaire, le client a dit pas bon${y.note?' : '+y.note:''}`:''}`);
+  const txt=`🤖 Demande de ${c.nom} (robot Atom, ${fmt(d.date)}${d.heure?' à '+d.heure:''}) :\n${L.join('\n')}\n\nFais ces changements sur son site / panel. Montre-moi l'aperçu avant de mettre en ligne.`;
+  try{navigator.clipboard.writeText(txt)}catch(e){}
+  window.open(c.chat||'https://claude.ai/new','_blank','noopener');
+  let ch=false;d.items.forEach(y=>{if(y.statut==='reçu'){y.statut='en cours';ch=true}});d.statut=demStatut(d);
+  if(ch)saveC(c).then(()=>{render();reglClient(id,'demandes')});
+  toast('📋 Demande copiée : colle-la dans la discussion')}
+async function rgItRep(id,i,j,v){const c=D.clients.find(x=>x.id===id);c.demandes[i].items[j].reponse=v.trim();await saveC(c);toast('Petit mot envoyé dans son robot')}
 /* ---------- dossier client (fichiers) ---------- */
 const docIc=(t,n)=>/pdf/.test(t)?'📄':/image/.test(t)?'🖼️':/video/.test(t)?'🎬':/sheet|excel|csv/.test(t+n)?'📊':'📎';
 const taille=b=>b>1048576?(b/1048576).toFixed(1)+' Mo':Math.max(1,Math.round(b/1024))+' Ko';
@@ -688,8 +733,7 @@ function render(){const h=$('#hint');if(h)h.hidden=D.code!=='0000';
   $('#kpis').innerHTML=`
    <div class="kpi ok"><small>Encaissé en ${MOIS[TODAY.getMonth()]}</small><b class="num">${eur(encM)}</b><span>${eur(enc)} au total · HTVA</span></div>
    <div class="kpi warn"><small>À encaisser</small><b class="num">${eur(att)}</b><span>${nr?`🔴 ${nr} en retard · `:''}🟡 ${nj} à payer</span></div>
-   <div class="kpi"><small>Abonnements / an</small><b class="num">${eur(an)}</b><span>≈ ${eur(an/12)} par mois, qui revient</span></div>
-   <div class="kpi"><small>Projets</small><b class="num">${act.length} <span style="font-size:15px;color:var(--ink2)">actifs</span></b><span>💤 ${D.clients.filter(c=>etp(c)==='dort').length} qui dorment · 🎯 ${D.clients.filter(c=>etp(c)==='mission').length} missions</span></div>`;
+   <div class="kline"><span>🟢 <b>${act.length}</b> actifs</span><span>💤 <b>${D.clients.filter(c=>etp(c)==='dort').length}</b> qui dorment</span><span>🎯 <b>${D.clients.filter(c=>etp(c)==='mission').length}</b> missions</span>${an?`<span>📆 <b>${eur(an)}</b> / an d'abonnements</span>`:''}</div>`;
   // ---------- 📌 à faire ----------
   const td=[];
   D.clients.forEach(c=>{const E=etp(c);
@@ -697,9 +741,15 @@ function render(){const h=$('#hint');if(h)h.hidden=D.code!=='0000';
     {const s=c.sp||{};if(s.domaine&&s.domaineFin&&s.domaineFin<=addD(T,30))td.push({c,t:s.domaineFin,ic:'🌐',tx:`Payer le domaine ${s.domaine}${s.domainePrix?' ('+eur(+s.domainePrix)+')':''} ${s.domaineFin<T?'· expiré depuis le '+fmt(s.domaineFin):'avant le '+fmt(s.domaineFin)}`,z:'dns'})}
     if(E==='actif'){const j=aboJours(c);if(j!==null&&j<=30)td.push({c,t:aboFin(c),ic:'⏳',tx:j<0?'Abonnement fini depuis '+(-j)+' j':'Abonnement fini dans '+j+' j',z:'mois'});
       const s=c.sp||{};if(s.etat==='averti'&&s.avertiLe&&addD(s.avertiLe,7)<=T)td.push({c,t:addD(s.avertiLe,7),ic:'⛔',tx:'Averti il y a 7 jours : bloquer ou débloquer ?',z:'bloquer'});
-      const nd=(c.demandes||[]).filter(d=>d.statut==='reçue').length;if(nd)td.push({c,t:T,ic:'📩',tx:nd+' nouvelle(s) demande(s)',z:'demandes'})}});
+      }});
+  D.clients.forEach(c=>{if(moisAuto(c))saveC(c);const M=c.mensuel;if(!M||!M.on||etp(c)!=='actif')return;(M.liste||[]).forEach(f=>{
+    if(M.peppol&&!f.peppolOk)td.push({c,t:f.date,ic:'🧾',tx:'Facture Peppol de '+moisTxt(f.mois)+' à envoyer',z:'mensuel'});
+    if(f.statut!=='payé'&&addD(f.date,7)<=T)td.push({c,t:addD(f.date,7),ic:'💳',tx:moisTxt(f.mois)+' pas encore payé ('+eur(f.montant)+')',z:'mensuel'})})});
   td.sort((a,b)=>a.t.localeCompare(b.t));
-  $('#todo').innerHTML=td.length?`<div class="pjh" style="margin-top:22px">📌 À FAIRE <i>${td.length}</i></div><div class="pjs">${td.map(x=>`<button class="pj" onclick="reglClient(${x.c.id},'${x.z}')"><span class="em" aria-hidden="true">${esc(emo(x.c))}</span><span class="tx"><b>${esc(x.c.nom)}</b><small>${x.ic} ${esc(x.tx)}</small></span><span class="ch" aria-hidden="true">›</span></button>`).join('')}</div>`:'';
+  const dm=D.clients.map(c=>{const its=(c.demandes||[]).flatMap(d=>d.items||(d.statut!=='terminée'?[{statut:d.statut==='reçue'?'reçu':'en cours'}]:[]));
+    const k=v=>its.filter(y=>y.statut===v).length;return{c,n:k('reçu'),pc:k('en cours'),av:k('à vérifier'),nb:k('pas bon')}}).filter(x=>x.n+x.pc+x.av+x.nb).sort((a,b)=>(b.n+b.nb)-(a.n+a.nb));
+  const dmH=dm.length?`<div class="pjh" style="margin-top:22px">🤖 DEMANDES DES CLIENTS <i>${dm.reduce((t,x)=>t+x.n+x.nb,0)||'✓'}</i></div><div class="pjs">${dm.map(x=>`<button class="pj" onclick="reglClient(${x.c.id},'demandes')"><span class="em" aria-hidden="true">${esc(emo(x.c))}</span><span class="tx"><b>${esc(x.c.nom)}</b><small style="white-space:normal;line-height:1.45">${[x.n?`<span style="color:var(--accent);font-weight:800">📨 ${x.n} nouvelle${x.n>1?'s':''}</span>`:'',x.nb?`<span style="color:var(--bad);font-weight:800">👎 ${x.nb} à refaire</span>`:'',x.pc?`🙋 ${x.pc} pris en charge`:'',x.av?`✅ ${x.av} traité${x.av>1?'s':''}, il vérifie`:''].filter(Boolean).join(' · ')}</small></span><span class="ch" aria-hidden="true">›</span></button>`).join('')}</div>`:'';
+  $('#todo').innerHTML=dmH+(td.length?`<div class="pjh" style="margin-top:22px">📌 À FAIRE <i>${td.length}</i></div><div class="pjs">${td.map(x=>`<button class="pj" onclick="reglClient(${x.c.id},'${x.z}')"><span class="em" aria-hidden="true">${esc(emo(x.c))}</span><span class="tx"><b>${esc(x.c.nom)}</b><small>${x.ic} ${esc(x.tx)}</small></span><span class="ch" aria-hidden="true">›</span></button>`).join('')}</div>`:'');
   // à payer ce mois-ci : échéance ce mois, ou abonnement qui finit ce mois
   const pm=D.clients.filter(c=>c.statut==='actif').map(c=>{const e=[c.echeance,aboFin(c)].filter(x=>x&&x.slice(0,7)===M0).sort()[0];if(e)return{c,e};if(reste(c)>0)return{c,e:'',now:1};return null}).filter(Boolean).sort((a,b)=>(a.e||'0').localeCompare(b.e||'0'));
   const mt=x=>reste(x.c)||x.c.abo||totalLignes(x.c);
@@ -874,6 +924,32 @@ function facture(id,forceP){const c=D.clients.find(x=>x.id===id);const isP=c.pep
   $('#cpb').onclick=()=>copier(txt);
   if(isP){$('#pok').onclick=()=>{fx.peppolNo=$('#pno').value.trim();fx.peppolOk=true;saveC(c);render();facture(c.id,forceP);toast('Facture Peppol notée ✓')}}$('#pdfb').onclick=()=>pdf(c,no,L,ht);
   $('#fac').classList.add('open')}
+const moisTxt=m=>{const [y,mm]=m.split('-');return MOIS[+mm-1]+' '+y};
+async function mensSet(id,k,v){const c=D.clients.find(x=>x.id===id);c.mensuel=Object.assign({on:false,ttc:55,jour:2,peppol:true,liste:[]},c.mensuel||{});c.mensuel[k]=v;
+  if(k==='on'&&v){if(!c.mensuel.depuis){const d=new Date(TODAY);if(d.getDate()>(+c.mensuel.jour||2))d.setMonth(d.getMonth()+1,1);c.mensuel.depuis=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}c.abo=Math.round(c.mensuel.ttc/1.21*100)/100;c.periode=1}if(k==='ttc'&&c.mensuel.on)c.abo=Math.round(v/1.21*100)/100;
+  moisAuto(c);await saveC(c);render();reglClient(id,'mensuel')}
+function moisAuto(c){const M=c.mensuel;if(!M||!M.on||etp(c)!=='actif')return false;const m=T.slice(0,7);if(+T.slice(8)<(+M.jour||2))return false;if(M.depuis&&m<M.depuis)return false;M.liste=M.liste||[];
+  if(M.liste.some(f=>f.mois===m))return false;M.liste.push({id:'m'+m.replace('-','')+'-'+c.id,mois:m,montant:+M.ttc||55,statut:'à payer',date:m+'-'+String(M.jour||2).padStart(2,'0')});return true}
+async function payeMois(id,fid,mode){mode=mode||'Cash';const c=D.clients.find(x=>x.id===id),f=c.mensuel.liste.find(x=>x.id===fid);if(!confirm(`${c.nom} a payé ${moisTxt(f.mois)} (${eur(f.montant)}) ${mode==='Cash'?'en cash':'par SumUp'} ?`))return;
+  f.statut='payé';f.payeLe=T;f.mode=mode;c.paiements.push({date:T,montant:Math.round(f.montant/1.21*100)/100,mode,mois:f.mois});c.sp=c.sp||{};if(c.sp.aboDebut)c.sp.aboMois=(+c.sp.aboMois||0)+1;
+  await saveC(c);render();reglClient(id,'mensuel');toast('✅ '+moisTxt(f.mois)+' payé · +1 mois sur son compteur')}
+function factureMois(id,fid){const c=D.clients.find(x=>x.id===id),f=c.mensuel.liste.find(x=>x.id===fid),m=D.moi;const ht=Math.round(f.montant/1.21*100)/100,no=f.no||('M'+f.mois.replace('-','')+'-'+c.id);
+  const L=[[`Site + panel ${c.nom} · service du mois de ${moisTxt(f.mois)}`,ht]];
+  $('#paper').innerHTML=(f.statut==='payé'?`<div style="position:relative;height:0"><div class="stamp big" style="position:absolute;right:10px;top:120px;font-size:18px;z-index:2">PAYÉ<small>${fmt(f.payeLe||T)}</small></div></div>`:'')+`<div class="top"><div><h1>FACTURE</h1><div style="color:#555;margin-top:4px">N° ${no} · ${fmt(f.date)}</div></div>
+   <div style="text-align:right;line-height:1.6"><b>${esc(m.nom)}</b><br>${esc(m.adresse)}<br>TVA ${esc(m.tva)}<br>${esc(m.tel)} · ${esc(m.email)}</div></div>
+   <div style="margin-top:26px;line-height:1.6"><span style="color:#555;font-size:12px">FACTURÉ À</span><br><b>${esc(c.nom)}</b>${c.contact?' · '+esc(c.contact):''}<br>${esc(c.adresse)||''}${c.tva?'<br>TVA '+esc(c.tva):''}</div>
+   <table><thead><tr><th>Description</th><th>Montant HTVA</th></tr></thead><tbody>${L.map(l=>`<tr><td>${esc(l[0])}</td><td class="num">${eur(l[1])}</td></tr>`).join('')}</tbody></table>
+   <div style="max-width:280px;margin-left:auto"><div class="tot"><span>Total HTVA</span><b class="num">${eur(ht)}</b></div><div class="tot"><span>TVA 21 %</span><b class="num">${eur(f.montant-ht)}</b></div><div class="tot big"><span>Total TVAC</span><b class="num">${eur(f.montant)}</b></div></div>
+   <div class="foot">${f.statut==='payé'?'Payée, merci !':'Paiement par carte dans votre panel (SumUp) · « Payer maintenant ».'}</div>`;
+  const pep=`<div class="box" style="width:100%;margin:0 0 4px;border:2px solid #2F4FB8"><h4 style="color:#2F4FB8">🧾 Envoyer par Peppol</h4>
+    <p style="font-size:13.5px;line-height:1.5;margin-bottom:10px">1. Ouvre ton compte Peppol · 2. Crée la facture avec cette ligne : <b>${eur(ht)} HTVA + TVA 21 % = ${eur(f.montant)}</b> · 3. Note son numéro ici.</p>
+    ${!c.tva?'<p style="font-size:13px;color:var(--bad);font-weight:700;margin-bottom:8px">⚠ Il manque son n° de TVA : Peppol en a besoin (✏️ Modifier).</p>':''}
+    <div style="display:flex;gap:8px;flex-wrap:wrap">${D.moi.peppolUrl?`<a class="btn b-acc b-sm" style="text-decoration:none" target="_blank" rel="noopener" href="${esc(D.moi.peppolUrl)}">Ouvrir mon compte Peppol</a>`:''}<button class="btn b-line b-sm" id="pcp">📋 Copier les infos</button></div>
+    <div class="grid2" style="margin-top:10px"><input class="inp" id="pno" placeholder="N° facture Peppol" value="${esc(f.peppolNo||'')}"><button class="btn ${f.peppolOk?'b-ok':'b-line'}" id="pok">${f.peppolOk?'Envoyée par Peppol ✓':'Marquer envoyée ✓'}</button></div></div>`;
+  $('#facActs').innerHTML=pep+`<button class="btn b-line" onclick="$('#fac').classList.remove('open')">Fermer</button><button class="btn b-acc" id="pdfb">Télécharger le PDF</button>`;
+  $('#pcp').onclick=()=>copier([c.nom,[c.contact,c.nomContact].filter(Boolean).join(' '),c.tva?'TVA '+c.tva:'',c.adresse,c.email,'',L[0][0],'HTVA : '+eur(ht),'TVA 21 % : '+eur(f.montant-ht),'TVAC : '+eur(f.montant)].join('\n'));
+  $('#pok').onclick=async()=>{f.peppolNo=$('#pno').value.trim();f.peppolOk=true;f.no=no;await saveC(c);render();factureMois(id,fid);reglClient(id,'mensuel');toast('🧾 Facture Peppol notée ✓')};
+  $('#pdfb').onclick=()=>pdf(c,no,L,ht);$('#fac').classList.add('open')}
 async function pdf(c,no,L,ht){if(!window.jspdf){toast('PDF indisponible pour le moment');return}
   const m=D.moi;const doc=new window.jspdf.jsPDF({unit:'mm',format:'a4'});let y=22;
   doc.setFont('helvetica','bold');doc.setFontSize(22);doc.text('FACTURE',18,y);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text(`N° ${no} · ${fmt(T)}`,18,y+7);
