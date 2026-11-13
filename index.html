@@ -293,7 +293,7 @@ main{padding-bottom:90px!important}
     <div class="sig-l">Atom · Hassani Mohamed Islam · Rue du Commerce 9, 5300 Andenne<br>TVA BE0748661737 · <a href="tel:+32499374830">0499 37 48 30</a></div>
     <a class="credit" href="https://www.hassanimohamedislam.com" target="_blank" rel="noopener">Développé avec <span>♡</span> par le développeur <b>Atom</b></a>
     <div class="atom-ct"><a href="https://www.instagram.com/islem_atom/" target="_blank" rel="noopener">📷 @islem_atom</a><a href="mailto:islematom@gmail.com">✉️ islematom@gmail.com</a><a href="tel:+32499374830">📞 0499 37 48 30</a></div>
-    <div class="sig-v">Atom · v5.10 · site privé, synchronisé sur ton PC et ton téléphone</div>
+    <div class="sig-v">Atom · v5.11 · site privé, synchronisé sur ton PC et ton téléphone</div>
   </footer>
 </main>
 
@@ -551,7 +551,7 @@ function reglClient(id,zone){const c=D.clients.find(x=>x.id===id);const [et,cl]=
     ${E==='dort'?B('dort','📝','Ce qu\'il reste à faire'):''}
     ${A?'':B('relance','⏰',c.relance?'Relancer le '+fmt(c.relance).replace(/ \d{4}$/,''):'Date de relance')}
     ${E!=='mission'&&!A?`<button class="rgb" onclick="ranger(${c.id},'mission')"><span>🎯</span>Remettre en mission</button>`:''}
-    ${A?B('per','📅',fmTxt(c)?FM[fm(c)]?.[1]||PERN[+c.periode]:'Formule à choisir'):''}
+    ${A&&!mensOn(c)?B('per','📅',fmTxt(c)?FM[fm(c)]?.[1]||PERN[+c.periode]:'Formule à choisir'):''}
     ${A?B('dort','💤','Projet qui dort'):''}
     ${A&&c.sp&&c.sp.aboDebut?B('mois','⏱','Prolonger'):''}
     ${c.sp&&c.sp.domaine?B('dns','🌐','Domaine '+(c.sp.domaineFin?'jusqu\'au '+fmt(c.sp.domaineFin).replace(/ \d{4}$/,''):'à noter')):''}
