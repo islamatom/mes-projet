@@ -1,6 +1,19 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}.dmi{border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-top:8px}.dmi.bad{border-color:var(--bad)}
 .dmi-t{display:flex;justify-content:space-between;gap:8px;align-items:center}.dmi-t b{font-size:15px}.dmi p{font-size:14.5px;margin:6px 0 0;white-space:pre-line}
 .dmi-no{color:var(--bad);font-weight:700}.dmi-b{display:flex;gap:6px;margin-top:8px}.dmi-b .btn{flex:1;color:var(--ink)}.dmi-b .btn.b-acc{color:#fff}
+.an-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.an-sum{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;font-size:13px;font-weight:700}.an-sum span{padding:4px 9px;border-radius:99px}.an-sum .ok{background:var(--okbg);color:var(--ok)}.an-sum .att{background:#FFF4C2;color:#B45309}.an-sum .ret{background:var(--badbg);color:var(--bad)}
+.an{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.mc{display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 2px;border-radius:14px;border:2px solid transparent;font-family:inherit;cursor:pointer;color:var(--ink)}
+.mc b{font-size:13.5px}.mc span{font-size:16px;line-height:1.2}.mc small{font-size:11px;font-weight:700;opacity:.85}
+.mc.ok{background:var(--okbg)}.mc.att{background:#FFF4C2;color:#78350F}.mc.ret{background:var(--badbg)}.mc.vient,.mc.non{background:var(--line);opacity:.55}
+.mc.sel{border-color:var(--accent);opacity:1}
+.md{margin-top:12px;border-radius:16px;padding:12px;border:2px solid var(--line)}.md.ok{border-color:var(--ok)}.md.att{border-color:#E8B04B}.md.ret{border-color:var(--bad)}
+.md-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}.md-h b{font-size:17px}.md-h span{font-size:13px;font-weight:700}
+.md-m{display:flex;flex-direction:column;margin-bottom:10px}.md-m span{font-size:12px;color:var(--ink2)}.md-m b{font-size:22px}.md-m small{font-size:12.5px;color:var(--ink2)}
+.md-b{display:flex;flex-direction:column;gap:7px}.md-b .btn{width:100%;padding:12px;font-size:14.5px;color:var(--ink)}.md-b .btn.b-ok,.md-b .btn.b-bad{color:#fff}.md-b .btn.b-bad{background:var(--bad)}
+.an-leg{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--ink2)}.an-leg i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.an-leg .ok{background:var(--ok)}.an-leg .att{background:#E8B04B}.an-leg .ret{background:var(--bad)}.an-leg .vient{background:var(--line)}
 </style></head><body>
 
 <title>Atom</title>
@@ -293,7 +306,7 @@ main{padding-bottom:90px!important}
     <div class="sig-l">Atom · Hassani Mohamed Islam · Rue du Commerce 9, 5300 Andenne<br>TVA BE0748661737 · <a href="tel:+32499374830">0499 37 48 30</a></div>
     <a class="credit" href="https://www.hassanimohamedislam.com" target="_blank" rel="noopener">Développé avec <span>♡</span> par le développeur <b>Atom</b></a>
     <div class="atom-ct"><a href="https://www.instagram.com/islem_atom/" target="_blank" rel="noopener">📷 @islem_atom</a><a href="mailto:islematom@gmail.com">✉️ islematom@gmail.com</a><a href="tel:+32499374830">📞 0499 37 48 30</a></div>
-    <div class="sig-v">Atom · v5.11 · site privé, synchronisé sur ton PC et ton téléphone</div>
+    <div class="sig-v">Atom · v5.12 · site privé, synchronisé sur ton PC et ton téléphone</div>
   </footer>
 </main>
 
@@ -632,11 +645,7 @@ function zoneRegl(c,z){const m=D.moi,id=c.id;
      <label class="meta" style="display:block;margin-top:10px">📅 Première facture le<input class="inp" type="date" value="${M.depuis?M.depuis+'-'+String(M.jour||2).padStart(2,'0'):''}" onchange="mensDebut(${id},this.value)"></label>
      <div style="display:flex;gap:8px;margin-top:10px"><button class="btn ${M.on?'b-ok':'b-line'}" style="flex:1;color:${M.on?'#fff':'var(--ink)'}" onclick="mensSet(${id},'on',${!M.on})">${M.on?'✅ Activée':'Activer'}</button><button class="btn ${M.peppol?'b-acc':'b-line'}" style="flex:1;color:${M.peppol?'#fff':'var(--ink)'}" onclick="mensSet(${id},'peppol',${!M.peppol})">🧾 Peppol ${M.peppol?'oui':'non'}</button></div>
      <p class="meta" style="font-size:12.5px;margin-top:8px">Tu peux changer le prix quand tu veux : ici pour les prochains mois, ou « ✏️ Prix » sur un mois pas encore payé. Le ${M.jour} de chaque mois, le client reçoit dans son panel sa facture de ${eur(htv(M.ttc))} HTVA (${eur(M.ttc)} TVAC) avec « 💳 Payer maintenant » (SumUp). Quand elle paie, Atom le voit tout seul : ✅ Payé et +1 mois sur son compteur.</p></div>
-     <div class="box"><h4>Mois par mois</h4>${L.length?L.map(f=>`<div class="mrow"><div class="mrow-t"><b>${moisTxt(f.mois)}</b><span class="num">${eur(htv(f.montant))} HTVA</span></div>
-       <div class="mrow-s">${f.statut==='payé'?`<span class="tag t-paye">✅ Payé${f.payeLe?' le '+fmt(f.payeLe).replace(/ \d{4}$/,''):''}${f.mode?' · '+esc(f.mode):''}</span>`:`<span class="tag t-jaune">⏳ Pas encore payé</span>`}
-       ${M.peppol?(f.peppolOk?`<span class="tag" style="background:#E7EEFF;color:#2F4FB8">Peppol ✓${f.peppolNo?' '+esc(f.peppolNo):''}</span>`:`<span class="tag" style="background:#FDE2E1;color:#B42318">Peppol à envoyer</span>`):''}</div>
-       <div class="mrow-b">${M.peppol?`<button class="btn b-line b-sm" onclick="factureMois(${id},'${f.id}')">🧾 ${f.peppolOk?'Facture':'Peppol'}</button>`:''}${f.statut!=='payé'?`<button class="btn b-line b-sm" onclick="prixMois(${id},'${f.id}')">✏️ Prix</button><button class="btn b-ok b-sm" style="color:#fff" onclick="payeMois(${id},'${f.id}','SumUp')">✅ Payé SumUp</button><button class="btn b-line b-sm" onclick="payeMois(${id},'${f.id}','Cash')">💶 Cash</button>`:''}</div></div>`).join('')
-       :`<p class="meta" style="font-size:14px">${M.on?'La première facture arrive le '+M.jour+' '+(M.depuis?moisTxt(M.depuis):'du mois')+'.':'Active la facture mensuelle au-dessus.'}</p>`}</div>`}
+     ${anneeHTML(c,M)}</div>`}
   if(z==='bloquer'){const s=c.sp||{};return `<div class="box"><h4>⛔ Avertir ou bloquer son panel</h4>
     ${s.etat==='averti'&&s.avertiLe?`<p class="meta" style="font-size:14px;margin-bottom:8px">Averti le ${fmt(s.avertiLe)} · à bloquer le ${fmt(addD(s.avertiLe,7))} s'il ne paie pas.</p>`:''}
     <button class="btn b-line" style="width:100%" onclick="avertir(${id})">⚠ Avertir d'abord (suspendu dans 7 jours)</button>
@@ -939,6 +948,39 @@ async function mensDebut(id,v){if(!v)return;const c=D.clients.find(x=>x.id===id)
   c.mensuel.depuis=v.slice(0,7);c.mensuel.jour=Math.min(28,+v.slice(8)||2);await saveC(c);render();reglClient(id,'mensuel');toast('📅 Première facture le '+fmt(v))}
 function moisAuto(c){const M=c.mensuel;if(!M||!M.on||etp(c)!=='actif')return false;const m=T.slice(0,7);if(+T.slice(8)<(+M.jour||2))return false;if(M.depuis&&m<M.depuis)return false;M.liste=M.liste||[];
   if(M.liste.some(f=>f.mois===m))return false;M.liste.push({id:'m'+m.replace('-','')+'-'+c.id,mois:m,montant:+M.ttc||55,statut:'à payer',date:m+'-'+String(M.jour||2).padStart(2,'0')});return true}
+let mensAn={},mensSel={};
+const MOIS3=['Janv','Févr','Mars','Avril','Mai','Juin','Juil','Août','Sept','Oct','Nov','Déc'];
+const echeM=f=>addD(f.date||f.mois+'-02',10);
+function etatMois(c,M,m){const f=(M.liste||[]).find(x=>x.mois===m);
+  if(f){if(f.statut==='payé')return{k:'ok',f,t:'✅ Payé',s:f.payeLe?'le '+fmt(f.payeLe).replace(/ \d{4}$/,''):''};
+    const e=echeM(f);return e<T?{k:'ret',f,t:'🔴 En retard',s:'depuis le '+fmt(e).replace(/ \d{4}$/,'')}:{k:'att',f,t:'⏳ À payer',s:'avant le '+fmt(e).replace(/ \d{4}$/,'')}}
+  if(M.depuis&&m<M.depuis)return{k:'non',t:'—',s:'pas encore client'};
+  return{k:'vient',t:'À venir',s:'facture le '+(M.jour||2)+' du mois'}}
+function anneeHTML(c,M){const id=c.id,y=mensAn[id]||+T.slice(0,4),sel=mensSel[id];
+  const cases=MOIS3.map((n,k)=>{const m=y+'-'+String(k+1).padStart(2,'0'),e=etatMois(c,M,m);
+    return `<button class="mc ${e.k} ${sel===m?'sel':''}" onclick="mensSel[${id}]=${sel===m?'null':`'${m}'`};reglClient(${id},'mensuel')"><b>${n}</b><span>${e.k==='ok'?'✅':e.k==='ret'?'🔴':e.k==='att'?'⏳':e.k==='non'?'—':'·'}</span>${e.f?`<small>${eur(htv(e.f.montant))}</small>`:''}</button>`}).join('');
+  const nb=k=>MOIS3.filter((n,i)=>etatMois(c,M,y+'-'+String(i+1).padStart(2,'0')).k===k).length;
+  let det='';if(sel&&sel.startsWith(y+'-')){const e=etatMois(c,M,sel),f=e.f;
+    det=`<div class="md ${e.k}"><div class="md-h"><b>${moisTxt(sel)}</b><span>${e.t} ${e.s}</span></div>`+(f?`
+     <div class="md-m"><span>Montant</span><b>${eur(htv(f.montant))} HTVA</b><small>${eur(f.montant)} TVAC${f.frais?` · dont ${eur(htv(f.frais))} HTVA de frais de retard`:''}</small></div>
+     ${f.rappel?`<p class="meta" style="margin:0 0 8px">🔔 Rappel envoyé le ${fmt(f.rappel)}</p>`:''}
+     <div class="md-b">${f.statut!=='payé'?`<button class="btn b-ok" style="color:#fff" onclick="payeMois(${id},'${f.id}','SumUp')">✅ Payé (SumUp)</button><button class="btn b-line" onclick="payeMois(${id},'${f.id}','Cash')">💶 Payé en cash</button>
+       <button class="btn b-line" onclick="prixMois(${id},'${f.id}')">✏️ Changer le prix</button>
+       <button class="btn b-line" onclick="rappelMois(${id},'${f.id}')">🔔 Envoyer un rappel</button>
+       ${e.k==='ret'&&!f.frais?`<button class="btn b-bad" onclick="fraisMois(${id},'${f.id}')">➕ Frais de retard (${eur(+M.frais||10)} HTVA)</button>`:''}`:''}
+       ${M.peppol?`<button class="btn b-line" onclick="factureMois(${id},'${f.id}')">🧾 ${f.peppolOk?'Facture Peppol ✓':'Envoyer la facture Peppol'}</button>`:''}</div>`
+     :`<p class="meta" style="margin:0">${e.k==='non'?'Ce client n\'était pas encore à la facture du mois.':'La facture sera créée toute seule le '+(M.jour||2)+' '+moisTxt(sel)+'.'}</p>`)+`</div>`}
+  return `<div class="box"><div class="an-h"><button class="btn b-line b-sm" onclick="mensAn[${id}]=${y-1};mensSel[${id}]=null;reglClient(${id},'mensuel')">‹</button><h4 style="margin:0">📆 Année ${y}</h4><button class="btn b-line b-sm" onclick="mensAn[${id}]=${y+1};mensSel[${id}]=null;reglClient(${id},'mensuel')">›</button></div>
+   <div class="an-sum"><span class="ok">✅ ${nb('ok')} payé${nb('ok')>1?'s':''}</span><span class="att">⏳ ${nb('att')} à payer</span><span class="ret">🔴 ${nb('ret')} en retard</span></div>
+   <div class="an">${cases}</div><p class="meta" style="font-size:12.5px;margin:8px 0 0">Touche un mois pour voir le détail et agir.</p>${det}
+   <div class="an-leg"><span><i class="ok"></i>Payé</span><span><i class="att"></i>À payer</span><span><i class="ret"></i>En retard</span><span><i class="vient"></i>Pas encore arrivé</span></div></div>
+   <div class="box"><h4>⚙️ Frais de retard</h4><div class="grid2"><label class="meta">Montant HTVA<input class="inp" type="number" step="0.5" value="${+M.frais||10}" onchange="mensSet(${id},'frais',+this.value)"></label><div class="meta" style="align-self:end;font-size:13px">Ajoutés seulement quand <b>tu</b> appuies sur « ➕ Frais de retard » sur un mois en retard.</div></div></div>`}
+async function rappelMois(id,fid){const c=D.clients.find(x=>x.id===id),f=c.mensuel.liste.find(x=>x.id===fid);f.rappel=T;
+  (c.envois=c.envois||[]).push({date:T,type:'🔔 Rappel de paiement · '+moisTxt(f.mois),txt:''});await saveC(c);render();reglClient(id,'mensuel');toast('🔔 Rappel envoyé : il le voit en haut de son panel')}
+async function fraisMois(id,fid){const c=D.clients.find(x=>x.id===id),f=c.mensuel.liste.find(x=>x.id===fid),fr=+c.mensuel.frais||10;
+  if(!confirm(`Ajouter ${eur(fr)} HTVA de frais de retard à ${moisTxt(f.mois)} pour ${c.nom} ?`))return;
+  const t=Math.round(fr*1.21*100)/100;f.frais=t;f.montant=Math.round((+f.montant+t)*100)/100;delete f.checkout_id;delete f.url;
+  await saveC(c);render();reglClient(id,'mensuel');toast('➕ Frais de retard ajoutés · il voit le nouveau montant')}
 async function prixMois(id,fid){const c=D.clients.find(x=>x.id===id),f=c.mensuel.liste.find(x=>x.id===fid);
   const v=prompt(`Nouveau prix HTVA pour ${moisTxt(f.mois)} (${c.nom}) :`,String(htv(f.montant)).replace('.',','));if(v===null)return;const n=+String(v).replace(',','.');
   if(!(n>0)){toast('Prix invalide');return}f.montant=Math.round(n*1.21*20)/20;delete f.checkout_id;delete f.url;
