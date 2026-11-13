@@ -38,7 +38,7 @@ const bloque=()=>items().some(o=>o.y.statut==='reçu');
 /* ---------- dessin du robot ---------- */
 const IMGB='https://islamatom.github.io/mes-projet/img/';
 const IMG=Object.assign({},...['dort','bonjour','fete','inquiet','noel'].map(k=>({[k]:IMGB+'tomi-'+k+'.png'})),R.img||{});
-const NOM_ROBOT=R.nomRobot||'Tomi';
+const NOM_ROBOT=R.nomRobot||'Tomi',PETIT=R.petit||'le petit Atom',COEUR=R.coeur||'💙';
 let fete=0;
 function humeur(eveille){if(fete>Date.now())return'fete';try{if(R.inquiet&&R.inquiet())return'inquiet'}catch(e){}
   if(!eveille)return'dort';const d=new Date();if(d.getMonth()===11&&d.getDate()<=26&&IMG.noel)return'noel';return'bonjour'}
@@ -47,7 +47,7 @@ function faireLaFete(){fete=Date.now()+5000;maj();setTimeout(maj,5200)}
 const fdate=s=>{if(!s)return'';const d=new Date(s+'T12:00:00');return d.toLocaleDateString('fr-BE',{day:'numeric',month:'long'})};
 
 /* ---------- bouton flottant ---------- */
-const btn=document.createElement('button');btn.id='robotAtom';btn.type='button';btn.setAttribute('aria-label',NOM_ROBOT+', le petit Atom : demander un changement');
+const btn=document.createElement('button');btn.id='robotAtom';btn.type='button';btn.setAttribute('aria-label',NOM_ROBOT+', '+PETIT+' : demander un changement');
 btn.onclick=ouvrir;
 function maj(){const ev=ouverts().length>0||st.liste.length>0||btn.classList.contains('salut'),n=aVerifier().length;
   btn.innerHTML=svg(ev)+''+(n?`<b class="ra-n">${n}</b>`:'');
@@ -89,8 +89,8 @@ function corps(){if(!ov)return;const sh=ov.querySelector('.ra-sh');let h='<butto
  }else{
   const av=aVerifier(),n=ouverts().length;
   h+=av.length?bulle('Atom a traité ta demande ! 🎉','Va voir sur ton site ou ton panel, puis dis-moi si c\'est bon.')
-   :n?bulle(`Salut${R.nom?' '+esc(R.nom):''} ! C'est ${NOM_ROBOT} 💙`,'Atom a pris tes demandes en charge. Je te préviens dès qu\'il y a quelque chose à vérifier.')
-   :bulle(`Salut${R.nom?' '+esc(R.nom):''} ! Moi c'est ${NOM_ROBOT}, le petit Atom 💙`,'Tu veux changer quelque chose sur ton site ou ton panel ? On le fait ensemble, étape par étape.<span class="ra-free">🎁 Les changements sont gratuits, c\'est compris dans ton abonnement.</span>');
+   :n?bulle(`Salut${R.nom?' '+esc(R.nom):''} ! C'est ${NOM_ROBOT} ${COEUR}`,'Atom a pris tes demandes en charge. Je te préviens dès qu\'il y a quelque chose à vérifier.')
+   :bulle(`Salut${R.nom?' '+esc(R.nom):''} ! Moi c'est ${NOM_ROBOT}, ${PETIT} ${COEUR}`,'Tu veux changer quelque chose sur ton site ou ton panel ? On le fait ensemble, étape par étape.<span class="ra-free">🎁 Les changements sont gratuits, c\'est compris dans ton abonnement.</span>');
   if(av.length)h+=`<div class="ra-h">👀 À vérifier <span>${av.length}</span></div>`+av.map(o=>`<div class="ra-d ra-vf"><b>${CAT[o.y.cat]?CAT[o.y.cat][0]+' '+CAT[o.y.cat][1]:'Changement'}</b>${o.y.txt?`<p>${esc(o.y.txt)}</p>`:''}
     ${o.y.reponse?`<div class="ra-rep"><b>Atom :</b> ${esc(o.y.reponse)}</div>`:''}
     ${st.nonId===o.d.id+'#'+o.i?`<textarea id="raNon" rows="2" maxlength="300" placeholder="Qu'est-ce qui ne va pas ?"></textarea><div class="ra-ok"><button class="ra-b2" data-non2="${o.d.id}#${o.i}">📨 Renvoyer à Atom</button><button class="ra-b3" data-ann="1">Annuler</button></div>`
