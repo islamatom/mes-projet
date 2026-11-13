@@ -293,7 +293,7 @@ main{padding-bottom:90px!important}
     <div class="sig-l">Atom · Hassani Mohamed Islam · Rue du Commerce 9, 5300 Andenne<br>TVA BE0748661737 · <a href="tel:+32499374830">0499 37 48 30</a></div>
     <a class="credit" href="https://www.hassanimohamedislam.com" target="_blank" rel="noopener">Développé avec <span>♡</span> par le développeur <b>Atom</b></a>
     <div class="atom-ct"><a href="https://www.instagram.com/islem_atom/" target="_blank" rel="noopener">📷 @islem_atom</a><a href="mailto:islematom@gmail.com">✉️ islematom@gmail.com</a><a href="tel:+32499374830">📞 0499 37 48 30</a></div>
-    <div class="sig-v">Atom · v5.7 · site privé, synchronisé sur ton PC et ton téléphone</div>
+    <div class="sig-v">Atom · v5.8 · site privé, synchronisé sur ton PC et ton téléphone</div>
   </footer>
 </main>
 
@@ -397,7 +397,11 @@ const ETP={actif:['🟢 Panel actif','t-paye'],averti:['🟠 Client averti','t-j
 const aSp=c=>c.sp&&(c.sp.site||c.sp.panel);
 const urlGit=d=>/^https?:/.test(d)?d:'https://github.com/'+d.replace(/^\/+/,'');
 const urlSb=r=>/^https?:/.test(r)?r:'https://supabase.com/dashboard/project/'+r;
-function compteur(c,big){const j=aboJours(c);
+const mensOn=c=>!!(c.mensuel&&c.mensuel.on);
+function compteur(c,big){if(mensOn(c)){const a=(c.mensuel.liste||[]).filter(f=>f.statut!=='payé');
+   return `<div style="background:${a.length?'#FFF4C2':'var(--okbg)'};border-radius:12px;padding:${big?14:10}px 12px"><b style="font-size:${big?20:16}px;color:${a.length?'#B45309':'var(--ok)'}">${a.length?'⏳ '+a.map(f=>moisTxt(f.mois)).join(', ')+' à payer':'✅ Actif'}</b>
+   <small class="meta" style="display:block;margin-top:4px">${eur(htv(c.mensuel.ttc))} HTVA par mois · facture le ${c.mensuel.jour} du mois</small></div>`}
+  const j=aboJours(c);
   if(j===null)return '<p class="meta">Compteur pas encore réglé : mets le début et le nombre de mois dans Modifier.</p>';
   const col=j<0?'var(--bad)':j<=30?'#B45309':'var(--ok)',bg=j<0?'var(--badbg)':j<=30?'#FFF4C2':'var(--okbg)',np=(c.sp.parrains||[]).length;
   return `<div style="background:${bg};border-radius:12px;padding:${big?14:10}px 12px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px">
@@ -513,7 +517,7 @@ function carteClient(c){const [et,cl]=etat(c);const s=c.sp||{};const nd=(c.deman
   const E=etp(c);const bd=E==='mission'?['p','🎯','Mission']:E==='dort'?['s','💤','Il dort']:s.etat==='bloque'?['r','⛔','Panel bloqué']:nd?['r',nd,nd+' message(s)']:cl==='t-ret'?['r','!',et]:cl==='t-jaune'?['y','€',et]:cl==='t-paye'?['g','✓','Payé']:cl==='t-pro'?['p','…','Prospect']:['s','–',et];
   return `<button class="pj" onclick="reglClient(${c.id})" aria-label="${esc(c.nom)} : ${esc(bd[2])}"><span class="em" aria-hidden="true">${esc(emo(c))}</span>
    <span class="tx"><b>${esc(c.nom)}</b><small>${esc(quoi)}</small>${rel?`<small style="color:${c.relance<=T?'var(--bad)':'var(--accent2)'};font-weight:700">${rel}</small>`:''}${reste(c)>0&&c.statut==='actif'?`<small style="color:${cl==='t-ret'?'var(--bad)':'#C8960C'};font-weight:700">${eur(reste(c))} à payer</small>`:''}</span>
-   ${(()=>{const j=E==='actif'?aboJours(c):null;if(j===null)return '';const col=j<0?'var(--bad)':j<=30?'#C8960C':'var(--ok)';return `<span class="num" style="flex:0 0 auto;font-family:var(--display);font-weight:700;font-size:13px;color:${col};text-align:right;line-height:1.1">${j<0?'J+'+(-j):'J-'+j}<br><small style="font-family:var(--body);font-weight:600;font-size:10.5px;color:var(--ink2)">${j<0?'fini':'restants'}</small></span>`})()}
+   ${(()=>{if(E==='actif'&&mensOn(c)){const a=(c.mensuel.liste||[]).some(f=>f.statut!=='payé');return `<span class="num" style="flex:0 0 auto;font-size:12px;font-weight:800;color:${a?'#C8960C':'var(--ok)'}">${a?'⏳ à payer':'✅ Actif'}</span>`}const j=E==='actif'?aboJours(c):null;if(j===null)return '';const col=j<0?'var(--bad)':j<=30?'#C8960C':'var(--ok)';return `<span class="num" style="flex:0 0 auto;font-family:var(--display);font-weight:700;font-size:13px;color:${col};text-align:right;line-height:1.1">${j<0?'J+'+(-j):'J-'+j}<br><small style="font-family:var(--body);font-weight:600;font-size:10.5px;color:var(--ink2)">${j<0?'fini':'restants'}</small></span>`})()}
    <span class="bd ${bd[0]}" title="${esc(bd[2])}">${bd[1]}</span><span class="ch" aria-hidden="true">›</span></button>`}
 function onglet(t,q){const f=$('#pjf');if(t==='p'){if(!f.src&&!f.srcdoc){if(window.PROJETS_DOC)f.srcdoc=window.PROJETS_DOC;else f.src='projets.html'}f.hidden=false;f.onload=()=>envoyerPj(q);envoyerPj(q)}else f.hidden=true;
   document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));if(t==='p')ov.classList.remove('open');try{sessionStorage.setItem('atom_tab',t)}catch(e){}}
@@ -624,11 +628,11 @@ function zoneRegl(c,z){const m=D.moi,id=c.id;
      <p class="meta" style="font-size:12.5px;margin-top:10px">« Je prends en charge » → il voit que tu t'en occupes. « Traité » → le robot lui demande de vérifier, il répond 👍 c'est bon ou 👎 pas bon.</p></div>`}
   if(z==='mensuel'){const M=c.mensuel||{on:false,ttc:55,jour:2,peppol:true,liste:[]};const L=(M.liste||[]).slice().sort((a,b)=>b.mois.localeCompare(a.mois));
     return `<div class="box"><h4>🗓 Facture chaque mois</h4>
-     <div class="grid2"><label class="meta">Montant TVAC<input class="inp" type="number" step="0.01" value="${M.ttc}" onchange="mensSet(${id},'ttc',+this.value)"></label><label class="meta">Le … du mois<input class="inp" type="number" min="1" max="28" value="${M.jour}" onchange="mensSet(${id},'jour',+this.value)"></label></div>
+     <div class="grid2"><label class="meta">Montant HTVA<input class="inp" type="number" step="0.01" value="${htv(M.ttc)}" onchange="mensSet(${id},'ttc',Math.round(+this.value*1.21*20)/20)"></label><label class="meta">Le … du mois<input class="inp" type="number" min="1" max="28" value="${M.jour}" onchange="mensSet(${id},'jour',+this.value)"></label></div>
      <label class="meta" style="display:block;margin-top:10px">📅 Première facture le<input class="inp" type="date" value="${M.depuis?M.depuis+'-'+String(M.jour||2).padStart(2,'0'):''}" onchange="mensDebut(${id},this.value)"></label>
      <div style="display:flex;gap:8px;margin-top:10px"><button class="btn ${M.on?'b-ok':'b-line'}" style="flex:1;color:${M.on?'#fff':'var(--ink)'}" onclick="mensSet(${id},'on',${!M.on})">${M.on?'✅ Activée':'Activer'}</button><button class="btn ${M.peppol?'b-acc':'b-line'}" style="flex:1;color:${M.peppol?'#fff':'var(--ink)'}" onclick="mensSet(${id},'peppol',${!M.peppol})">🧾 Peppol ${M.peppol?'oui':'non'}</button></div>
-     <p class="meta" style="font-size:12.5px;margin-top:8px">Le ${M.jour} de chaque mois, le client reçoit dans son panel sa facture de ${eur(M.ttc)} TVAC avec « 💳 Payer maintenant » (SumUp). Quand elle paie, Atom le voit tout seul : ✅ Payé et +1 mois sur son compteur.</p></div>
-     <div class="box"><h4>Mois par mois</h4>${L.length?L.map(f=>`<div class="mrow"><div class="mrow-t"><b>${moisTxt(f.mois)}</b><span class="num">${eur(f.montant)} TVAC</span></div>
+     <p class="meta" style="font-size:12.5px;margin-top:8px">Le ${M.jour} de chaque mois, le client reçoit dans son panel sa facture de ${eur(htv(M.ttc))} HTVA (${eur(M.ttc)} TVAC) avec « 💳 Payer maintenant » (SumUp). Quand elle paie, Atom le voit tout seul : ✅ Payé et +1 mois sur son compteur.</p></div>
+     <div class="box"><h4>Mois par mois</h4>${L.length?L.map(f=>`<div class="mrow"><div class="mrow-t"><b>${moisTxt(f.mois)}</b><span class="num">${eur(htv(f.montant))} HTVA</span></div>
        <div class="mrow-s">${f.statut==='payé'?`<span class="tag t-paye">✅ Payé${f.payeLe?' le '+fmt(f.payeLe).replace(/ \d{4}$/,''):''}${f.mode?' · '+esc(f.mode):''}</span>`:`<span class="tag t-jaune">⏳ Pas encore payé</span>`}
        ${M.peppol?(f.peppolOk?`<span class="tag" style="background:#E7EEFF;color:#2F4FB8">Peppol ✓${f.peppolNo?' '+esc(f.peppolNo):''}</span>`:`<span class="tag" style="background:#FDE2E1;color:#B42318">Peppol à envoyer</span>`):''}</div>
        <div class="mrow-b">${M.peppol?`<button class="btn b-line b-sm" onclick="factureMois(${id},'${f.id}')">🧾 Facture${f.peppolOk?'':' → Peppol'}</button>`:''}${f.statut!=='payé'?`<button class="btn b-ok b-sm" style="color:#fff" onclick="payeMois(${id},'${f.id}','SumUp')">✅ Payé SumUp</button><button class="btn b-line b-sm" onclick="payeMois(${id},'${f.id}','Cash')">💶 Cash</button>`:''}</div></div>`).join('')
@@ -740,12 +744,13 @@ function render(){const h=$('#hint');if(h)h.hidden=D.code!=='0000';
   D.clients.forEach(c=>{const E=etp(c);
     if(c.relance&&E!=='actif'&&c.relance<=addD(T,2))td.push({c,t:c.relance,ic:'⏰',tx:(c.relance<T?'Relance en retard':c.relance===T?'Relancer aujourd\'hui':'Relancer le '+fmt(c.relance))+(c.relanceNote?' · '+c.relanceNote:''),z:'relance'});
     {const s=c.sp||{};if(s.domaine&&s.domaineFin&&s.domaineFin<=addD(T,30))td.push({c,t:s.domaineFin,ic:'🌐',tx:`Payer le domaine ${s.domaine}${s.domainePrix?' ('+eur(+s.domainePrix)+')':''} ${s.domaineFin<T?'· expiré depuis le '+fmt(s.domaineFin):'avant le '+fmt(s.domaineFin)}`,z:'dns'})}
-    if(E==='actif'){const j=aboJours(c);if(j!==null&&j<=30)td.push({c,t:aboFin(c),ic:'⏳',tx:j<0?'Abonnement fini depuis '+(-j)+' j':'Abonnement fini dans '+j+' j',z:'mois'});
+    if(E==='actif'){const j=mensOn(c)?null:aboJours(c);if(j!==null&&j<=30)td.push({c,t:aboFin(c),ic:'⏳',tx:j<0?'Abonnement fini depuis '+(-j)+' j':'Abonnement fini dans '+j+' j',z:'mois'});
       const s=c.sp||{};if(s.etat==='averti'&&s.avertiLe&&addD(s.avertiLe,7)<=T)td.push({c,t:addD(s.avertiLe,7),ic:'⛔',tx:'Averti il y a 7 jours : bloquer ou débloquer ?',z:'bloquer'});
       }});
   D.clients.forEach(c=>{if(moisAuto(c))saveC(c);const M=c.mensuel;if(!M||!M.on||etp(c)!=='actif')return;(M.liste||[]).forEach(f=>{
     if(M.peppol&&!f.peppolOk)td.push({c,t:f.date,ic:'🧾',tx:'Facture Peppol de '+moisTxt(f.mois)+' à envoyer',z:'mensuel'});
-    if(f.statut!=='payé'&&addD(f.date,7)<=T)td.push({c,t:addD(f.date,7),ic:'💳',tx:moisTxt(f.mois)+' pas encore payé ('+eur(f.montant)+')',z:'mensuel'})})});
+    if(f.statut==='payé'&&f.payeLe&&addD(f.payeLe,3)>=T)td.push({c,t:f.payeLe,ic:'💶',tx:'A payé '+moisTxt(f.mois)+' ('+eur(htv(f.montant))+' HTVA'+(f.mode?' · '+f.mode:'')+') ✓',z:'mensuel'});
+    if(f.statut!=='payé'&&addD(f.date,7)<=T)td.push({c,t:addD(f.date,7),ic:'💳',tx:moisTxt(f.mois)+' pas encore payé ('+eur(htv(f.montant))+' HTVA)',z:'mensuel'})})});
   td.sort((a,b)=>a.t.localeCompare(b.t));
   const dm=D.clients.map(c=>{const its=(c.demandes||[]).flatMap(d=>d.items||(d.statut!=='terminée'?[{statut:d.statut==='reçue'?'reçu':'en cours'}]:[]));
     const k=v=>its.filter(y=>y.statut===v).length;return{c,n:k('reçu'),pc:k('en cours'),av:k('à vérifier'),nb:k('pas bon')}}).filter(x=>x.n+x.pc+x.av+x.nb).sort((a,b)=>(b.n+b.nb)-(a.n+a.nb));
@@ -925,6 +930,7 @@ function facture(id,forceP){const c=D.clients.find(x=>x.id===id);const isP=c.pep
   $('#cpb').onclick=()=>copier(txt);
   if(isP){$('#pok').onclick=()=>{fx.peppolNo=$('#pno').value.trim();fx.peppolOk=true;saveC(c);render();facture(c.id,forceP);toast('Facture Peppol notée ✓')}}$('#pdfb').onclick=()=>pdf(c,no,L,ht);
   $('#fac').classList.add('open')}
+const htv=t=>Math.round((+t||0)/1.21*100)/100;
 const moisTxt=m=>{const [y,mm]=m.split('-');return MOIS[+mm-1]+' '+y};
 async function mensSet(id,k,v){const c=D.clients.find(x=>x.id===id);c.mensuel=Object.assign({on:false,ttc:55,jour:2,peppol:true,liste:[]},c.mensuel||{});c.mensuel[k]=v;
   if(k==='on'&&v){if(!c.mensuel.depuis){const d=new Date(TODAY);if(d.getDate()>(+c.mensuel.jour||2))d.setMonth(d.getMonth()+1,1);c.mensuel.depuis=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}c.abo=Math.round(c.mensuel.ttc/1.21*100)/100;c.periode=1}if(k==='ttc'&&c.mensuel.on)c.abo=Math.round(v/1.21*100)/100;
@@ -933,7 +939,7 @@ async function mensDebut(id,v){if(!v)return;const c=D.clients.find(x=>x.id===id)
   c.mensuel.depuis=v.slice(0,7);c.mensuel.jour=Math.min(28,+v.slice(8)||2);await saveC(c);render();reglClient(id,'mensuel');toast('📅 Première facture le '+fmt(v))}
 function moisAuto(c){const M=c.mensuel;if(!M||!M.on||etp(c)!=='actif')return false;const m=T.slice(0,7);if(+T.slice(8)<(+M.jour||2))return false;if(M.depuis&&m<M.depuis)return false;M.liste=M.liste||[];
   if(M.liste.some(f=>f.mois===m))return false;M.liste.push({id:'m'+m.replace('-','')+'-'+c.id,mois:m,montant:+M.ttc||55,statut:'à payer',date:m+'-'+String(M.jour||2).padStart(2,'0')});return true}
-async function payeMois(id,fid,mode){mode=mode||'Cash';const c=D.clients.find(x=>x.id===id),f=c.mensuel.liste.find(x=>x.id===fid);if(!confirm(`${c.nom} a payé ${moisTxt(f.mois)} (${eur(f.montant)}) ${mode==='Cash'?'en cash':'par SumUp'} ?`))return;
+async function payeMois(id,fid,mode){mode=mode||'Cash';const c=D.clients.find(x=>x.id===id),f=c.mensuel.liste.find(x=>x.id===fid);if(!confirm(`${c.nom} a payé ${moisTxt(f.mois)} (${eur(htv(f.montant))} HTVA) ${mode==='Cash'?'en cash':'par SumUp'} ?`))return;
   f.statut='payé';f.payeLe=T;f.mode=mode;c.paiements.push({date:T,montant:Math.round(f.montant/1.21*100)/100,mode,mois:f.mois});c.sp=c.sp||{};if(c.sp.aboDebut)c.sp.aboMois=(+c.sp.aboMois||0)+1;
   await saveC(c);render();reglClient(id,'mensuel');toast('✅ '+moisTxt(f.mois)+' payé · +1 mois sur son compteur')}
 function factureMois(id,fid){const c=D.clients.find(x=>x.id===id),f=c.mensuel.liste.find(x=>x.id===fid),m=D.moi;const ht=Math.round(f.montant/1.21*100)/100,no=f.no||('M'+f.mois.replace('-','')+'-'+c.id);
