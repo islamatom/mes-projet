@@ -293,7 +293,7 @@ main{padding-bottom:90px!important}
     <div class="sig-l">Atom · Hassani Mohamed Islam · Rue du Commerce 9, 5300 Andenne<br>TVA BE0748661737 · <a href="tel:+32499374830">0499 37 48 30</a></div>
     <a class="credit" href="https://www.hassanimohamedislam.com" target="_blank" rel="noopener">Développé avec <span>♡</span> par le développeur <b>Atom</b></a>
     <div class="atom-ct"><a href="https://www.instagram.com/islem_atom/" target="_blank" rel="noopener">📷 @islem_atom</a><a href="mailto:islematom@gmail.com">✉️ islematom@gmail.com</a><a href="tel:+32499374830">📞 0499 37 48 30</a></div>
-    <div class="sig-v">Atom · v5.6 · site privé, synchronisé sur ton PC et ton téléphone</div>
+    <div class="sig-v">Atom · v5.7 · site privé, synchronisé sur ton PC et ton téléphone</div>
   </footer>
 </main>
 
@@ -625,8 +625,9 @@ function zoneRegl(c,z){const m=D.moi,id=c.id;
   if(z==='mensuel'){const M=c.mensuel||{on:false,ttc:55,jour:2,peppol:true,liste:[]};const L=(M.liste||[]).slice().sort((a,b)=>b.mois.localeCompare(a.mois));
     return `<div class="box"><h4>🗓 Facture chaque mois</h4>
      <div class="grid2"><label class="meta">Montant TVAC<input class="inp" type="number" step="0.01" value="${M.ttc}" onchange="mensSet(${id},'ttc',+this.value)"></label><label class="meta">Le … du mois<input class="inp" type="number" min="1" max="28" value="${M.jour}" onchange="mensSet(${id},'jour',+this.value)"></label></div>
+     <label class="meta" style="display:block;margin-top:10px">📅 Première facture le<input class="inp" type="date" value="${M.depuis?M.depuis+'-'+String(M.jour||2).padStart(2,'0'):''}" onchange="mensDebut(${id},this.value)"></label>
      <div style="display:flex;gap:8px;margin-top:10px"><button class="btn ${M.on?'b-ok':'b-line'}" style="flex:1;color:${M.on?'#fff':'var(--ink)'}" onclick="mensSet(${id},'on',${!M.on})">${M.on?'✅ Activée':'Activer'}</button><button class="btn ${M.peppol?'b-acc':'b-line'}" style="flex:1;color:${M.peppol?'#fff':'var(--ink)'}" onclick="mensSet(${id},'peppol',${!M.peppol})">🧾 Peppol ${M.peppol?'oui':'non'}</button></div>
-     <p class="meta" style="font-size:12.5px;margin-top:8px">Le ${M.jour} de chaque mois, le client reçoit dans son panel sa facture de ${eur(M.ttc)} TVAC avec « 💳 Payer maintenant » (ton lien SumUp). Quand SumUp te prévient, appuie sur « ✅ Payé SumUp » : +1 mois sur son compteur.</p></div>
+     <p class="meta" style="font-size:12.5px;margin-top:8px">Le ${M.jour} de chaque mois, le client reçoit dans son panel sa facture de ${eur(M.ttc)} TVAC avec « 💳 Payer maintenant » (SumUp). Quand elle paie, Atom le voit tout seul : ✅ Payé et +1 mois sur son compteur.</p></div>
      <div class="box"><h4>Mois par mois</h4>${L.length?L.map(f=>`<div class="mrow"><div class="mrow-t"><b>${moisTxt(f.mois)}</b><span class="num">${eur(f.montant)} TVAC</span></div>
        <div class="mrow-s">${f.statut==='payé'?`<span class="tag t-paye">✅ Payé${f.payeLe?' le '+fmt(f.payeLe).replace(/ \d{4}$/,''):''}${f.mode?' · '+esc(f.mode):''}</span>`:`<span class="tag t-jaune">⏳ Pas encore payé</span>`}
        ${M.peppol?(f.peppolOk?`<span class="tag" style="background:#E7EEFF;color:#2F4FB8">Peppol ✓${f.peppolNo?' '+esc(f.peppolNo):''}</span>`:`<span class="tag" style="background:#FDE2E1;color:#B42318">Peppol à envoyer</span>`):''}</div>
@@ -928,6 +929,8 @@ const moisTxt=m=>{const [y,mm]=m.split('-');return MOIS[+mm-1]+' '+y};
 async function mensSet(id,k,v){const c=D.clients.find(x=>x.id===id);c.mensuel=Object.assign({on:false,ttc:55,jour:2,peppol:true,liste:[]},c.mensuel||{});c.mensuel[k]=v;
   if(k==='on'&&v){if(!c.mensuel.depuis){const d=new Date(TODAY);if(d.getDate()>(+c.mensuel.jour||2))d.setMonth(d.getMonth()+1,1);c.mensuel.depuis=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')}c.abo=Math.round(c.mensuel.ttc/1.21*100)/100;c.periode=1}if(k==='ttc'&&c.mensuel.on)c.abo=Math.round(v/1.21*100)/100;
   moisAuto(c);await saveC(c);render();reglClient(id,'mensuel')}
+async function mensDebut(id,v){if(!v)return;const c=D.clients.find(x=>x.id===id);c.mensuel=Object.assign({on:false,ttc:55,jour:2,peppol:true,liste:[]},c.mensuel||{});
+  c.mensuel.depuis=v.slice(0,7);c.mensuel.jour=Math.min(28,+v.slice(8)||2);await saveC(c);render();reglClient(id,'mensuel');toast('📅 Première facture le '+fmt(v))}
 function moisAuto(c){const M=c.mensuel;if(!M||!M.on||etp(c)!=='actif')return false;const m=T.slice(0,7);if(+T.slice(8)<(+M.jour||2))return false;if(M.depuis&&m<M.depuis)return false;M.liste=M.liste||[];
   if(M.liste.some(f=>f.mois===m))return false;M.liste.push({id:'m'+m.replace('-','')+'-'+c.id,mois:m,montant:+M.ttc||55,statut:'à payer',date:m+'-'+String(M.jour||2).padStart(2,'0')});return true}
 async function payeMois(id,fid,mode){mode=mode||'Cash';const c=D.clients.find(x=>x.id===id),f=c.mensuel.liste.find(x=>x.id===fid);if(!confirm(`${c.nom} a payé ${moisTxt(f.mois)} (${eur(f.montant)}) ${mode==='Cash'?'en cash':'par SumUp'} ?`))return;
