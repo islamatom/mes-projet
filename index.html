@@ -344,7 +344,7 @@ main{padding-bottom:90px!important}
     <div class="sig-l">Atom · Hassani Mohamed Islam · Rue du Commerce 9, 5300 Andenne<br>TVA BE0748661737 · <a href="tel:+32499374830">0499 37 48 30</a></div>
     <a class="credit" href="https://www.hassanimohamedislam.com" target="_blank" rel="noopener">Développé avec <span>♡</span> par le développeur <b>Atom</b></a>
     <div class="atom-ct"><a href="https://www.instagram.com/islem_atom/" target="_blank" rel="noopener">📷 @islem_atom</a><a href="mailto:islematom@gmail.com">✉️ islematom@gmail.com</a><a href="tel:+32499374830">📞 0499 37 48 30</a></div>
-    <div class="sig-v">Atom · v5.15 · site privé, synchronisé sur ton PC et ton téléphone</div>
+    <div class="sig-v">Atom · v5.16 · site privé, synchronisé sur ton PC et ton téléphone</div>
   </footer>
 </main>
 
@@ -622,7 +622,7 @@ function reglClient(id,zone){const c=D.clients.find(x=>x.id===id);const [et,cl]=
      <span>N° TVA</span><b>${c.tva?esc(c.tva)+(tvaOk(c.tva)?' ✓':' ⚠'):'—'}</b><span>Adresse</span><b>${esc(c.adresse)||'—'}</b>
      <span>E-mail</span><b>${esc(c.email)||'—'}</b><span>Téléphone</span><b>${esc(c.tel)||'—'}</b></div>
      <button class="btn b-line b-sm" style="margin-top:10px" onclick="copierPeppol(${c.id})">📋 Copier pour Peppol</button></div>`:''}
-   ${A?(()=>{const m=[[!c.contact||!c.nomContact,'son prénom et nom'],[!c.adresse,'son adresse'],[!c.tel,'son téléphone'],[!c.email,'son e-mail'],[!c.tva,'son n° TVA (pour Peppol)'],[!lienPay(c),'un lien SumUp'],[!(c.sp&&c.sp.aboDebut),'son compteur']].filter(x=>x[0]).map(x=>x[1]);
+   ${A?(()=>{const m=[[!c.contact&&!c.nomContact,'son prénom ou son nom'],[!c.adresse,'son adresse'],[!c.tel,'son téléphone'],[!c.email,'son e-mail'],[!c.tva,'son n° TVA (pour Peppol)'],[!mensOn(c)&&!lienPay(c),'un lien SumUp'],[!mensOn(c)&&!(c.sp&&c.sp.aboDebut)&&!c.debut,'son compteur']].filter(x=>x[0]).map(x=>x[1]);
      return m.length?`<div class="box" style="border:1px dashed var(--warn)"><h4 style="color:var(--warn)">⚠ Il manque</h4><p style="font-size:14px;line-height:1.5">${m.join(' · ')}</p><button class="btn b-line b-sm" style="margin-top:10px" onclick="editClient(${c.id})">Compléter</button></div>`:''})():''}
    <div id="rgz">${zoneRegl(c,zone)}</div>
    ${(c.envois||[]).length?`<div class="box"><h4>Derniers envois</h4>${c.envois.slice(-6).reverse().map(e=>`<div class="pay"><span>${esc(e.type)}</span><small style="color:var(--ink2)">${fmt(e.date)}</small></div>`).join('')}</div>`:''}
