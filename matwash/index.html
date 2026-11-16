@@ -181,6 +181,11 @@ body.jour .vedette::before{background:linear-gradient(180deg,#f3f3f3 0%,transpar
 .f.go .tag::after{content:" ›"}
 footer{padding-bottom:110px}
 .toast2{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#fff;color:#111;padding:12px 18px;border-radius:12px;font-weight:600;z-index:90;box-shadow:0 8px 25px rgba(0,0,0,.4)}
+
+.vid{text-align:center}.vid h2{text-align:left}.vid .trait2{width:60px!important}
+.tel{position:relative;width:min(78vw,360px);aspect-ratio:9/16;margin:6px auto 0;border-radius:28px;overflow:hidden;border:3px solid #2a2a30;box-shadow:0 0 0 2px #e3121b,0 25px 60px rgba(0,0,0,.6),0 0 60px rgba(227,18,27,.25)}
+.tel video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.son{position:absolute;right:12px;bottom:12px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(0,0,0,.55);color:#fff;font-size:20px;backdrop-filter:blur(6px)}
 </style>
 </head>
 <body>
@@ -222,6 +227,11 @@ footer{padding-bottom:110px}
   <div class="f anim"><div><b>Produits d'entretien</b><small>En vente sur place</small></div><span class="tag l">Boutique</span></div>
 </section>
 
+<section class="vid anim">
+  <h2>Mat’Wash en vidéo</h2><div class="trait2 vu"></div>
+  <div class="tel"><video id="vmw" src="video.mp4" poster="video-poster.jpg" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
+</div>
+</section>
 <div class="vedette v2 anim">
   <div class="vimg"></div>
   <div class="vtxt"><span>JAMAIS SEUL</span><h3>Un passionné sur place pour vous guider</h3><p>Ici, pas de car-wash impersonnel : on vous conseille, on vous montre les bons gestes, avec du matériel pro.</p>
@@ -328,6 +338,7 @@ function envoie(){try{localStorage.setItem('ra_demo_rdv',JSON.stringify({prenom:
 E=6;rend();const f=document.getElementById('fete');for(let i=0;i<26;i++){const b=document.createElement('i');b.className='mousse';const s=10+Math.random()*34;b.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:-40px;animation-duration:${1.6+Math.random()*1.6}s;animation-delay:${Math.random()*.6}s`;f.appendChild(b)}}
 
 function pasNum(){const d=document.createElement('div');d.className='toast2';d.textContent='Numéro de Mat’Wash à ajouter';document.body.appendChild(d);setTimeout(()=>d.remove(),2200);return false}
+function son(){const v=document.getElementById('vmw');v.muted=!v.muted;document.getElementById('son').textContent=v.muted?'🔇':'🔊';v.play()}
 function ouvre(id){document.getElementById(id).classList.add('on')}
 function ferme(m){m.classList.remove('on')}
 function bascule(){document.body.classList.toggle('jour');document.getElementById('mode').textContent=document.body.classList.contains('jour')?'🌙':'☀️'}
