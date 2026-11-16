@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mat'Wash · Car-Wash 4 pistes · Andenne</title>
+<meta name="description" content="Mat'Wash, car-wash 4 pistes à Andenne. Avec ou sans rendez-vous.">
+<meta property="og:title" content="Mat'Wash · Car-Wash Andenne">
+<meta property="og:description" content="Car-wash 4 pistes, avec ou sans rendez-vous. Chaussée de Ciney 538 B, Andenne.">
+<meta property="og:image" content="icone.jpg">
+<link rel="icon" href="icone.jpg">
+<link rel="apple-touch-icon" href="icone.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#121214;--card:#1c1c20;--txt:#f5f5f5;--mute:#a3a3ab;--line:#2c2c32;--rouge:#e3121b}
+body.jour{--bg:#f3f3f3;--card:#fff;--txt:#141416;--mute:#5d5d66;--line:#e2e2e2}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--bg);color:var(--txt);transition:background .4s,color .4s}
+.top{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:12px 14px;z-index:20}
+.ic{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.45);backdrop-filter:blur(8px);color:#fff;font-size:18px;cursor:pointer}
+.hero{min-height:92vh;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:80px 22px 40px;color:#fff}
+.hero .bg{position:absolute;inset:0;background:url(fond.jpg) center/cover;animation:zoom 18s ease-in-out infinite alternate}
+@keyframes zoom{to{transform:scale(1.15)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,18,20,.35) 0%,rgba(18,18,20,.55) 45%,#121214 100%)}
+.hero>*:not(.bg){position:relative;z-index:2}
+.arc{width:170px;height:170px;border-radius:50%;overflow:hidden;border:4px solid #fff;box-shadow:0 0 0 4px var(--rouge),0 15px 40px rgba(0,0,0,.6);opacity:0;animation:pop 1s .2s forwards}
+.arc img{width:100%;height:100%;object-fit:cover}
+@keyframes pop{from{opacity:0;transform:scale(.6) rotate(-20deg)}to{opacity:1;transform:none}}
+.nom{font-family:Cinzel,serif;font-size:46px;letter-spacing:2px;margin-top:18px;opacity:0;animation:arrive .9s .6s forwards}
+.trait{width:0;height:4px;background:var(--rouge);margin:10px auto;border-radius:4px;animation:trait 1s 1s forwards}
+@keyframes trait{to{width:120px}}
+.hero p{font-size:18px;margin:6px 0 24px;max-width:400px;opacity:0;animation:arrive .9s 1.1s forwards}
+@keyframes arrive{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+.btn{display:block;width:100%;max-width:420px;text-align:center;padding:17px;border-radius:14px;border:none;font:700 18px Outfit,sans-serif;cursor:pointer;text-decoration:none}
+.rouge{background:var(--rouge);color:#fff;box-shadow:0 10px 30px rgba(227,18,27,.45)}
+.hero .btn{opacity:0;animation:arrive .9s 1.4s forwards,pulse 2.4s 3s infinite}
+@keyframes pulse{50%{transform:scale(1.04)}}
+.duo{display:flex;gap:10px;max-width:420px;width:100%;margin-top:10px;opacity:0;animation:arrive .9s 1.6s forwards}
+.duo span{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:10px;font-size:14px}
+section{padding:34px 18px;max-width:560px;margin:auto}
+h2{font-family:Cinzel,serif;font-size:26px;margin-bottom:6px}
+h2+.trait2{width:60px;height:3px;background:var(--rouge);margin-bottom:18px}
+.f{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--rouge);border-radius:14px;padding:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.f b{display:block;font-size:17px}.f small{color:var(--mute)}
+.tag{font-size:13px;font-weight:700;padding:6px 10px;border-radius:20px;white-space:nowrap;background:var(--rouge);color:#fff}
+.tag.l{background:transparent;border:1.5px solid var(--mute);color:var(--mute)}
+.anim{opacity:0;transform:translateY(25px);transition:.7s}.anim.vu{opacity:1;transform:none}
+.galerie{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.galerie img{width:100%;height:220px;object-fit:cover;border-radius:14px}
+.galerie img:first-child{grid-column:span 2;height:240px}
+.info{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;line-height:1.8}
+.row{display:flex;gap:10px;margin-top:14px}.row .btn{font-size:16px;padding:14px}
+.o{background:transparent;color:var(--txt);border:2px solid var(--txt)}
+footer{text-align:center;padding:26px 16px 95px;color:var(--mute);font-size:13px}
+.fixe{position:fixed;left:14px;right:14px;width:auto;bottom:14px;z-index:15;max-width:520px;margin:auto;transform:translateY(120px);transition:.4s}
+.fixe.on{transform:none}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:flex-end;justify-content:center;z-index:30}
+.modal.on{display:flex}
+.box{background:var(--card);color:var(--txt);width:100%;max-width:520px;border-radius:24px 24px 0 0;border-top:4px solid var(--rouge);padding:26px 20px 30px;animation:sl .35s}
+@keyframes sl{from{transform:translateY(100%)}}
+.box h3{font-family:Cinzel,serif;font-size:22px;margin-bottom:10px}.box li{margin:8px 0 8px 18px}
+.box .btn{margin-top:16px}
+
+/* ===== ANIMATIONS v1.2 ===== */
+#intro{position:fixed;inset:0;z-index:100;background:#0b0b0d;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:essuie .9s 2.6s cubic-bezier(.7,0,.3,1) forwards}
+@keyframes essuie{to{clip-path:inset(100% 0 0 0)}}
+#intro::after{content:"";position:absolute;left:0;right:0;top:0;height:14px;background:linear-gradient(90deg,#fff,#cfe9ff,#fff);box-shadow:0 0 30px #fff,0 0 60px #9fd3ff;opacity:0;animation:raclette .9s 2.6s cubic-bezier(.7,0,.3,1) forwards}
+@keyframes raclette{0%{opacity:1;top:0}100%{opacity:1;top:100%}}
+#intro svg{width:200px;height:200px}
+#intro .a1{fill:none;stroke:#e3121b;stroke-width:10;stroke-linecap:round;stroke-dasharray:440;stroke-dashoffset:440;animation:dessine 1.1s .2s ease-out forwards}
+#intro .a2{fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;stroke-dasharray:500;stroke-dashoffset:500;animation:dessine 1.1s .5s ease-out forwards}
+@keyframes dessine{to{stroke-dashoffset:0}}
+#intro img{position:absolute;width:120px;height:120px;border-radius:50%;object-fit:cover;opacity:0;animation:pop .7s 1.1s forwards}
+#intro .lettres{font-family:Cinzel,serif;font-size:38px;color:#fff;letter-spacing:4px;margin-top:22px}
+#intro .lettres span{display:inline-block;opacity:0;transform:translateY(-40px);animation:tombe .45s forwards}
+@keyframes tombe{60%{transform:translateY(6px)}to{opacity:1;transform:none}}
+#intro small{color:#e3121b;font-weight:700;letter-spacing:6px;margin-top:8px;opacity:0;animation:arrive .6s 2s forwards}
+#pluie{position:absolute;inset:0;z-index:1;pointer-events:none}
+.arc{position:relative;overflow:visible}
+.arc::before{content:"";position:absolute;inset:-12px;border-radius:50%;background:conic-gradient(#e3121b 0 30%,transparent 30% 50%,#fff 50% 62%,transparent 62%);-webkit-mask:radial-gradient(circle,transparent 62%,#000 63%);mask:radial-gradient(circle,transparent 62%,#000 63%);animation:tourne 3s linear infinite}
+@keyframes tourne{to{transform:rotate(360deg)}}
+.arc img{border-radius:50%}
+.rouge{position:relative;overflow:hidden}
+.rouge::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:reflet 3s infinite}
+@keyframes reflet{0%,60%{left:-80%}100%{left:130%}}
+.f.anim{transform:translateX(-40px)}.f.anim:nth-child(odd){transform:translateX(40px)}
+.f.anim.vu{transform:none}
+.f.anim{border-left-width:0;transition:.7s,border-left-width .5s .4s}.f.anim.vu{border-left-width:4px}
+.galerie img{clip-path:inset(0 100% 0 0);transition:clip-path 1s cubic-bezier(.7,0,.3,1)}
+.galerie.vu img{clip-path:inset(0 0 0 0)}
+.galerie.vu img:nth-child(2){transition-delay:.25s}.galerie.vu img:nth-child(3){transition-delay:.5s}
+.galerie img{transition:clip-path 1s cubic-bezier(.7,0,.3,1),transform .4s}.galerie img:active{transform:scale(.97)}
+h2{overflow:hidden}
+.trait2{width:0!important;transition:width .8s .3s}.trait2.vu{width:60px!important}
+
+body{overflow-x:hidden}
+.galerie{display:flex!important;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px;padding:6px 18px 10px;scrollbar-width:none}
+.galerie::-webkit-scrollbar{display:none}
+.galerie figure{flex:0 0 82%;height:440px;position:relative;border-radius:20px;overflow:hidden;scroll-snap-align:center;box-shadow:0 18px 40px rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.08);clip-path:inset(0 100% 0 0);transition:clip-path 1s cubic-bezier(.7,0,.3,1),transform .3s}
+.galerie.vu figure{clip-path:inset(0 0 0 0)}
+.galerie.vu figure:nth-child(2){transition-delay:.2s}.galerie.vu figure:nth-child(3){transition-delay:.4s}
+.galerie figure:active{transform:scale(.97)}
+.galerie img{width:100%!important;height:100%!important;object-fit:cover;clip-path:none!important;animation:kb 12s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.12) translate(-3%,-2%)}}
+.galerie figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 16px 16px;background:linear-gradient(transparent,rgba(0,0,0,.85));color:#fff;font-weight:700;font-size:17px}
+.galerie figcaption::before{content:"";display:block;width:34px;height:3px;background:#e3121b;margin-bottom:8px}
+.points{display:flex;justify-content:center;gap:7px;margin-top:12px}
+.points i{width:8px;height:8px;border-radius:8px;background:var(--line);transition:.3s}.points i.on{width:26px;background:#e3121b}
+.note2{text-align:center;color:var(--mute);font-size:13px;margin-top:8px}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:60;display:none;align-items:center;justify-content:center}
+#lb.on{display:flex}#lb img{max-width:100%;max-height:100%;animation:pop .35s}
+#lb b{position:absolute;top:14px;right:18px;color:#fff;font-size:34px}
+
+.vedette{position:relative;height:88vh;max-height:720px;overflow:hidden;margin:10px 0;opacity:1!important;transform:none!important}
+.vimg{position:absolute;inset:-8% 0;background:url(pro.jpg) center 30%/cover;transform:scale(1.25);transition:transform 2.2s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.vedette.vu .vimg{transform:scale(1.05)}
+.vedette::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,#121214 0%,transparent 18%,transparent 45%,rgba(0,0,0,.9) 100%)}
+.vedette::after{content:"";position:absolute;z-index:1;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.18),transparent);transform:skewX(-15deg);animation:reflet 5s 1s infinite}
+.vtxt{position:absolute;z-index:2;left:20px;right:20px;bottom:28px;color:#fff;transform:translateY(40px);opacity:0;transition:1s .6s}
+.vedette.vu .vtxt{transform:none;opacity:1}
+.vtxt span{display:inline-block;background:#e3121b;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:800;letter-spacing:3px}
+.vtxt h3{font-family:Cinzel,serif;font-size:28px;line-height:1.15;margin:12px 0 8px}
+.vtxt p{color:#ddd;margin-bottom:16px}
+body.jour .vedette::before{background:linear-gradient(180deg,#f3f3f3 0%,transparent 18%,transparent 45%,rgba(0,0,0,.9) 100%)}
+
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:26px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 10px;text-align:center;position:relative;overflow:hidden}
+.stats div::before{content:"";position:absolute;left:0;top:0;height:3px;width:0;background:#e3121b;transition:width 1.2s .3s}
+.stats.vu div::before{width:100%}
+.stats b{display:block;font-family:Cinzel,serif;font-size:32px;color:#e3121b}
+.stats small{color:var(--mute);font-size:13px}
+.v2 .vimg{background-image:url(lui.jpg);background-position:center 15%}
+
+@property --a{syntax:'<angle>';inherits:false;initial-value:0deg}
+.lgw{position:relative;width:min(92vw,420px);aspect-ratio:3/2;opacity:1}
+.lgw.big{width:min(96vw,560px)}
+.lgw img{width:100%;height:100%;display:block;
+ -webkit-mask:conic-gradient(from 180deg at 50% 73%,#000 var(--a),transparent 0);mask:conic-gradient(from 180deg at 50% 73%,#000 var(--a),transparent 0);animation:balaye 1.3s .2s cubic-bezier(.6,0,.3,1) forwards}
+@keyframes balaye{to{--a:360deg}}
+.lgw .flux{position:absolute;inset:0;clip-path:polygon(46% 21%,54% 21%,64.5% 45%,34.5% 45%);
+ background:repeating-linear-gradient(180deg,transparent 0 10px,rgba(160,215,255,.55) 10px 13px,transparent 13px 26px);background-size:100% 52px;mix-blend-mode:screen;opacity:0;animation:coule .5s linear infinite,on .6s 1.3s forwards}
+@keyframes coule{to{background-position:0 52px}}
+@keyframes on{to{opacity:1}}
+.lgw canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.lgw .etoile{position:absolute;left:50%;top:92%;transform:translate(-50%,-50%) scale(0);color:#fff;font-style:normal;font-size:clamp(14px,3vw,22px);text-shadow:0 0 12px #fff,0 0 24px #ff3b3b;animation:brille 1.6s 1.6s ease-in-out infinite}
+@keyframes brille{0%,100%{transform:translate(-50%,-50%) scale(.6) rotate(0)}50%{transform:translate(-50%,-50%) scale(1.5) rotate(45deg)}}
+.lgw::after{content:"";position:absolute;left:0;right:0;top:74%;height:18%;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);background-size:300% 100%;mix-blend-mode:overlay;animation:texte 3.5s 1.8s infinite;opacity:.9}
+@keyframes texte{from{background-position:150% 0}to{background-position:-150% 0}}
+.hero .lgw{margin-bottom:8px}
+#intro .lgw img{position:static;width:100%;height:100%;border-radius:0;opacity:1;object-fit:contain;animation:balaye 1.3s .2s cubic-bezier(.6,0,.3,1) forwards}
+#intro{animation-delay:3.3s!important}#intro::after{animation-delay:3.3s!important}
+#intro small{margin-top:14px}
+
+.res{max-height:92vh;overflow:auto;padding-top:16px}
+.rtop{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.rb{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--txt);font-size:22px;cursor:pointer}
+.prog{flex:1;height:6px;border-radius:6px;background:var(--line);overflow:hidden}.prog i{display:block;height:100%;background:#e3121b;width:0;transition:.4s}
+#rc h3{font-family:Cinzel,serif;font-size:22px;margin-bottom:4px}#rc .s{color:var(--mute);font-size:14px;margin-bottom:14px}
+.opt{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px;color:var(--txt);font:inherit;cursor:pointer;transition:.2s}
+.opt b{font-size:16px}.opt small{display:block;color:var(--mute)}.opt.on{border-color:#e3121b;background:rgba(227,18,27,.08)}
+.chips2{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.ch{padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--txt);font:600 14px Outfit,sans-serif;cursor:pointer}
+.ch.on{border-color:#e3121b;background:#e3121b;color:#fff}.ch:disabled{opacity:.3;text-decoration:line-through}
+.jours{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.jours .ch{padding:10px 4px;text-align:center;line-height:1.2}
+.jours .ch small{display:block;font-weight:400;font-size:12px}
+.heures{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.inp{width:100%;padding:14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--txt);font:16px Outfit,sans-serif;margin-bottom:10px}
+.inp:focus{outline:none;border-color:#e3121b}
+.recap{background:var(--bg);border-radius:14px;padding:14px;line-height:1.8;margin:6px 0 12px;border-left:4px solid #e3121b}
+.err{color:#ff4d55;font-size:14px;min-height:18px;margin-bottom:6px}
+.fete{text-align:center;padding:20px 0;position:relative;overflow:hidden}
+.fete .ok{width:90px;height:90px;border-radius:50%;background:#e3121b;color:#fff;font-size:46px;display:grid;place-items:center;margin:0 auto 14px;animation:pop .6s}
+.mousse{position:absolute;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,rgba(220,235,255,.5));animation:monte2 linear forwards;pointer-events:none}
+@keyframes monte2{from{transform:translateY(0) scale(.4);opacity:1}to{transform:translateY(-420px) scale(1.2);opacity:0}}
+
+.barre{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:15;display:flex;gap:8px;padding:8px;border-radius:20px;background:rgba(18,18,20,.88);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);box-shadow:0 10px 30px rgba(0,0,0,.5);transform:translateY(130%);transition:.4s;max-width:520px;margin:auto}
+.barre.on{transform:none}
+.bb{flex:0 0 52px;height:52px;border-radius:14px;border:none;background:#26262b;color:#fff;font:700 20px Outfit,sans-serif;display:grid;place-items:center;text-decoration:none;cursor:pointer}
+.bb.r{flex:1;background:#e3121b;font-size:17px;box-shadow:0 6px 18px rgba(227,18,27,.45)}.bb.wa{background:#1fae54}
+.f.go{cursor:pointer}.f.go:active{transform:scale(.98)}
+.f.go .tag::after{content:" ›"}
+footer{padding-bottom:110px}
+.toast2{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#fff;color:#111;padding:12px 18px;border-radius:12px;font-weight:600;z-index:90;box-shadow:0 8px 25px rgba(0,0,0,.4)}
+</style>
+</head>
+<body>
+<div id="intro" onclick="this.remove()">
+  <div class="lgw big"><img src="logo.png" alt="Mat'Wash"><div class="flux"></div><canvas></canvas><i class="etoile">✦</i></div>
+  <small>CAR-WASH · ANDENNE</small>
+</div>
+<div class="top">
+  <button class="ic" onclick="location.href='panel.html'" aria-label="Panel">🔒</button>
+  <button class="ic" id="mode" onclick="bascule()" aria-label="Mode jour / nuit">☀️</button>
+</div>
+
+<header class="hero">
+  <div class="bg"></div>
+  <div class="lgw"><img src="logo.png" alt="Logo Mat'Wash"><div class="flux"></div><canvas></canvas><i class="etoile">✦</i></div>
+    <p>Car-wash 4 pistes à Andenne. Venez quand vous voulez, ou réservez votre créneau.</p>
+  <button class="btn rouge" onclick="ouvreRes()">📅 Réserver un lavage</button>
+  <div class="duo"><span>🚗 Sans RDV<br><b>sur place</b></span><span>📅 Avec RDV<br><b>sans attendre</b></span></div>
+</header>
+
+<section class="stats anim">
+  <div><b data-n="0" data-s=" ans">XX</b><small>d'expérience</small></div>
+  <div><b data-n="4">0</b><small>pistes couvertes</small></div>
+  <div><b data-n="100" data-s="%">0</b><small>recommandé (avis Facebook)</small></div>
+  <div><b data-n="944">0</b><small>abonnés Facebook</small></div>
+</section>
+<div class="vedette anim">
+  <div class="vimg"></div>
+  <div class="vtxt"><span>SOIN PRO</span><h3>On bichonne votre voiture comme la nôtre</h3><p>Lavage à la main, séchage microfibre, finition parfaite.</p>
+  <button class="btn rouge" onclick="ouvreRes()">📅 Je réserve</button></div>
+</div>
+<section>
+  <h2 class="anim">Nos services</h2><div class="trait2 anim"></div>
+  <div class="f anim"><div><b>Self car-wash</b><small>4 pistes, vous lavez vous-même</small></div><span class="tag l">Sans RDV</span></div>
+  <div class="f anim go" onclick="ouvreRes(1)"><div><b>Lavage extérieur à la main</b><small>Carrosserie, jantes, séchage</small></div><span class="tag">Sur RDV</span></div>
+  <div class="f anim go" onclick="ouvreRes(2)"><div><b>Nettoyage intérieur</b><small>Aspiration, plastiques, vitres</small></div><span class="tag">Sur RDV</span></div>
+  <div class="f anim go" onclick="ouvreRes(0)"><div><b>Formule complète</b><small>Intérieur + extérieur</small></div><span class="tag">Sur RDV</span></div>
+  <div class="f anim go" onclick="ouvreRes(4)"><div><b>Nettoyage de tapis</b><small>Machine à tapis, éclat neuf</small></div><span class="tag">Nouveau</span></div>
+  <div class="f anim"><div><b>Produits d'entretien</b><small>En vente sur place</small></div><span class="tag l">Boutique</span></div>
+</section>
+
+<div class="vedette v2 anim">
+  <div class="vimg"></div>
+  <div class="vtxt"><span>JAMAIS SEUL</span><h3>Un passionné sur place pour vous guider</h3><p>Ici, pas de car-wash impersonnel : on vous conseille, on vous montre les bons gestes, avec du matériel pro.</p>
+  <a class="btn rouge" href="#nous">📍 Passer nous voir</a></div>
+</div>
+<section>
+  <h2 class="anim">En images</h2><div class="trait2 anim"></div>
+  <div class="galerie anim" id="gal">
+    <figure onclick="zoomP(this)"><img src="pro.jpg" alt="Lavage à la main" loading="lazy"><figcaption>Séchage à la main, zéro trace</figcaption></figure>
+    <figure onclick="zoomP(this)"><img src="fond.jpg" alt="Mat'Wash de nuit" loading="lazy"><figcaption>Ouvert même le soir 🌙</figcaption></figure>
+    <figure onclick="zoomP(this)"><img src="piste.jpg" alt="Piste de lavage" loading="lazy"><figcaption>4 pistes couvertes</figcaption></figure>
+    <figure onclick="zoomP(this)"><img src="enseigne.jpg" alt="Mat'Wash" loading="lazy"><figcaption>Produits pros Flashcar</figcaption></figure>
+    <figure onclick="zoomP(this)"><img src="produits.jpg" alt="Produits d'entretien" loading="lazy"><figcaption>Entretien & protection</figcaption></figure>
+  </div>
+  <div class="points" id="pts"></div>
+  <p class="note2">👆 Glissez pour voir les photos, touchez pour agrandir</p>
+</section>
+
+<section id="nous">
+  <h2 class="anim">Nous trouver</h2><div class="trait2 anim"></div>
+  <div class="info anim">
+    📍 Chaussée de Ciney 538 B, 5300 Andenne<br>
+    🕘 Horaires à compléter<br>
+    🚗 Avec ou sans rendez-vous
+    <div class="row">
+      <a class="btn rouge" href="tel:" onclick="return pasNum()">📞 Appeler</a>
+      <a class="btn o" href="https://www.google.com/maps/search/?api=1&query=Chauss%C3%A9e+de+Ciney+538B+5300+Andenne" target="_blank">Itinéraire</a>
+    </div>
+  </div>
+</section>
+
+<footer>Site créé par Atom · islematom@gmail.com · @islem_atom · 0499 37 48 30</footer>
+<nav class="barre" id="fixe"><button class="bb r" onclick="ouvreRes()">📅 Réserver</button><a class="bb" href="tel:" onclick="return pasNum()">📞</a><a class="bb wa" href="https://wa.me/" onclick="return pasNum()">💬</a><a class="bb" href="https://www.google.com/maps/search/?api=1&query=Chauss%C3%A9e+de+Ciney+538B+5300+Andenne" target="_blank">📍</a></nav>
+
+<div class="modal" id="rdv" onclick="if(event.target==this)ferme(this)">
+  <div class="box res">
+    <div class="rtop"><button class="rb" id="rback" onclick="pas(-1)">‹</button><div class="prog"><i id="rprog"></i></div><button class="rb" onclick="ferme(document.getElementById('rdv'))">×</button></div>
+    <div id="rc"></div>
+  </div>
+</div>
+<div class="modal" id="panel" onclick="if(event.target==this)ferme(this)">
+  <div class="box">
+    <h3>🔒 Espace gérant</h3>
+    <p>Votre panel de gestion sera ici : les RDV du jour, accepter / modifier en un clic, notification avec son à chaque nouvelle réservation.</p>
+    <button class="btn rouge" onclick="ferme(this.closest('.modal'))">OK</button>
+  </div>
+</div>
+
+<div id="lb" onclick="this.classList.remove('on')"><b>×</b><img alt=""></div>
+<script>
+
+// lettres de l'intro
+setTimeout(()=>{const i=document.getElementById('intro');i&&i.remove()},4300);
+
+// eau qui tombe de la lampe du logo
+document.querySelectorAll('.lgw').forEach(w=>{const c=w.querySelector('canvas'),x=c.getContext('2d');let D=[],P=[],t0=performance.now();
+function tl(){c.width=w.offsetWidth*devicePixelRatio;c.height=w.offsetHeight*devicePixelRatio}tl();addEventListener('resize',tl);
+function f(t){const W=c.width,H=c.height;x.clearRect(0,0,W,H);if(t-t0>1300){for(let k=0;k<3;k++){const u=Math.random();D.push({x:(.47+u*.06)*W,y:.22*H,vx:((.345+u*.30)-(.47+u*.06))*W/26,vy:H*.004,g:H*.00035,l:H*(.012+Math.random()*.015)})}}
+x.lineCap='round';D=D.filter(d=>{d.vy+=d.g;d.x+=d.vx;d.y+=d.vy;
+ const sol=d.x>W*.37&&d.x<W*.63?H*(.44+Math.abs(d.x/W-.6)*.15):H*.5;
+ if(d.y>sol){for(let k=0;k<3;k++)P.push({x:d.x,y:sol,vx:(Math.random()-.5)*W*.006,vy:-Math.random()*H*.006,a:1});return false}
+ x.strokeStyle='rgba(190,230,255,.85)';x.lineWidth=Math.max(1,W*.003);x.beginPath();x.moveTo(d.x,d.y);x.lineTo(d.x-d.vx*.6,d.y-d.l);x.stroke();return true});
+P=P.filter(p=>p.a>0);P.forEach(p=>{x.fillStyle=`rgba(255,255,255,${p.a})`;x.beginPath();x.arc(p.x,p.y,W*.0028,0,7);x.fill();p.x+=p.vx;p.y+=p.vy;p.vy+=H*.0006;p.a-=.035});
+if(w.isConnected)requestAnimationFrame(f)}requestAnimationFrame(f)});
+
+
+
+
+const gal=document.getElementById('gal'),pts=document.getElementById('pts'),figs=[...gal.children];
+pts.innerHTML=figs.map(()=>'<i></i>').join('');
+function maj(){const i=Math.round(gal.scrollLeft/(figs[0].offsetWidth+14));[...pts.children].forEach((p,k)=>p.classList.toggle('on',k==i))}
+gal.addEventListener('scroll',maj);maj();
+let auto=setInterval(()=>{const i=Math.round(gal.scrollLeft/(figs[0].offsetWidth+14));gal.scrollTo({left:((i+1)%figs.length)*(figs[0].offsetWidth+14),behavior:'smooth'})},3500);
+gal.addEventListener('touchstart',()=>clearInterval(auto),{once:true});
+function zoomP(f){const lb=document.getElementById('lb');lb.querySelector('img').src=f.querySelector('img').src;lb.classList.add('on')}
+
+const ves=[...document.querySelectorAll('.vedette')];
+addEventListener('scroll',()=>ves.forEach(ve=>{const r=ve.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)ve.querySelector('.vimg').style.translate='0 '+(r.top*-.12)+'px'}),{passive:true});
+const so=new IntersectionObserver(e=>e.forEach(x=>{if(!x.isIntersecting)return;so.disconnect();x.target.querySelectorAll('b[data-n]').forEach(b=>{const n=+b.dataset.n,s=b.dataset.s||'';if(!n)return;let t0=null;
+const f=t=>{t0??=t;const p=Math.min((t-t0)/1600,1);b.textContent=Math.round(n*(1-Math.pow(1-p,3)))+s;if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)})}),{threshold:.4});
+so.observe(document.querySelector('.stats'));
+const MQ=["Abarth", "Alfa Romeo", "Alpine", "Aston Martin", "Audi", "Bentley", "BMW", "BYD", "Cadillac", "Chevrolet", "Chrysler", "Citroën", "Cupra", "Dacia", "Daewoo", "Daihatsu", "Dodge", "DS", "Ferrari", "Fiat", "Ford", "Genesis", "Honda", "Hummer", "Hyundai", "Infiniti", "Isuzu", "Iveco", "Jaguar", "Jeep", "Kia", "Lada", "Lamborghini", "Lancia", "Land Rover", "Lexus", "Lotus", "Lynk & Co", "Maserati", "Maybach", "Mazda", "McLaren", "Mercedes-Benz", "MG", "Mini", "Mitsubishi", "Nissan", "Opel", "Peugeot", "Polestar", "Porsche", "Range Rover", "Renault", "Rolls-Royce", "Saab", "Seat", "Skoda", "Smart", "SsangYong", "Subaru", "Suzuki", "Tesla", "Toyota", "Volkswagen", "Volvo"];
+const FO=[["Complet int. + ext.","Intérieur + extérieur",120,"Le plus demandé"],["Extérieur","Lavage à la main, jantes, séchage",60,""],["Intérieur","Aspiration, plastiques, vitres",60,""],["Shampoing sièges","Tissus et moquettes",90,""],["Nettoyage tapis","Machine à tapis",30,"Nouveau"]];
+let E=0,R={};const NE=6;
+function dur(m){return m>=60?Math.floor(m/60)+'h'+(m%60?String(m%60).padStart(2,'0'):''):m+' min'}
+function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function pris(j,hh){let x=0;for(const c of j+hh)x=(x*31+c.charCodeAt(0))%97;return x%4==0}
+function ouvreRes(f){R={v:'Voiture'};if(typeof f=='number'){R.f=f;E=1}else E=0;rend();ouvre('rdv')}
+function pas(n){if(n<0&&E>0){E--;rend()}}
+function rend(){const c=document.getElementById('rc');document.getElementById('rprog').style.width=(E/NE*100)+'%';document.getElementById('rback').style.visibility=E>0&&E<NE?'visible':'hidden';let t='';
+if(E==0)t=`<h3>Quelle formule ?</h3><p class="s">Lavage à la main, sur rendez-vous</p>`+FO.map((f,i)=>`<button class="opt ${R.f===i?'on':''}" onclick="R.f=${i};E++;rend()"><span><b>${f[0]}</b><small>${f[1]}</small></span><span class="tag ${f[3]?'':'l'}">${f[3]||dur(f[2])}</span></button>`).join('');
+if(E==1)t=`<h3>Votre véhicule</h3><p class="s">Pour prévoir le bon temps de lavage</p><div class="chips2">${['Voiture','SUV / 4x4','Camionnette','Moto'].map(v=>`<button class="ch ${R.v==v?'on':''}" onclick="R.v='${v}';rend()">${v}</button>`).join('')}</div>
+<input class="inp" id="mq" list="mql" placeholder="Marque (ex : Porsche)" value="${R.m||''}"><datalist id="mql">${MQ.map(m=>`<option value="${m}">`).join('')}</datalist><div class="err" id="er"></div><button class="btn rouge" onclick="R.m=document.getElementById('mq').value.trim();if(!R.m){document.getElementById('er').textContent='Indiquez la marque';return}E++;rend()">Continuer</button>`;
+if(E==2){let j=[],d=new Date();while(j.length<12){d=new Date(d.getTime()+864e5);j.push(new Date(d))}
+t=`<h3>Quel jour ?</h3><p class="s">Fermé le dimanche</p><div class="jours">${j.map(x=>{const k=iso(x),dim=x.getDay()==0;return `<button class="ch ${R.d==k?'on':''}" ${dim?'disabled':''} onclick="R.d='${k}';E++;rend()">${x.toLocaleDateString('fr-BE',{weekday:'short'})}<small>${x.getDate()} ${x.toLocaleDateString('fr-BE',{month:'short'})}</small></button>`}).join('')}</div>`}
+if(E==3){const hs=['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];t=`<h3>Quelle heure ?</h3><p class="s">${new Date(R.d).toLocaleDateString('fr-BE',{weekday:'long',day:'numeric',month:'long'})} · durée ${dur(FO[R.f][2])}</p><div class="heures">${hs.map(x=>{const p=pris(R.d,x);return `<button class="ch ${R.h==x?'on':''}" ${p?'disabled':''} onclick="R.h='${x}';E++;rend()">${x}</button>`}).join('')}</div><p class="s" style="margin-top:10px">Les heures barrées sont déjà prises</p>`}
+if(E==4)t=`<h3>Vos coordonnées</h3><p class="s">Pour vous confirmer le RDV</p><input class="inp" id="pr" placeholder="Prénom" value="${R.pre||''}"><input class="inp" id="no" placeholder="Nom" value="${R.nom||''}"><input class="inp" id="te" type="tel" inputmode="tel" placeholder="Téléphone (WhatsApp)" value="${R.tel||''}"><textarea class="inp" id="nt" rows="2" placeholder="Remarque (facultatif)">${R.note||''}</textarea><div class="err" id="er"></div><button class="btn rouge" onclick="co()">Continuer</button>`;
+if(E==5){const f=FO[R.f];t=`<h3>On vérifie ensemble</h3><div class="recap">🧽 <b>${f[0]}</b> (${dur(f[2])})<br>🚗 ${R.v} · ${R.m}<br>📅 ${new Date(R.d).toLocaleDateString('fr-BE',{weekday:'long',day:'numeric',month:'long'})} à ${R.h}<br>👤 ${R.pre} ${R.nom} · ${R.tel}</div><p class="s">Comment voulez-vous payer ?</p>
+<button class="opt ${R.pay=='ligne'?'on':''}" onclick="R.pay='ligne';rend()"><span><b>💳 Payer en ligne</b><small>Rapide et sécurisé</small></span></button><button class="opt ${R.pay=='place'?'on':''}" onclick="R.pay='place';rend()"><span><b>💶 Payer sur place</b><small>Cash ou carte</small></span></button><div class="err" id="er"></div><button class="btn rouge" onclick="if(!R.pay){document.getElementById('er').textContent='Choisissez le paiement';return}envoie()">Confirmer mon RDV</button>`}
+if(E==6)t=`<div class="fete" id="fete"><div class="ok">✓</div><h3>Demande envoyée !</h3><p class="s">Merci ${R.pre} ! Mat’Wash vous confirme votre RDV par WhatsApp très vite.</p><button class="btn rouge" onclick="ferme(document.getElementById('rdv'))">Parfait</button></div>`;
+c.innerHTML=t;c.scrollTop=0}
+function co(){const g=i=>document.getElementById(i).value.trim();R.pre=g('pr');R.nom=g('no');R.tel=g('te');R.note=g('nt');if(!R.pre||R.tel.replace(/\D/g,'').length<9){document.getElementById('er').textContent='Prénom et numéro de téléphone obligatoires';return}E++;rend()}
+function envoie(){try{localStorage.setItem('ra_demo_rdv',JSON.stringify({prenom:R.pre,nom:R.nom,tel:R.tel,email:'',type:FO[R.f][0],date:R.d,heure:R.h,message:`🚗 ${R.v} ${R.m}${R.note?' · '+R.note:''} · ${R.pay=='ligne'?'💳 payé en ligne':'💶 à payer sur place'}`}))}catch(e){}
+E=6;rend();const f=document.getElementById('fete');for(let i=0;i<26;i++){const b=document.createElement('i');b.className='mousse';const s=10+Math.random()*34;b.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:-40px;animation-duration:${1.6+Math.random()*1.6}s;animation-delay:${Math.random()*.6}s`;f.appendChild(b)}}
+
+function pasNum(){const d=document.createElement('div');d.className='toast2';d.textContent='Numéro de Mat’Wash à ajouter';document.body.appendChild(d);setTimeout(()=>d.remove(),2200);return false}
+function ouvre(id){document.getElementById(id).classList.add('on')}
+function ferme(m){m.classList.remove('on')}
+function bascule(){document.body.classList.toggle('jour');document.getElementById('mode').textContent=document.body.classList.contains('jour')?'🌙':'☀️'}
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target)}}),{threshold:.15});
+document.querySelectorAll('.anim').forEach((f,i)=>{f.style.transitionDelay=(i%5)*90+'ms';io.observe(f)});
+addEventListener('scroll',()=>document.getElementById('fixe').classList.toggle('on',scrollY>innerHeight*.35));
+</script>
+</body>
+</html>
