@@ -14,7 +14,7 @@
 .md-b{display:flex;flex-direction:column;gap:7px}.md-b .btn{width:100%;padding:12px;font-size:14.5px;color:var(--ink)}.md-b .btn.b-ok,.md-b .btn.b-bad{color:#fff}.md-b .btn.b-bad{background:var(--bad)}
 .an-leg{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--ink2)}.an-leg i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:4px;vertical-align:-1px}
 .an-leg .ok{background:var(--ok)}.an-leg .att{background:#E8B04B}.an-leg .ret{background:var(--bad)}.an-leg .vient{background:var(--line)}
-</style></head><body>
+</style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0F1A2E"><link rel="apple-touch-icon" href="img/atom-icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Atom"></head><body>
 
 <title>Atom</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -344,7 +344,7 @@ main{padding-bottom:90px!important}
     <div class="sig-l">Atom · Hassani Mohamed Islam · Rue du Commerce 9, 5300 Andenne<br>TVA BE0748661737 · <a href="tel:+32499374830">0499 37 48 30</a></div>
     <a class="credit" href="https://www.hassanimohamedislam.com" target="_blank" rel="noopener">Développé avec <span>♡</span> par le développeur <b>Atom</b></a>
     <div class="atom-ct"><a href="https://www.instagram.com/islem_atom/" target="_blank" rel="noopener">📷 @islem_atom</a><a href="mailto:islematom@gmail.com">✉️ islematom@gmail.com</a><a href="tel:+32499374830">📞 0499 37 48 30</a></div>
-    <div class="sig-v">Atom · v5.14 · site privé, synchronisé sur ton PC et ton téléphone</div>
+    <div class="sig-v">Atom · v5.15 · site privé, synchronisé sur ton PC et ton téléphone</div>
   </footer>
 </main>
 
@@ -795,6 +795,33 @@ function cloche(){if(window.APERCU&&!window.APERCU_CLOCHE)return;let vu;try{vu=J
 function clocheOk(id,z){try{localStorage.setItem(DMK,JSON.stringify(dmCles()))}catch(e){}const b=$('#cloche');if(b)b.classList.remove('on');if(id)reglClient(+id||id,z||'demandes')}
 function kaching(){try{const A=new (window.AudioContext||window.webkitAudioContext)();[[1568,0],[2093,.09],[2637,.18],[3136,.3]].forEach(([f,t])=>{const o=A.createOscillator(),g=A.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.0001,A.currentTime+t);g.gain.exponentialRampToValueAtTime(1,A.currentTime+t+.01);g.gain.exponentialRampToValueAtTime(.0001,A.currentTime+t+.6);o.connect(g).connect(A.destination);o.start(A.currentTime+t);o.stop(A.currentTime+t+.62)})}catch(e){}try{navigator.vibrate&&navigator.vibrate([200,80,200])}catch(e){}}
 document.addEventListener('click',()=>{try{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission()}catch(e){}},{once:true});
+
+/* ---------- 📱 notifications sur le téléphone (Web Push) ---------- */
+const PUSH_FN='https://ckepnrivozhjmquzcrfa.supabase.co/functions/v1/push';
+const estIOS=/iPad|iPhone|iPod/.test(navigator.userAgent),estApp=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+const pushOk=()=>'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
+let swReg=null;if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').then(r=>swReg=r).catch(()=>{});
+async function pushEtat(){if(!pushOk()||!swReg)return 'non';const s=await swReg.pushManager.getSubscription();return s&&Notification.permission==='granted'?'on':'off'}
+const b64u=s=>{const p='='.repeat((4-s.length%4)%4),r=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from([...r].map(c=>c.charCodeAt(0)))};
+async function pushActiver(){
+  if(estIOS&&!estApp){ouvrirAide();return}
+  if(!pushOk()){toast('Ce téléphone ne permet pas les notifications');return}
+  try{const per=await Notification.requestPermission();if(per!=='granted'){toast('Notifications refusées : autorise-les dans les réglages du téléphone');return}
+    swReg=swReg||await navigator.serviceWorker.register('sw.js');await navigator.serviceWorker.ready;
+    const an=(window.ATOM_CONFIG||{}).supabaseAnonKey||'';
+    const r=await fetch(PUSH_FN,{method:'POST',headers:{'Content-Type':'application/json',apikey:an,Authorization:'Bearer '+an},body:JSON.stringify({action:'cle'})}).then(r=>r.json());
+    if(!r.pub)throw new Error('cle');
+    const s=await swReg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(r.pub)});const j=s.toJSON();
+    const {error}=await window.SB.from('atom_push').upsert({endpoint:j.endpoint,sub:j,appareil:(estIOS?'iPhone':/Android/.test(navigator.userAgent)?'Android':'PC')+' · '+new Date().toLocaleDateString('fr-BE')});if(error)throw error;
+    toast('🔔 Notifications activées sur ce téléphone');try{reglages()}catch(e){}
+  }catch(e){toast('Impossible d\'activer : réessaie (connexion ?)')}}
+async function pushCouper(){try{const s=await swReg.pushManager.getSubscription();if(s){await window.SB.from('atom_push').delete().eq('endpoint',s.endpoint);await s.unsubscribe()}toast('Notifications coupées sur ce téléphone');reglages()}catch(e){}}
+function ouvrirAide(){$('#sheet').innerHTML=`<div class="sh-h"><div class="row"><h3>📱 Notifications sur iPhone</h3><button class="btn b-ghost b-sm" onclick="ov.classList.remove('open')">✕</button></div></div><div class="sh-b"><div class="box">
+  <p style="font-size:15px;line-height:1.6">Sur iPhone, Apple demande d'abord d'installer Atom sur l'écran d'accueil :</p>
+  <ol style="font-size:15px;line-height:1.9;padding-left:20px"><li>Dans <b>Safari</b>, touche le bouton <b>Partager</b> (le carré avec la flèche ⬆️)</li><li>Choisis <b>« Sur l'écran d'accueil »</b>, puis <b>Ajouter</b></li><li>Ouvre <b>Atom</b> depuis l'icône sur ton écran</li><li>Va dans ⚙ et touche <b>🔔 Activer les notifications</b></li></ol></div></div>`;ov.classList.add('open')}
+async function pushBox(){const e=document.getElementById('pushBox');if(!e)return;const st=await pushEtat();
+  e.innerHTML=st==='on'?`<h4>🔔 Notifications sur ce téléphone</h4><p style="font-size:13.5px;color:var(--ok);font-weight:700;margin-bottom:10px">✅ Activées : tu reçois les demandes du robot et les paiements, même quand Atom est fermé.</p><button class="btn b-line" style="width:100%" onclick="pushCouper()">Couper sur ce téléphone</button>`
+   :`<h4>🔔 Notifications sur ce téléphone</h4><p style="font-size:13.5px;color:var(--ink2);margin-bottom:10px">Reçois une notification avec le son dès qu'un client envoie une demande au robot ou paie sa facture, même quand Atom est fermé.</p><button class="btn b-acc" style="width:100%;padding:14px;font-size:15.5px" onclick="pushActiver()">🔔 Activer les notifications</button>${estIOS&&!estApp?'<p style="font-size:12.5px;color:var(--ink2);margin-top:8px">iPhone : il faut d\'abord ajouter Atom sur l\'écran d\'accueil (on te montre comment).</p>':''}`}
 function render(){const h=$('#hint');if(h)h.hidden=D.code!=='0000';
   if(!ready){$('#list').innerHTML='<p style="color:var(--ink2);text-align:center;padding:30px">Chargement de tes clients…</p>';return}
   $('#today').textContent=(d=>`${['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'][d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]} ${d.getFullYear()}`)(TODAY);
@@ -1125,9 +1152,9 @@ async function exporter(t){let data,name,type;
   if(dl){try{await dl.save({filename:name,data:blob});toast('Enregistré ✓')}catch(e){toast(e&&e.code==='declined'?'Annulé':'Pas enregistré')}}
   else{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();toast('Téléchargé ✓')}}
 /* ---------- mes infos ---------- */
-function reglages(){const m=D.moi;const f=(k,l)=>`<label class="lbl" for="m_${k}">${l}</label><input class="inp" id="m_${k}" value="${esc(m[k]??'')}">`;
+function reglages(){setTimeout(pushBox,0);const m=D.moi;const f=(k,l)=>`<label class="lbl" for="m_${k}">${l}</label><input class="inp" id="m_${k}" value="${esc(m[k]??'')}">`;
   $('#sheet').innerHTML=`<div class="sh-h"><div class="row"><h3>Mes infos</h3><button class="btn b-ghost b-sm" onclick="ov.classList.remove('open')">✕</button></div></div><div class="sh-b">
-   <div class="box"><h4>Sur mes factures</h4>${f('nom','Nom')}${f('adresse','Adresse')}${f('tva','N° TVA')}${f('tel','Téléphone')}${f('email','E-mail')}</div>
+   <div class="box" id="pushBox"></div><div class="box"><h4>Sur mes factures</h4>${f('nom','Nom')}${f('adresse','Adresse')}${f('tva','N° TVA')}${f('tel','Téléphone')}${f('email','E-mail')}</div>
    <div class="box"><h4>Pour être payé</h4>${f('benef','Nom sur le compte bancaire')}${f('iban','IBAN (pour le QR code de virement)')}${f('lien','Lien SumUp par défaut (si le client n\'a pas le sien)')}</div>
    <div class="box"><h4>Factures officielles (Peppol)</h4>${f('peppolUrl','Lien de mon compte Peppol (celui de mon comptable)')}<p style="font-size:12.5px;color:var(--ink2);margin-top:6px">C'est là que tu crées les vraies factures pour les clients qui en veulent une. Le panel te rappelle de le faire et garde le numéro.</p></div>
    <div class="box"><h4>💾 Sauvegarde</h4><p style="font-size:13px;color:var(--ink2);margin-bottom:10px">Garde une copie de tous tes clients sur ton téléphone ou ton PC.</p>
