@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mat'Wash · Car-Wash 4 pistes · Andenne</title>
-<meta name="description" content="Mat'Wash, car-wash 4 pistes à Andenne. Avec ou sans rendez-vous.">
+<meta name="description" content="Mat'Wash, self-wash 4 pistes à Coutisse (Andenne). Avec ou sans rendez-vous.">
 <meta property="og:title" content="Mat'Wash · Car-Wash Andenne">
-<meta property="og:description" content="Car-wash 4 pistes, avec ou sans rendez-vous. Chaussée de Ciney 538 B, Andenne.">
+<meta property="og:description" content="Self-wash 4 pistes à Coutisse : lavage, boutique, location de matériel et événements. Avec ou sans RDV.">
 <meta property="og:image" content="https://islamatom.github.io/mes-projet/matwash/icone.jpg">
 <link rel="icon" href="icone.jpg">
 <link rel="apple-touch-icon" href="icone.jpg">
@@ -186,6 +186,15 @@ footer{padding-bottom:110px}
 .tel{position:relative;width:min(78vw,360px);aspect-ratio:9/16;margin:6px auto 0;border-radius:28px;overflow:hidden;border:3px solid #2a2a30;box-shadow:0 0 0 2px #e3121b,0 25px 60px rgba(0,0,0,.6),0 0 60px rgba(227,18,27,.25)}
 .tel video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
 .son{position:absolute;right:12px;bottom:12px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(0,0,0,.55);color:#fff;font-size:20px;backdrop-filter:blur(6px)}
+
+.qbox{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 20px 20px;line-height:1.65;font-size:16.5px}
+.qbox p{margin-bottom:12px}.qbox b{color:#e3121b}
+.guil{position:absolute;top:-6px;right:16px;opacity:.5;font-family:Cinzel,serif;font-size:90px;color:#e3121b;line-height:1}
+.sign{display:flex;align-items:center;gap:12px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.sign img{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:center 15%;border:2px solid #e3121b}
+.sign b{display:block;font-family:Cinzel,serif;font-size:19px;color:var(--txt)}.sign small{color:var(--mute)}
+.tags4{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.tags4 span{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 10px;font-weight:600;font-size:14px;text-align:center}
 </style>
 </head>
 <body>
@@ -201,7 +210,7 @@ footer{padding-bottom:110px}
 <header class="hero">
   <div class="bg"></div>
   <div class="lgw"><img src="logo.png" alt="Logo Mat'Wash"><div class="flux"></div><canvas></canvas><i class="etoile">✦</i></div>
-    <p>Car-wash 4 pistes à Andenne. Venez quand vous voulez, ou réservez votre créneau.</p>
+    <p>Self-wash 4 pistes à Coutisse (Andenne). Venez quand vous voulez, ou réservez votre créneau.</p>
   <button class="btn rouge" onclick="ouvreRes()">📅 Réserver un lavage</button>
   <div class="duo"><span>🚗 Sans RDV<br><b>sur place</b></span><span>📅 Avec RDV<br><b>sans attendre</b></span></div>
 </header>
@@ -224,9 +233,22 @@ footer{padding-bottom:110px}
   <div class="f anim go" onclick="ouvreRes(2)"><div><b>Nettoyage intérieur</b><small>Aspiration, plastiques, vitres</small></div><span class="tag">Sur RDV</span></div>
   <div class="f anim go" onclick="ouvreRes(0)"><div><b>Formule complète</b><small>Intérieur + extérieur</small></div><span class="tag">Sur RDV</span></div>
   <div class="f anim go" onclick="ouvreRes(4)"><div><b>Nettoyage de tapis</b><small>Machine à tapis, éclat neuf</small></div><span class="tag">Nouveau</span></div>
+  <div class="f anim"><div><b>Location de matériel</b><small>Le bon matériel pour un résultat pro</small></div><span class="tag l">Sur place</span></div>
+  <div class="f anim"><div><b>Événements</b><small>Rassemblements de passionnés, soirées</small></div><span class="tag l">Facebook</span></div>
   <div class="f anim"><div><b>Produits d'entretien</b><small>En vente sur place</small></div><span class="tag l">Boutique</span></div>
 </section>
 
+<section class="histoire anim">
+  <h2>Notre histoire</h2><div class="trait2 vu"></div>
+  <div class="qbox">
+    <div class="guil">“</div>
+    <p>Mat’Wash, c’est l’alliance de deux passions : <b>le detailing automobile</b> et <b>l’esprit du rallye</b>.</p>
+    <p>J’ai voulu bâtir à Coutisse bien plus qu’un simple self-wash : un vrai point de rencontre convivial pour les passionnés de belles mécaniques, dans l’ambiance chaleureuse des rassemblements qu’on aime tant.</p>
+    <p>Pistes de lavage, boutique, location de matériel, événements : un lieu de vie pour tous les amoureux de sport auto.</p>
+    <div class="sign"><img src="lui.jpg" alt="Bruno"><span><b>Bruno</b><small>Fondateur de Mat’Wash</small></span></div>
+  </div>
+  <div class="tags4"><span>🚿 Pistes de lavage</span><span>🛍️ Boutique</span><span>🧰 Location de matériel</span><span>🏁 Événements</span></div>
+</section>
 <section class="vid anim">
   <h2>Mat’Wash en vidéo</h2><div class="trait2 vu"></div>
   <div class="tel"><video id="vmw" src="video.mp4" poster="video-poster.jpg" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
@@ -234,7 +256,7 @@ footer{padding-bottom:110px}
 </section>
 <div class="vedette v2 anim">
   <div class="vimg"></div>
-  <div class="vtxt"><span>JAMAIS SEUL</span><h3>Un passionné sur place pour vous guider</h3><p>Ici, pas de car-wash impersonnel : on vous conseille, on vous montre les bons gestes, avec du matériel pro.</p>
+  <div class="vtxt"><span>BRUNO, LE PATRON</span><h3>Un passionné sur place pour vous guider</h3><p>Ici, pas de car-wash impersonnel : on vous conseille, on vous montre les bons gestes, avec du matériel pro.</p>
   <a class="btn rouge" href="#nous">📍 Passer nous voir</a></div>
 </div>
 <section>
@@ -253,7 +275,7 @@ footer{padding-bottom:110px}
 <section id="nous">
   <h2 class="anim">Nous trouver</h2><div class="trait2 anim"></div>
   <div class="info anim">
-    📍 Chaussée de Ciney 538 B, 5300 Andenne<br>
+    📍 Chaussée de Ciney 538 B, 5300 Coutisse (Andenne)<br>
     🕘 Horaires à compléter<br>
     🚗 Avec ou sans rendez-vous
     <div class="row">
