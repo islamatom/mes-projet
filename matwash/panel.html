@@ -286,7 +286,7 @@ const esc=t=>String(t??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2600)}
 function majCred(){const e=document.getElementById('hcred');if(!e)return;e.textContent=S.credits;document.getElementById('hpSms').classList.toggle('bas',S.credits<20)}
 function recharge(n,p){S.credits+=n;majCred();toast('✅ Paiement accepté · +'+n+' SMS');vSms()}
-const PRIX={'Complet int. + ext.':50,'Intérieur':30,'Extérieur':25,'Shampoing sièges':40,'Nettoyage tapis':10};
+const PRIX={'Complet int. + ext.':50,'Intérieur':30,'Extérieur':13,'Shampoing sièges':40,'Nettoyage tapis':10};
 function lienPay(rid){const r=R.find(x=>x.id===rid),c=getC(r.cid);if(!S.sumup){toast('Ajoutez d\'abord votre lien SumUp dans Réglages');go('reglages');return}const m=`Bonjour ${c.prenom}, voici le lien pour payer votre ${r.type} chez Mat’Wash (${PRIX[r.type]||''} €) : ${S.sumup} — Merci ! Mat’Wash`;window.open('https://wa.me/'+tel(c.tel).replace('+','')+'?text='+encodeURIComponent(m),'_blank')}
 const TYPES={'Complet int. + ext.':120,'Intérieur':60,'Extérieur':60,'Shampoing sièges':90,'Nettoyage tapis':30};
 const HEURES=['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];

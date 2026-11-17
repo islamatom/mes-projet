@@ -195,6 +195,25 @@ footer{padding-bottom:110px}
 .sign b{display:block;font-family:Cinzel,serif;font-size:19px;color:var(--txt)}.sign small{color:var(--mute)}
 .tags4{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
 .tags4 span{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 10px;font-weight:600;font-size:14px;text-align:center}
+
+.s2{color:var(--mute);line-height:1.6;margin-bottom:14px}.s2 b{color:var(--txt)}
+.rv{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/9;box-shadow:0 0 0 2px #e3121b,0 18px 40px rgba(0,0,0,.5)}
+.rv video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.live{position:absolute;left:10px;top:10px;background:#e3121b;color:#fff;font-weight:800;font-size:12px;letter-spacing:1px;padding:6px 10px;border-radius:20px}
+.rph{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.rph img{width:100%;height:150px;object-fit:cover;border-radius:14px}
+.hshop{background:var(--card);border:1px solid var(--line);border-left:4px solid #e3121b;border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:15px}
+.prods{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px;padding:4px 18px 10px;scrollbar-width:none}.prods::-webkit-scrollbar{display:none}
+.pc{flex:0 0 46%;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.pc img{width:100%;aspect-ratio:1;object-fit:cover}
+.pc b{font-size:15px;padding:10px 10px 2px;line-height:1.25}.pc small{color:var(--mute);font-size:12px;padding:0 10px}
+.pc span{margin:8px 10px 12px;align-self:flex-start;background:#e3121b;color:#fff;font-weight:800;padding:5px 12px;border-radius:20px;font-size:15px}
+
+html{overflow-x:hidden}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:6px}
+.why div{text-align:center;padding:14px 8px}
+.why i{display:grid;place-items:center;width:58px;height:58px;margin:0 auto 8px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff3b43,#a50a11);font-style:normal;font-size:26px;box-shadow:0 8px 22px rgba(227,18,27,.35)}
+.why b{font-size:14px;text-transform:uppercase;letter-spacing:.5px}
 </style>
 </head>
 <body>
@@ -210,16 +229,19 @@ footer{padding-bottom:110px}
 <header class="hero">
   <div class="bg"></div>
   <div class="lgw"><img src="logo.png" alt="Logo Mat'Wash"><div class="flux"></div><canvas></canvas><i class="etoile">✦</i></div>
-    <p>Self-wash 4 pistes à Coutisse (Andenne). Venez quand vous voulez, ou réservez votre créneau.</p>
+    <p>Un self-wash pas comme les autres, à Coutisse. Lavez vous-même, ou réservez votre lavage avec Bruno.</p>
   <button class="btn rouge" onclick="ouvreRes()">📅 Réserver un lavage</button>
   <div class="duo"><span>🚗 Sans RDV<br><b>sur place</b></span><span>📅 Avec RDV<br><b>sans attendre</b></span></div>
 </header>
 
 <section class="stats anim">
-  <div><b data-n="0" data-s=" ans">XX</b><small>d'expérience</small></div>
+  <div><b>🏁</b><small>un patron pilote de rallye</small></div>
   <div><b data-n="4">0</b><small>pistes couvertes</small></div>
   <div><b data-n="100" data-s="%">0</b><small>recommandé (avis Facebook)</small></div>
   <div><b data-n="944">0</b><small>abonnés Facebook</small></div>
+</section>
+<section class="why anim">
+  <div><i>✨</i><b>Résultat impeccable</b></div><div><i>🧽</i><b>Soin et précision</b></div><div><i>🛡️</i><b>Protection de votre véhicule</b></div><div><i>🍃</i><b>Respect des surfaces</b></div>
 </section>
 <div class="vedette anim">
   <div class="vimg"></div>
@@ -228,10 +250,11 @@ footer{padding-bottom:110px}
 </div>
 <section>
   <h2 class="anim">Nos services</h2><div class="trait2 anim"></div>
+  <p class="s2 anim"><b>Un self-wash pas comme les autres !</b> Libre accès aux pistes, ou lavage par Bruno <b>uniquement sur rendez-vous</b>.</p>
   <div class="f anim"><div><b>Self car-wash</b><small>4 pistes, vous lavez vous-même</small></div><span class="tag l">Sans RDV</span></div>
-  <div class="f anim go" onclick="ouvreRes(1)"><div><b>Lavage extérieur à la main</b><small>Carrosserie, jantes, séchage</small></div><span class="tag">Sur RDV</span></div>
+  <div class="f anim go" onclick="ouvreRes(1)"><div><b>Lavage extérieur à la main</b><small>Carrosserie, jantes, séchage · sur RDV</small></div><span class="tag">dès 13 €</span></div>
   <div class="f anim go" onclick="ouvreRes(2)"><div><b>Nettoyage intérieur</b><small>Aspiration, plastiques, vitres</small></div><span class="tag">Sur RDV</span></div>
-  <div class="f anim go" onclick="ouvreRes(0)"><div><b>Formule complète</b><small>Intérieur + extérieur</small></div><span class="tag">Sur RDV</span></div>
+  <div class="f anim go" onclick="ouvreRes(0)"><div><b>Lavage extérieur + intérieur</b><small>La formule complète · sur RDV</small></div><span class="tag">dès 50 €</span></div>
   <div class="f anim go" onclick="ouvreRes(4)"><div><b>Nettoyage de tapis</b><small>Machine à tapis, éclat neuf</small></div><span class="tag">Nouveau</span></div>
   <div class="f anim"><div><b>Location de matériel</b><small>Le bon matériel pour un résultat pro</small></div><span class="tag l">Sur place</span></div>
   <div class="f anim"><div><b>Événements</b><small>Rassemblements de passionnés, soirées</small></div><span class="tag l">Facebook</span></div>
@@ -249,6 +272,13 @@ footer{padding-bottom:110px}
   </div>
   <div class="tags4"><span>🚿 Pistes de lavage</span><span>🛍️ Boutique</span><span>🧰 Location de matériel</span><span>🏁 Événements</span></div>
 </section>
+<section class="rallye anim">
+  <h2>L’esprit rallye</h2><div class="trait2 vu"></div>
+  <p class="s2">Bruno ne fait pas que laver les voitures : il les pilote. La voiture de rallye aux couleurs de Mat’Wash court en Belgique, avec <b>B. Mathieu</b> et <b>A. Ceuleers</b> à bord.</p>
+  <div class="rv"><video src="rallye.mp4" poster="rallye-poster.jpg" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video><span class="live">🏁 Mat’Wash en course</span></div>
+  <div class="rph"><img src="rallye1.jpg" alt="Voiture de rallye Mat’Wash" loading="lazy"><img src="rallye2.jpg" alt="Voiture de rallye Mat’Wash de nuit" loading="lazy"></div>
+  <p class="s2">Le Rallye du Condroz, la prépa, la famille… c’est cette ambiance qu’on retrouve aux pistes et aux événements Mat’Wash.</p>
+</section>
 <section class="vid anim">
   <h2>Mat’Wash en vidéo</h2><div class="trait2 vu"></div>
   <div class="tel"><video id="vmw" src="video.mp4" poster="video-poster.jpg" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video>
@@ -259,12 +289,22 @@ footer{padding-bottom:110px}
   <div class="vtxt"><span>BRUNO, LE PATRON</span><h3>Un passionné sur place pour vous guider</h3><p>Ici, pas de car-wash impersonnel : on vous conseille, on vous montre les bons gestes, avec du matériel pro.</p>
   <a class="btn rouge" href="#nous">📍 Passer nous voir</a></div>
 </div>
+<section class="shop anim">
+  <h2>La boutique</h2><div class="trait2 vu"></div>
+  <p class="s2">Des produits pros <b>Flashcar Cosmetics</b> pour entretenir votre voiture comme un detailer. Bruno vous conseille le bon produit.</p>
+  <div class="hshop">🛍️ Boutique ouverte : <b>mer. & jeu. 16h–18h · sam. 11h–18h</b></div>
+  <div class="prods"><div class="pc"><img src="p-shampoo.jpg" alt="Shampooing pH neutre" loading="lazy"><b>Shampooing pH neutre</b><small>Concentré · 500 ml</small><span>11,31 €</span></div><div class="pc"><img src="p-interior.jpg" alt="Nettoyant multi-surfaces" loading="lazy"><b>Nettoyant multi-surfaces</b><small>Intérieur & extérieur · 500 ml</small><span>11,95 €</span></div><div class="pc"><img src="p-vitres.jpg" alt="Nettoyant vitres" loading="lazy"><b>Nettoyant vitres</b><small>Antistatique, sans silicone</small><span>10 €</span></div><div class="pc"><img src="p-pneus.jpg" alt="Brillant pneus" loading="lazy"><b>Brillant pneus</b><small>Jusqu’à 3 mois de protection</small><span>20 €</span></div><div class="pc"><img src="p-fer.jpg" alt="Décontaminant ferreux" loading="lazy"><b>Décontaminant ferreux</b><small>Change de couleur · pH neutre</small><span>16,50 €</span></div><div class="pc"><img src="p-goudron.jpg" alt="Dégoudronnant carrosserie" loading="lazy"><b>Dégoudronnant carrosserie</b><small>Goudron & colle · 500 ml</small><span>14,50 €</span></div><div class="pc"><img src="p-cabrio.jpg" alt="Protection toit cabrio" loading="lazy"><b>Protection toit cabrio</b><small>Nano-revêtement textile</small><span>25 €</span></div><div class="pc"><img src="p-parfum.jpg" alt="Parfum Suzuka" loading="lazy"><b>Parfum Suzuka</b><small>Parfum d’intérieur</small><span>10 €</span></div><div class="pc"><img src="p-brosse.jpg" alt="Brosse de nettoyage" loading="lazy"><b>Brosse de nettoyage</b><small>Jantes, pneus, tapis</small><span>7 €</span></div><div class="pc"><img src="p-pinceaux.jpg" alt="3 pinceaux detailing" loading="lazy"><b>3 pinceaux detailing</b><small>Aérations, recoins</small><span>17 €</span></div></div>
+  <p class="note2">👉 Glissez pour voir les produits · prix TVAC</p>
+</section>
 <section>
   <h2 class="anim">En images</h2><div class="trait2 anim"></div>
   <div class="galerie anim" id="gal">
     <figure onclick="zoomP(this)"><img src="pro.jpg" alt="Lavage à la main" loading="lazy"><figcaption>Séchage à la main, zéro trace</figcaption></figure>
     <figure onclick="zoomP(this)"><img src="fond.jpg" alt="Mat'Wash de nuit" loading="lazy"><figcaption>Ouvert même le soir 🌙</figcaption></figure>
     <figure onclick="zoomP(this)"><img src="piste.jpg" alt="Piste de lavage" loading="lazy"><figcaption>4 pistes couvertes</figcaption></figure>
+    <figure onclick="zoomP(this)"><img src="rallye3.jpg" alt="Rallye Mat’Wash" loading="lazy"><figcaption>La voiture de rallye Mat’Wash</figcaption></figure>
+    <figure onclick="zoomP(this)"><img src="tapis.jpg" alt="Lave-tapis" loading="lazy"><figcaption>Le lave-tapis</figcaption></figure>
+    <figure onclick="zoomP(this)"><img src="boutique.jpg" alt="Produits Flashcar" loading="lazy"><figcaption>La boutique</figcaption></figure>
     <figure onclick="zoomP(this)"><img src="enseigne.jpg" alt="Mat'Wash" loading="lazy"><figcaption>Produits pros Flashcar</figcaption></figure>
     <figure onclick="zoomP(this)"><img src="produits.jpg" alt="Produits d'entretien" loading="lazy"><figcaption>Entretien & protection</figcaption></figure>
   </div>
@@ -275,8 +315,8 @@ footer{padding-bottom:110px}
 <section id="nous">
   <h2 class="anim">Nous trouver</h2><div class="trait2 anim"></div>
   <div class="info anim">
-    📍 Chaussée de Ciney 538 B, 5300 Coutisse (Andenne)<br>
-    🕘 Horaires à compléter<br>
+    📍 Chaussée de Ciney 538 B, zoning industriel de Coutisse, 5300 Andenne<br>
+    🛍️ Boutique : mer. & jeu. 16h–18h · sam. 11h–18h<br>🚿 Pistes : horaires à confirmer<br>
     🚗 Avec ou sans rendez-vous
     <div class="row">
       <a class="btn rouge" href="tel:" onclick="return pasNum()">📞 Appeler</a>
@@ -336,7 +376,7 @@ const so=new IntersectionObserver(e=>e.forEach(x=>{if(!x.isIntersecting)return;s
 const f=t=>{t0??=t;const p=Math.min((t-t0)/1600,1);b.textContent=Math.round(n*(1-Math.pow(1-p,3)))+s;if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)})}),{threshold:.4});
 so.observe(document.querySelector('.stats'));
 const MQ=["Abarth", "Alfa Romeo", "Alpine", "Aston Martin", "Audi", "Bentley", "BMW", "BYD", "Cadillac", "Chevrolet", "Chrysler", "Citroën", "Cupra", "Dacia", "Daewoo", "Daihatsu", "Dodge", "DS", "Ferrari", "Fiat", "Ford", "Genesis", "Honda", "Hummer", "Hyundai", "Infiniti", "Isuzu", "Iveco", "Jaguar", "Jeep", "Kia", "Lada", "Lamborghini", "Lancia", "Land Rover", "Lexus", "Lotus", "Lynk & Co", "Maserati", "Maybach", "Mazda", "McLaren", "Mercedes-Benz", "MG", "Mini", "Mitsubishi", "Nissan", "Opel", "Peugeot", "Polestar", "Porsche", "Range Rover", "Renault", "Rolls-Royce", "Saab", "Seat", "Skoda", "Smart", "SsangYong", "Subaru", "Suzuki", "Tesla", "Toyota", "Volkswagen", "Volvo"];
-const FO=[["Complet int. + ext.","Intérieur + extérieur",120,"Le plus demandé"],["Extérieur","Lavage à la main, jantes, séchage",60,""],["Intérieur","Aspiration, plastiques, vitres",60,""],["Shampoing sièges","Tissus et moquettes",90,""],["Nettoyage tapis","Machine à tapis",30,"Nouveau"]];
+const FO=[["Complet int. + ext.","Intérieur + extérieur",120,"dès 50 €"],["Extérieur","Lavage à la main, jantes, séchage",60,"dès 13 €"],["Intérieur","Aspiration, plastiques, vitres",60,""],["Shampoing sièges","Tissus et moquettes",90,""],["Nettoyage tapis","Machine à tapis",30,"Nouveau"]];
 let E=0,R={};const NE=6;
 function dur(m){return m>=60?Math.floor(m/60)+'h'+(m%60?String(m%60).padStart(2,'0'):''):m+' min'}
 function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
@@ -344,7 +384,7 @@ function pris(j,hh){let x=0;for(const c of j+hh)x=(x*31+c.charCodeAt(0))%97;retu
 function ouvreRes(f){R={v:'Voiture'};if(typeof f=='number'){R.f=f;E=1}else E=0;rend();ouvre('rdv')}
 function pas(n){if(n<0&&E>0){E--;rend()}}
 function rend(){const c=document.getElementById('rc');document.getElementById('rprog').style.width=(E/NE*100)+'%';document.getElementById('rback').style.visibility=E>0&&E<NE?'visible':'hidden';let t='';
-if(E==0)t=`<h3>Quelle formule ?</h3><p class="s">Lavage à la main, sur rendez-vous</p>`+FO.map((f,i)=>`<button class="opt ${R.f===i?'on':''}" onclick="R.f=${i};E++;rend()"><span><b>${f[0]}</b><small>${f[1]}</small></span><span class="tag ${f[3]?'':'l'}">${f[3]||dur(f[2])}</span></button>`).join('');
+if(E==0)t=`<h3>Quelle formule ?</h3><p class="s">Lavage par Bruno, uniquement sur rendez-vous</p>`+FO.map((f,i)=>`<button class="opt ${R.f===i?'on':''}" onclick="R.f=${i};E++;rend()"><span><b>${f[0]}</b><small>${f[1]}</small></span><span class="tag ${f[3]?'':'l'}">${f[3]||dur(f[2])}</span></button>`).join('');
 if(E==1)t=`<h3>Votre véhicule</h3><p class="s">Pour prévoir le bon temps de lavage</p><div class="chips2">${['Voiture','SUV / 4x4','Camionnette','Moto'].map(v=>`<button class="ch ${R.v==v?'on':''}" onclick="R.v='${v}';rend()">${v}</button>`).join('')}</div>
 <input class="inp" id="mq" list="mql" placeholder="Marque (ex : Porsche)" value="${R.m||''}"><datalist id="mql">${MQ.map(m=>`<option value="${m}">`).join('')}</datalist><div class="err" id="er"></div><button class="btn rouge" onclick="R.m=document.getElementById('mq').value.trim();if(!R.m){document.getElementById('er').textContent='Indiquez la marque';return}E++;rend()">Continuer</button>`;
 if(E==2){let j=[],d=new Date();while(j.length<12){d=new Date(d.getTime()+864e5);j.push(new Date(d))}
