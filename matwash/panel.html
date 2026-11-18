@@ -304,7 +304,7 @@ const S={
   histo:[{d:iso(addD(TODAY,-3)),t:'Promo hiver',n:7},{d:iso(addD(TODAY,-10)),t:'Rappel RDV · Sarah',n:1},{d:iso(addD(TODAY,-27)),t:'Promo intérieur',n:6}],
   cadeauMarraine:'10 € de remise sur son prochain lavage',cadeauFilleule:'Un désodorisant offert',parrainOn:true,
   sms:"Bonjour {prenom}, votre RDV chez Mat’Wash est confirmé : {date} à {heure} ({type}). Mat’Wash, Chaussée de Ciney 538 B, Coutisse. À très vite ! Mat’Wash ✦",
-  mail:"Bonjour {prenom},\n\nQuelle joie ! Votre rendez-vous est confirmé :\n{date} à {heure}\n{type}\n\nMat’Wash · Car-Wash Andenne\n\nUn empêchement ? Appelez-moi au 04XX XX XX XX.\n\nÀ très vite,\nMat’Wash ✦",
+  mail:"Bonjour {prenom},\n\nVotre rendez-vous est confirmé :\n{date} à {heure}\n{type}\n\nMat’Wash · Car-Wash Andenne\n\nUn empêchement ? Appelez-moi au 04XX XX XX XX.\n\nÀ très vite,\nMat’Wash ✦",
 };
 let cid=1,rid=1;
 const C=[],R=[];
@@ -438,7 +438,7 @@ function apercuMessages(r,titre,smsTxt,mailTitre,mailTxt,apres){const c=getC(r.c
 
 function valider(id){const r=R.find(x=>x.id===id);const c=getC(r.cid);
   const go2=()=>{r.statut='confirme';render();apercuMessages(r,'RDV confirmé ✦',fill(S.sms,r),'Votre rendez-vous est confirmé',fill(S.mail,r),()=>coeurs(innerWidth/2,innerHeight*.3,50))};
-  if(c.statut==='mauvais'){ouvrir(`<h3>⚠ Mauvais client</h3><p style="line-height:1.6">${esc(c.prenom)} ${esc(c.nom)} est marquée comme mauvais client :<br><b>${esc(c.note||'—')}</b></p><p style="margin-top:10px;color:var(--ink2)">Voulez-vous quand même confirmer son RDV ?</p>
+  if(c.statut==='mauvais'){ouvrir(`<h3>⚠ Mauvais client</h3><p style="line-height:1.6">${esc(c.prenom)} ${esc(c.nom)} est noté comme mauvais client :<br><b>${esc(c.note||'—')}</b></p><p style="margin-top:10px;color:var(--ink2)">Voulez-vous quand même confirmer son RDV ?</p>
     <div class="acts"><button class="b b-bad" onclick="fermer();annuler(${id})">Refuser</button><button class="b b-ok" id="force">Confirmer quand même</button></div>`);$('#force').onclick=go2}
   else go2()}
 
@@ -485,7 +485,7 @@ function presence(id,st){const r=R.find(x=>x.id===id);r.statut=st;const c=getC(r
       if(fine)c.amendes.push({id:Date.now(),date:r.date,montant:+$('#amv').value,payee:false});
       if($('#amb').classList.contains('on')){c.statut='mauvais';c.note=`${n} RDV non venu${n>1?'s':''} sans prévenir`}
       fermer();render();toast(fine?`Amende de ${$('#amv').value} € ajoutée · SMS envoyé à ${c.prenom}`:'Absence enregistrée')}}
-  else{render();toast(`${c.prenom} est venue ✦`);coeurs(innerWidth/2,innerHeight/2,20)}}
+  else{render();toast(`${c.prenom} est venu(e) ✦`);coeurs(innerWidth/2,innerHeight/2,20)}}
 
 /* ---------- AGENDA ---------- */
 let view=new Date(TODAY.getFullYear(),TODAY.getMonth(),1),selD=T;
@@ -573,7 +573,7 @@ function ficheC(id){const c=getC(id);const l=R.filter(r=>r.cid===id).sort((a,b)=
   <div class="lbl">Infos</div><div class="card" style="font-size:14px;line-height:1.8;margin:0">☎ ${esc(c.tel)}<br>✉ ${esc(c.email)}${c.mariage?'<br>✦ Prochain lavage le '+fmtL(c.mariage):''}<br>${venues} venue${venues>1?'s':''} · ${abs} absence${abs>1?'s':''}</div>
   <div class="lbl">Ce client est…</div>
   <div class="chips" id="fs">${[['bon','★ Bon client'],['normal','Normale'],['mauvais','⚠ Mauvais client']].map(([k,t])=>`<button class="chip ${c.statut===k?'on':''}" data-k="${k}">${t}</button>`).join('')}</div>
-  <input class="inp" id="fn" style="margin-top:8px;${c.statut==='mauvais'?'':'display:none'}" placeholder="Pourquoi ? (ex : pas venue 2 fois)" value="${esc(c.note)}">
+  <input class="inp" id="fn" style="margin-top:8px;${c.statut==='mauvais'?'':'display:none'}" placeholder="Pourquoi ? (ex : pas venu 2 fois)" value="${esc(c.note)}">
   <div class="lbl">Mes notes (voiture, état, préférences…)</div><textarea class="inp" id="fno" rows="3" placeholder="Ex : BMW X5 noire, poils de chien dans le coffre">${esc(c.notes)}</textarea>
   <div class="lbl">Historique</div>${l.map(r=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--blush);font-size:14px"><span>${fmtC(r.date)} · ${r.heure}<br><small style="color:var(--ink2)">${r.type}</small></span><span class="tag ${ST[r.statut][1]}">${ST[r.statut][0]}</span></div>`).join('')||'<p style="color:var(--ink2)">Aucun RDV</p>'}
   <div class="acts"><button class="b b-line" onclick="fermer()">Fermer</button><button class="b b-rose" id="fsave">Enregistrer</button></div>`);
@@ -774,7 +774,7 @@ async function vSite(){const l=(await RA_DB.all()).sort((a,b)=>b.date-a.date);co
   if($('#mdef'))$('#mdef').onclick=async()=>{await RA_DB.set('musique',null);toast('« My dress, my dream » remise');vSite()}}
 let supMArm='';async function supMedia(id,btn){if(supMArm!==id){supMArm=id;btn.textContent='Sûr ?';setTimeout(()=>{supMArm=''},3000);return}await RA_DB.del(id);toast('Retiré du site');vSite()}
 
-function nouvelleClient(){ouvrir(`<h3>Nouveau client</h3><p style="color:var(--ink2);font-size:14px">Pour un client venue sans passer par le site.</p>
+function nouvelleClient(){ouvrir(`<h3>Nouveau client</h3><p style="color:var(--ink2);font-size:14px">Pour un client venu sans passer par le site.</p>
   <div class="row2"><input class="inp" id="np" placeholder="Prénom"><input class="inp" id="nn" placeholder="Nom"></div>
   <input class="inp" id="nt" type="tel" placeholder="Téléphone" style="margin-top:8px">
   <div class="lbl">Prochain lavage prévu (si connu)</div><input class="inp" id="nm" type="date">
