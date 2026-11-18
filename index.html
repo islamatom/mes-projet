@@ -445,7 +445,7 @@ setTimeout(async()=>{
   if(!db){try{const x=localStorage.getItem(LS);if(x){const v=JSON.parse(x);D.moi=Object.assign(D.moi,v.moi||{});if(v.code)D.code=v.code;D.clients=v.clients||[]}}catch(e){}
     if(!D.clients.length&&window.APERCU)D.clients=window.APERCU;D.clients.forEach(norm);if(window.APERCU)$('#pv').hidden=false;ready=true;clearTimeout(t);render();return}
   DB=db;online=true;
-  db.collection('clients').onSnapshot(snap=>{D.clients=snap.docs.map(d=>norm(d.data()));ready=true;clearTimeout(t);render();cloche();ajoutMatWash(db)},()=>{ready=true;render();toast('Connexion impossible, réessaie plus tard')});
+  db.collection('clients').onSnapshot(snap=>{D.clients=snap.docs.map(d=>norm(d.data()));ready=true;clearTimeout(t);render();cloche();ajoutMatWash(db);ajoutWashax(db)},()=>{ready=true;render();toast('Connexion impossible, réessaie plus tard')});
   db.doc('reglages/moi').onSnapshot(sn=>{if(sn.exists){const v=sn.data();D.moi=Object.assign(D.moi,v.moi||{});if(v.code)D.code=v.code}render()});
 },0);
 
@@ -651,6 +651,18 @@ function ajoutMatWash(db){if(_mwFait)return;_mwFait=true;
   envois:[{date:'2026-11-18',type:'✅ Vendu · acompte 100 € TVAC',txt:''}]};
  norm(c);D.clients.push(c);render();
  db.collection('clients').doc(String(c.id)).set(JSON.parse(JSON.stringify(c))).then(()=>toast("✅ Mat'Wash ajouté dans tes clients")).catch(()=>toast("Mat'Wash pas enregistré : vérifie ta connexion"))}
+/* ===== Washax : parole donnée le 18/11/2026 (ajout automatique une seule fois) ===== */
+let _wxFait=false;
+function ajoutWashax(db){if(_wxFait)return;_wxFait=true;
+ if(D.clients.some(c=>String(c.id)==='1795016000002'||/washax/i.test(c.nom||'')))return;
+ const c={id:1795016000002,nom:'Washax',secteur:'voiture',etape:'actif',statut:'actif',contact:'',tel:'',email:'',
+  adresse:'Lavage à domicile (camionnette)',tva:'',site:'https://washax.com',fb:'',
+  debut:'',periode:1,abo:0,abo2:0,lignes:[],paiements:[],echeance:'',
+  sp:{site:'https://washax.com',panel:'https://washax.com/panel.html',domaine:'washax.com'},
+  notes:"Parole donnée le 18/11/2026 (ami d'Atom, lavage auto à domicile).\nPrix, numéro, e-mail et n° TVA : à remplir.\nSite : washax.com · panel : washax.com/panel.html (code 0000 à changer)\nHébergement Hostinger · domaine washax.com chez Hostinger (expire le 12/11/2027).",
+  envois:[{date:'2026-11-18',type:'✅ Parole donnée · site en ligne',txt:''}]};
+ norm(c);D.clients.push(c);render();
+ db.collection('clients').doc(String(c.id)).set(JSON.parse(JSON.stringify(c))).then(()=>toast("✅ Washax ajouté dans tes clients")).catch(()=>toast("Washax pas enregistré : vérifie ta connexion"))}
 function journal(c,type,txt){c.envois=c.envois||[];c.envois.push({date:T,type,txt:(txt||'').slice(0,500)});if(c.envois.length>30)c.envois=c.envois.slice(-30)}
 function envoyerWA(c,txt){if(waNum(c)){location.href=waLink(c,txt);return true}copier(txt);toast('Pas de téléphone pour ce client : message copié');return false}
 function reglClient(id,zone){const c=D.clients.find(x=>x.id===id);const [et,cl]=etat(c);const s=c.sp||{};const site=s.site||c.site;const E=etp(c),A=E==='actif';
