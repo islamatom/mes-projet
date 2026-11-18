@@ -240,6 +240,15 @@ html{overflow-x:hidden}
 .cpt div{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:12px;text-align:center;padding:8px 0}
 .cpt b{display:block;font-size:22px;color:#e3121b;font-variant-numeric:tabular-nums}.cpt span{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:1px}
 .ocard .oinfo{font-size:13px;color:var(--mute);text-align:center;margin-top:10px}
+
+.carte-route{margin:14px 0 4px;border-radius:20px;overflow:hidden;position:relative;border:1px solid var(--line)}
+.carte-route .car{offset-path:path("M90 320C96 285 132 272 152 252S205 216 193 186S142 152 168 122S228 98 222 66");offset-rotate:auto;animation:roule 6s ease-in-out infinite}
+@keyframes roule{0%{offset-distance:0%;opacity:0}8%{opacity:1}85%{offset-distance:100%;opacity:1}100%{offset-distance:100%;opacity:0}}
+.carte-route .rt-d{animation:tiret 1s linear infinite}@keyframes tiret{to{stroke-dashoffset:-16}}
+.carte-route .pin{animation:saute 1.2s infinite;transform-box:fill-box;transform-origin:bottom}
+@keyframes saute{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.carte-route .halo{animation:pls 1.8s infinite;transform-box:fill-box;transform-origin:center}@keyframes pls{50%{transform:scale(1.35);opacity:.4}}
+.rt-info{text-align:center;font-size:13px;color:var(--mute);padding:8px 6px}
 </style>
 </head>
 <body>
@@ -358,6 +367,23 @@ html{overflow-x:hidden}
     📍 Chaussée de Ciney 538 B, zoning industriel de Coutisse, 5300 Andenne<br>
     🛍️ Boutique : mer. & jeu. 16h–18h · sam. 11h–18h<br>🚿 Pistes : horaires à confirmer<br>
     🚗 Avec ou sans rendez-vous
+    <div class="carte-route"><svg viewBox="0 0 320 380" width="100%" role="img" aria-label="Trajet Andenne centre vers Mat'Wash Coutisse">
+<defs><pattern id="pr" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="rgba(255,255,255,.06)" stroke-width=".7"/></pattern>
+<radialGradient id="halo"><stop offset="0" stop-color="#e3121b" stop-opacity=".55"/><stop offset="1" stop-color="#e3121b" stop-opacity="0"/></radialGradient></defs>
+<rect width="320" height="380" rx="20" fill="#16161a"/><rect width="320" height="380" rx="20" fill="url(#pr)"/>
+<path d="M-10 335C60 305 110 355 170 325S280 305 330 265" fill="none" stroke="#2f6f8f" stroke-width="16" opacity=".55"/>
+<text x="238" y="312" font-size="10" fill="#5fa3c4" font-style="italic">la Meuse</text>
+<circle cx="60" cy="140" r="36" fill="#1f3a26" opacity=".7"/><circle cx="262" cy="190" r="42" fill="#1f3a26" opacity=".7"/><circle cx="105" cy="240" r="26" fill="#1f3a26" opacity=".6"/>
+<path d="M90 320C96 285 132 272 152 252S205 216 193 186S142 152 168 122S228 98 222 66" fill="none" stroke="#3a3a42" stroke-width="13" stroke-linecap="round"/>
+<path d="M90 320C96 285 132 272 152 252S205 216 193 186S142 152 168 122S228 98 222 66" fill="none" stroke="#e3121b" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 7" class="rt-d"/>
+<circle cx="90" cy="320" r="7" fill="#fff"/><text x="104" y="340" font-size="12" font-weight="700" fill="#fff">Andenne centre</text>
+<text x="200" y="232" font-size="10" fill="#9a9aa3">N921 · Chée de Ciney</text>
+<circle cx="222" cy="66" r="34" fill="url(#halo)" class="halo"/>
+<g class="pin"><path d="M222 46c-11 0-19 8-19 18 0 13 19 30 19 30s19-17 19-30c0-10-8-18-19-18z" fill="#e3121b"/><circle cx="222" cy="64" r="7" fill="#fff"/></g>
+<text x="108" y="26" font-size="13" font-weight="800" fill="#fff">🏁 Mat’Wash · Coutisse</text>
+<text x="128" y="42" font-size="10" fill="#9a9aa3">zoning industriel</text>
+<text class="car" font-size="22">🏎️</text>
+</svg><div class="rt-info">🚗 Quelques minutes depuis Andenne centre, par la Chaussée de Ciney</div></div>
     <div class="row">
       <a class="btn rouge" href="tel:" onclick="return pasNum()">📞 Appeler</a>
       <a class="btn o" href="https://www.google.com/maps/search/?api=1&query=Chauss%C3%A9e+de+Ciney+538B+5300+Andenne" target="_blank">Itinéraire</a>
