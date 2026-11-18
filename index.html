@@ -654,12 +654,13 @@ function ajoutMatWash(db){if(_mwFait)return;_mwFait=true;
 /* ===== Washax : parole donnée le 18/11/2026 (ajout automatique une seule fois) ===== */
 let _wxFait=false;
 function ajoutWashax(db){if(_wxFait)return;_wxFait=true;
- if(D.clients.some(c=>String(c.id)==='1795016000002'||/washax/i.test(c.nom||'')))return;
+ const ex=D.clients.find(c=>String(c.id)==='1795016000002'||/washax/i.test(c.nom||''));
+ if(ex){if(!(ex.lignes||[]).length&&!ex.abo){ex.lignes=[["Création site + panel Washax",500]];ex.abo=35;ex.notes=(ex.notes||'').replace('Prix, numéro','Numéro')+"\nPrix : 500 € HTVA le site + 35 € HTVA/mois. Pas encore payé (18/11/2026).";render();db.collection('clients').doc(String(ex.id)).set(JSON.parse(JSON.stringify(ex))).then(()=>toast('✅ Prix de Washax ajouté'))}return}
  const c={id:1795016000002,nom:'Washax',secteur:'voiture',etape:'actif',statut:'actif',contact:'',tel:'',email:'',
   adresse:'Lavage à domicile (camionnette)',tva:'',site:'https://washax.com',fb:'',
-  debut:'',periode:1,abo:0,abo2:0,lignes:[],paiements:[],echeance:'',
+  debut:'',periode:1,abo:35,abo2:0,lignes:[["Création site + panel Washax",500]],paiements:[],echeance:'',
   sp:{site:'https://washax.com',panel:'https://washax.com/panel.html',domaine:'washax.com'},
-  notes:"Parole donnée le 18/11/2026 (ami d'Atom, lavage auto à domicile).\nPrix, numéro, e-mail et n° TVA : à remplir.\nSite : washax.com · panel : washax.com/panel.html (code 0000 à changer)\nHébergement Hostinger · domaine washax.com chez Hostinger (expire le 12/11/2027).",
+  notes:"Parole donnée le 18/11/2026 (ami d'Atom, lavage auto à domicile).\nPrix : 500 € HTVA le site + 35 € HTVA/mois. Pas encore payé (18/11/2026).\nNuméro et n° TVA : à remplir. E-mail : info@washax.com / hanchiraxel59@gmail.com.\nSite : washax.com · panel : washax.com/panel.html (code 0000 à changer)\nHébergement Hostinger · domaine washax.com chez Hostinger (expire le 12/11/2027).",
   envois:[{date:'2026-11-18',type:'✅ Parole donnée · site en ligne',txt:''}]};
  norm(c);D.clients.push(c);render();
  db.collection('clients').doc(String(c.id)).set(JSON.parse(JSON.stringify(c))).then(()=>toast("✅ Washax ajouté dans tes clients")).catch(()=>toast("Washax pas enregistré : vérifie ta connexion"))}
