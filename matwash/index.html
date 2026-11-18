@@ -252,11 +252,11 @@ html{overflow-x:hidden}
   <h2 class="anim">Nos services</h2><div class="trait2 anim"></div>
   <p class="s2 anim"><b>Un self-wash pas comme les autres !</b> Libre accès aux pistes, ou lavage par Bruno <b>uniquement sur rendez-vous</b>.</p>
   <div class="f anim"><div><b>Self car-wash</b><small>4 pistes, vous lavez vous-même</small></div><span class="tag l">Sans RDV</span></div>
-  <div class="f anim go" onclick="ouvreRes(1)"><div><b>Lavage extérieur à la main</b><small>Carrosserie, jantes, séchage · sur RDV</small></div><span class="tag">dès 13 €</span></div>
+  <div class="f anim go" onclick="ouvreRes(1)"><div><b>Lavage extérieur à la main</b><small>Carrosserie, jantes, séchage · sur RDV</small></div><span class="tag">dès 15 €</span></div>
   <div class="f anim go" onclick="ouvreRes(2)"><div><b>Nettoyage intérieur</b><small>Aspiration, plastiques, vitres</small></div><span class="tag">Sur RDV</span></div>
   <div class="f anim go" onclick="ouvreRes(0)"><div><b>Lavage extérieur + intérieur</b><small>La formule complète · sur RDV</small></div><span class="tag">dès 50 €</span></div>
   <div class="f anim go" onclick="ouvreRes(4)"><div><b>Nettoyage de tapis</b><small>Machine à tapis, éclat neuf</small></div><span class="tag">Nouveau</span></div>
-  <div class="f anim"><div><b>Location de matériel</b><small>Le bon matériel pour un résultat pro</small></div><span class="tag l">Sur place</span></div>
+  <div class="f anim"><div><b>Location de matériel</b><small>Le bon matériel pour un résultat pro · sur place</small></div><span class="tag">dès 17 €</span></div>
   <div class="f anim"><div><b>Événements</b><small>Rassemblements de passionnés, soirées</small></div><span class="tag l">Facebook</span></div>
   <div class="f anim"><div><b>Produits d'entretien</b><small>En vente sur place</small></div><span class="tag l">Boutique</span></div>
 </section>
@@ -274,7 +274,7 @@ html{overflow-x:hidden}
 </section>
 <section class="rallye anim">
   <h2>L’esprit rallye</h2><div class="trait2 vu"></div>
-  <p class="s2">Bruno ne fait pas que laver les voitures : il les pilote. La voiture de rallye aux couleurs de Mat’Wash court en Belgique, avec <b>B. Mathieu</b> et <b>A. Ceuleers</b> à bord.</p>
+  <p class="s2">Bruno ne fait pas que laver les voitures : il les pilote. La voiture de rallye aux couleurs de Mat’Wash court en Belgique, avec <b>Bruno</b> au volant.</p>
   <div class="rv"><video src="rallye.mp4" poster="rallye-poster.jpg" autoplay muted loop playsinline webkit-playsinline preload="metadata"></video><span class="live">🏁 Mat’Wash en course</span></div>
   <div class="rph"><img src="rallye1.jpg" alt="Voiture de rallye Mat’Wash" loading="lazy"><img src="rallye2.jpg" alt="Voiture de rallye Mat’Wash de nuit" loading="lazy"></div>
   <p class="s2">Le Rallye du Condroz, la prépa, la famille… c’est cette ambiance qu’on retrouve aux pistes et aux événements Mat’Wash.</p>
@@ -376,7 +376,7 @@ const so=new IntersectionObserver(e=>e.forEach(x=>{if(!x.isIntersecting)return;s
 const f=t=>{t0??=t;const p=Math.min((t-t0)/1600,1);b.textContent=Math.round(n*(1-Math.pow(1-p,3)))+s;if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)})}),{threshold:.4});
 so.observe(document.querySelector('.stats'));
 const MQ=["Abarth", "Alfa Romeo", "Alpine", "Aston Martin", "Audi", "Bentley", "BMW", "BYD", "Cadillac", "Chevrolet", "Chrysler", "Citroën", "Cupra", "Dacia", "Daewoo", "Daihatsu", "Dodge", "DS", "Ferrari", "Fiat", "Ford", "Genesis", "Honda", "Hummer", "Hyundai", "Infiniti", "Isuzu", "Iveco", "Jaguar", "Jeep", "Kia", "Lada", "Lamborghini", "Lancia", "Land Rover", "Lexus", "Lotus", "Lynk & Co", "Maserati", "Maybach", "Mazda", "McLaren", "Mercedes-Benz", "MG", "Mini", "Mitsubishi", "Nissan", "Opel", "Peugeot", "Polestar", "Porsche", "Range Rover", "Renault", "Rolls-Royce", "Saab", "Seat", "Skoda", "Smart", "SsangYong", "Subaru", "Suzuki", "Tesla", "Toyota", "Volkswagen", "Volvo"];
-const FO=[["Complet int. + ext.","Intérieur + extérieur",120,"dès 50 €"],["Extérieur","Lavage à la main, jantes, séchage",60,"dès 13 €"],["Intérieur","Aspiration, plastiques, vitres",60,""],["Shampoing sièges","Tissus et moquettes",90,""],["Nettoyage tapis","Machine à tapis",30,"Nouveau"]];
+const FO=[["Complet int. + ext.","Intérieur + extérieur",120,"dès 50 €"],["Extérieur","Lavage à la main, jantes, séchage",60,"dès 15 €"],["Intérieur","Aspiration, plastiques, vitres",60,""],["Shampoing sièges","Tissus et moquettes",90,""],["Nettoyage tapis","Machine à tapis",30,"Nouveau"]];
 let E=0,R={};const NE=6;
 function dur(m){return m>=60?Math.floor(m/60)+'h'+(m%60?String(m%60).padStart(2,'0'):''):m+' min'}
 function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
