@@ -217,6 +217,7 @@ body,button,input,select,textarea{font-family:'Montserrat',sans-serif!important}
 .titre{letter-spacing:.02em}
 .card,.stat,.b,.inp,.chip,.filtres button,.cal{border-radius:12px!important}
 .logo-rond::after{display:none}
+[onclick^="lienPay"]{display:none!important}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -827,7 +828,7 @@ function vReglages(){
   <div class="card" style="display:flex;align-items:center;gap:16px"><div class="avatar" data-av style="width:84px;height:84px"></div>
     <div style="flex:1"><b style="font-family:'Cormorant Garamond';font-size:24px">${esc(S.nom)}</b><br><small style="color:var(--ink2)">Mat’Wash · Andenne</small><br>
     <button class="b b-soft b-sm" style="margin-top:8px" onclick="$('#photoIn').click()">Changer ma photo</button></div></div>
-  <div class="sous">Paiement SumUp</div><div class="card"><p style="font-size:13px;color:var(--ink2);margin-bottom:8px">Collez votre lien de paiement SumUp. Sur chaque RDV, le bouton « 💳 Envoyer le lien de paiement » l'envoie au client par WhatsApp, avec le prix.</p><input class="inp" id="sumupIn" placeholder="https://pay.sumup.com/b2c/…" value="${esc(S.sumup||'')}" onchange="S.sumup=this.value.trim();toast(S.sumup?'Lien SumUp enregistré ✓':'Lien SumUp retiré')"><div style="font-size:12px;color:var(--ink2);margin-top:8px">Pas encore de lien ? Dans l'appli SumUp : Paiements → Liens de paiement.</div></div>
+  <div class="sous" style="display:none">Paiement SumUp</div><div class="card" style="display:none"><p style="font-size:13px;color:var(--ink2);margin-bottom:8px">Collez votre lien de paiement SumUp. Sur chaque RDV, le bouton « 💳 Envoyer le lien de paiement » l'envoie au client par WhatsApp, avec le prix.</p><input class="inp" id="sumupIn" placeholder="https://pay.sumup.com/b2c/…" value="${esc(S.sumup||'')}" onchange="S.sumup=this.value.trim();toast(S.sumup?'Lien SumUp enregistré ✓':'Lien SumUp retiré')"><div style="font-size:12px;color:var(--ink2);margin-top:8px">Pas encore de lien ? Dans l'appli SumUp : Paiements → Liens de paiement.</div></div>
   <div class="sous">Mes horaires</div><div class="card">${[2,3,4,5,6,0,1].map(j=>{const h=S.horaires[j];return `<div class="set-row"><span class="j">${JL[j]}</span>
     ${h?`<input type="time" value="${h[0]}" onchange="S.horaires[${j}][0]=this.value"> – <input type="time" value="${h[1]}" onchange="S.horaires[${j}][1]=this.value">`:'<span style="color:var(--ink2);flex:1">Fermé</span>'}
     <button class="tg ${h?'on':''}" style="margin-left:auto" onclick="S.horaires[${j}]=S.horaires[${j}]?null:['10:00','18:00'];vReglages()"></button></div>`}).join('')}</div>
