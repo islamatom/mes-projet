@@ -948,6 +948,7 @@ async function carteOffre(){const o=await chargeOffre();const m=$('#main');if(!m
   <div style="display:flex;gap:8px;margin-top:14px"><a class="b b-line" style="flex:1;text-align:center;text-decoration:none" href="index.html#offre" target="_blank">👁 Voir le site</a>
   <button class="b b-rose" style="flex:2" id="offPub">Publier l’offre</button></div>
   <button class="b b-soft" style="width:100%;margin-top:10px" id="offFb">📣 Copier le lien pour Facebook</button>
+  <button class="b b-soft" style="width:100%;margin-top:8px" id="offImg">🖼️ Créer l’image pour Facebook / Story</button>
   <div style="font-size:12px;color:var(--ink2);margin-top:8px">Mettez ce lien dans votre post Facebook : le client arrive directement sur l’offre et la réserve. Le compteur s’arrête tout seul à la date de fin, et l’offre disparaît.</div>`;
  m.prepend(d);
  $('#offAcc').value=o.accroche||'PROMO DU MOIS';$('#offTit').value=o.titre||'';$('#offItems').value=(o.items||[]).join('\n');$('#offPrix').value=o.prix||'';
@@ -961,8 +962,24 @@ async function carteOffre(){const o=await chargeOffre();const m=$('#main');if(!m
    if(j.ok){OFF=j.offre;dessine();toast('✅ Offre publiée sur le site')}else toast(j.raison==='code'?'⚠ Code refusé':'⚠ Erreur, réessaie')}
   catch(e){toast('⚠ Pas de connexion : offre non publiée')}
   $('#offPub').textContent='Publier l’offre'}}
-document.addEventListener('click',async e=>{if(e.target&&e.target.id==='offFb'){const t=`🚨 ${($('#offAcc')||{}).value||'PROMO DU MOIS'} CHEZ MAT’WASH ! 🚨\n\n🔥 ${($('#offTit')||{}).value}${$('#offPrix')&&$('#offPrix').value?' à seulement '+$('#offPrix').value:''} !\n\n👉 Réservez votre pack ici : https://mat-wash.com/#offre`;
+document.addEventListener('click',async e=>{if(e.target&&e.target.id==='offFb'){const t=`🚨 ${($('#offAcc')||{}).value||'PROMO DU MOIS'} CHEZ MAT’WASH ! 🚨\n\n🔥 ${($('#offTit')||{}).value}${$('#offPrix')&&$('#offPrix').value?' à seulement '+$('#offPrix').value:''} !\n\n👉 Réservez votre pack ici : https://mat-wash.com/promo.php`;
  try{await navigator.clipboard.writeText(t);toast('✅ Texte + lien copiés : collez-les sur Facebook')}catch(_){prompt('Copiez ce texte :',t)}}});
+
+document.addEventListener('click',async e=>{if(!e.target||e.target.id!=='offImg')return;
+ const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+ const charge=s=>new Promise(r=>{const i=new Image();i.crossOrigin='anonymous';i.onload=()=>r(i);i.onerror=()=>r(null);i.src=s});
+ const ph=await charge((OFF.photos&&OFF.photos[0])||'boutique.jpg'),lg=await charge('logo.png');
+ x.fillStyle='#0b0b0d';x.fillRect(0,0,W,H);
+ if(ph){x.save();x.beginPath();x.rect(0,0,W,800);x.clip();const k=Math.max(W/ph.width,800/ph.height);x.drawImage(ph,(W-ph.width*k)/2,(800-ph.height*k)/2,ph.width*k,ph.height*k);x.restore()}
+ const g=x.createLinearGradient(0,480,0,800);g.addColorStop(0,'rgba(11,11,13,0)');g.addColorStop(1,'#0b0b0d');x.fillStyle=g;x.fillRect(0,480,W,322);x.fillStyle='#0b0b0d';x.fillRect(0,800,W,H-800);
+ x.fillStyle='#e3121b';x.beginPath();x.roundRect(60,60,470,80,40);x.fill();x.fillStyle='#fff';x.font='bold 40px Arial';x.fillText('🚨 '+($('#offAcc').value||'PROMO DU MOIS'),90,115);
+ const prix=$('#offPrix').value.trim();if(prix){x.fillStyle='#e3121b';x.beginPath();x.arc(890,640,150,0,7);x.fill();x.strokeStyle='#0b0b0d';x.lineWidth=12;x.stroke();x.fillStyle='#fff';x.textAlign='center';x.font='bold 96px Arial';x.fillText(prix.replace(/\s/g,''),890,668);x.font='bold 30px Arial';x.fillText('seulement',890,715);x.textAlign='left'}
+ x.fillStyle='#fff';x.font='bold 68px Georgia';const mots=$('#offTit').value.toUpperCase().split(' ');let l='',y=860;for(const m of mots){if(x.measureText(l+m).width>700){x.fillText(l,60,y);y+=78;l=''}l+=m+' '}x.fillText(l,60,y);y+=40;
+ x.fillStyle='#e3121b';x.fillRect(60,y,160,8);y+=60;x.font='40px Arial';
+ for(const it of $('#offItems').value.split('\n').map(s=>s.trim()).filter(Boolean).slice(0,4)){x.fillStyle='#e3121b';x.fillText('✓',60,y);x.fillStyle='#eee';x.fillText(it.length>38?it.slice(0,37)+'…':it,110,y);y+=58}
+ const fin=new Date(($('#offFin').value||'')+'T12:00');if(!isNaN(fin)){x.fillStyle='#bbb';x.font='34px Arial';x.fillText('⏳ Jusqu’au '+fin.toLocaleDateString('fr-BE',{day:'numeric',month:'long'})+' · mat-wash.com',60,H-60)}
+ if(lg){const w=300,h=w*lg.height/lg.width;x.drawImage(lg,W-w-40,H-h-20,w,h)}
+ c.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='offre-matwash.jpg';document.body.appendChild(a);a.click();a.remove();toast('✅ Image prête : publiez-la sur Facebook avec le lien')},'image/jpeg',.9)});
 const _vSiteOrig=vSite;vSite=async function(){await _vSiteOrig.apply(this,arguments);carteOffre()};
 </script>
 </body>

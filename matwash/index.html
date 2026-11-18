@@ -223,9 +223,9 @@ html{overflow-x:hidden}
 @keyframes gyro{to{transform:scale(1.25)}}
 .promo-bar small{font-weight:600;opacity:.9;border-left:1px solid rgba(255,255,255,.5);padding-left:8px}
 .hero>.promo-bar{position:absolute!important;top:64px}
-.offre{padding:26px 18px 6px;max-width:560px;margin:auto}
+.offre{padding:72px 14px 10px;background:radial-gradient(circle at 50% 0,rgba(227,18,27,.25),transparent 70%);max-width:560px;margin:auto}
 .ocard{position:relative;border-radius:22px;overflow:hidden;background:var(--card);border:2px solid #e3121b;box-shadow:0 0 40px rgba(227,18,27,.25)}
-.ocard .ophoto{position:relative;height:210px;overflow:hidden}
+.ocard .ophoto{position:relative;height:190px;overflow:hidden}
 .ocard .ophoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s}
 .ocard .ophoto img.on{opacity:1;animation:kb 8s ease-in-out infinite alternate}
 .ocard .oruban{position:absolute;top:12px;left:12px;background:#e3121b;color:#fff;font-weight:800;font-size:12px;letter-spacing:2px;padding:7px 12px;border-radius:20px;z-index:2;animation:gyro .8s infinite alternate}
@@ -252,15 +252,6 @@ html{overflow-x:hidden}
   <button class="ic" id="mode" onclick="bascule()" aria-label="Mode jour / nuit">☀️</button>
 </div>
 
-<header class="hero">
-  <button class="promo-bar" id="promoBar" style="display:none" onclick="document.getElementById('offre').scrollIntoView({behavior:'smooth'})"><span class="gyro">🚨</span><span id="pbT">PROMO DU MOIS</span><small id="pbC"></small></button>
-  <div class="bg"></div>
-  <div class="lgw"><img src="logo.png" alt="Logo Mat'Wash"><div class="flux"></div><canvas></canvas><i class="etoile">✦</i></div>
-    <p>Un self-wash pas comme les autres, à Coutisse. Lavez vous-même, ou réservez votre lavage avec Bruno.</p>
-  <button class="btn rouge" onclick="ouvreRes()">📅 Réserver un lavage</button>
-  <div class="duo"><span>🚗 Sans RDV<br><b>sur place</b></span><span>📅 Avec RDV<br><b>sans attendre</b></span></div>
-</header>
-
 <section class="offre" id="offre" style="display:none">
   <div class="ocard anim">
     <div class="ophoto" id="oPh"><span class="oruban" id="oAcc">🚨 PROMO DU MOIS</span><div class="oprix" id="oPrix"></div></div>
@@ -274,6 +265,15 @@ html{overflow-x:hidden}
     </div>
   </div>
 </section>
+<header class="hero">
+  <button class="promo-bar" id="promoBar" style="display:none" onclick="document.getElementById('offre').scrollIntoView({behavior:'smooth'})"><span class="gyro">🚨</span><span id="pbT">PROMO DU MOIS</span><small id="pbC"></small></button>
+  <div class="bg"></div>
+  <div class="lgw"><img src="logo.png" alt="Logo Mat'Wash"><div class="flux"></div><canvas></canvas><i class="etoile">✦</i></div>
+    <p>Un self-wash pas comme les autres, à Coutisse. Lavez vous-même, ou réservez votre lavage avec Bruno.</p>
+  <button class="btn rouge" onclick="ouvreRes()">📅 Réserver un lavage</button>
+  <div class="duo"><span>🚗 Sans RDV<br><b>sur place</b></span><span>📅 Avec RDV<br><b>sans attendre</b></span></div>
+</header>
+
 <section class="stats anim">
   <div><b>🏁</b><small>un patron pilote de rallye</small></div>
   <div><b data-n="4">0</b><small>pistes couvertes</small></div>
@@ -447,7 +447,7 @@ function son(){const v=document.getElementById('vmw');v.muted=!v.muted;document.
 // ===== OFFRE DU MOIS =====
 const OFFRE_DEF={actif:true,accroche:"PROMO DU MOIS",titre:"Pack entretien hiver",items:["Double microfibre","Gant de lavage microfibre ultra-doux","Liquide lave-glace, indispensable en cette période"],prix:"35 €",fin:"2026-11-30",photos:["boutique.jpg"]};
 function montreOffre(o){if(!o||!o.actif||!o.titre)return;const fin=new Date(o.fin+'T23:59:59');if(fin<new Date())return;
- document.getElementById('offre').style.display='';document.getElementById('promoBar').style.display='';
+ document.getElementById('offre').style.display='';
  document.getElementById('oTit').textContent=o.titre;document.getElementById('oAcc').textContent='🚨 '+(o.accroche||'PROMO DU MOIS');
  document.getElementById('pbT').textContent=(o.accroche||'PROMO DU MOIS')+' · '+o.titre+(o.prix?' '+o.prix:'');
  const px=document.getElementById('oPrix');if(o.prix){const p=o.prix.replace(/\s*€/,'');px.innerHTML=p+(/€/.test(o.prix)?'€':'')+'<small>seulement</small>'}else px.remove();
