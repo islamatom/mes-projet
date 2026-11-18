@@ -214,6 +214,32 @@ html{overflow-x:hidden}
 .why div{text-align:center;padding:14px 8px}
 .why i{display:grid;place-items:center;width:58px;height:58px;margin:0 auto 8px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff3b43,#a50a11);font-style:normal;font-size:26px;box-shadow:0 8px 22px rgba(227,18,27,.35)}
 .why b{font-size:14px;text-transform:uppercase;letter-spacing:.5px}
+
+/* ===== OFFRE DU MOIS ===== */
+.promo-bar{position:absolute;top:64px;left:50%;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:8px;max-width:calc(100% - 24px);padding:9px 14px;border-radius:30px;border:none;background:linear-gradient(90deg,#b80d15,#e3121b,#ff3b43,#e3121b,#b80d15);background-size:300% 100%;color:#fff;font:700 13px Outfit,sans-serif;box-shadow:0 8px 25px rgba(227,18,27,.55);cursor:pointer;animation:barre 4s linear infinite,secoue 3s 2.5s ease-in-out infinite;white-space:nowrap;overflow:hidden}
+@keyframes barre{to{background-position:300% 0}}
+@keyframes secoue{0%,86%,100%{transform:translateX(-50%) rotate(0)}89%{transform:translateX(-50%) rotate(-3deg)}92%{transform:translateX(-50%) rotate(3deg)}95%{transform:translateX(-50%) rotate(-2deg)}}
+.promo-bar .gyro{display:inline-block;animation:gyro .6s infinite alternate}
+@keyframes gyro{to{transform:scale(1.25)}}
+.promo-bar small{font-weight:600;opacity:.9;border-left:1px solid rgba(255,255,255,.5);padding-left:8px}
+.hero>.promo-bar{position:absolute!important;top:64px}
+.offre{padding:26px 18px 6px;max-width:560px;margin:auto}
+.ocard{position:relative;border-radius:22px;overflow:hidden;background:var(--card);border:2px solid #e3121b;box-shadow:0 0 40px rgba(227,18,27,.25)}
+.ocard .ophoto{position:relative;height:210px;overflow:hidden}
+.ocard .ophoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s}
+.ocard .ophoto img.on{opacity:1;animation:kb 8s ease-in-out infinite alternate}
+.ocard .oruban{position:absolute;top:12px;left:12px;background:#e3121b;color:#fff;font-weight:800;font-size:12px;letter-spacing:2px;padding:7px 12px;border-radius:20px;z-index:2;animation:gyro .8s infinite alternate}
+.ocard .oprix{position:absolute;right:12px;bottom:-26px;z-index:2;width:92px;height:92px;border-radius:50%;background:#e3121b;color:#fff;display:grid;place-items:center;text-align:center;font-weight:800;font-size:26px;line-height:1;border:4px solid var(--card);box-shadow:0 10px 25px rgba(227,18,27,.5);animation:pulse 2s infinite}
+.ocard .oprix small{display:block;font-size:11px;font-weight:600}
+.ocard .ocorps{padding:18px 16px 16px}
+.ocard h3{font-family:Cinzel,serif;font-size:22px;margin:4px 0 10px;padding-right:90px}
+.ocard ul{list-style:none;margin:0 0 14px;padding:0}
+.ocard li{padding:8px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.ocard li::before{content:"✓";color:#e3121b;font-weight:800;margin-right:8px}
+.cpt{display:flex;gap:8px;margin-bottom:14px}
+.cpt div{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:12px;text-align:center;padding:8px 0}
+.cpt b{display:block;font-size:22px;color:#e3121b;font-variant-numeric:tabular-nums}.cpt span{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:1px}
+.ocard .oinfo{font-size:13px;color:var(--mute);text-align:center;margin-top:10px}
 </style>
 </head>
 <body>
@@ -227,6 +253,7 @@ html{overflow-x:hidden}
 </div>
 
 <header class="hero">
+  <button class="promo-bar" id="promoBar" style="display:none" onclick="document.getElementById('offre').scrollIntoView({behavior:'smooth'})"><span class="gyro">🚨</span><span id="pbT">PROMO DU MOIS</span><small id="pbC"></small></button>
   <div class="bg"></div>
   <div class="lgw"><img src="logo.png" alt="Logo Mat'Wash"><div class="flux"></div><canvas></canvas><i class="etoile">✦</i></div>
     <p>Un self-wash pas comme les autres, à Coutisse. Lavez vous-même, ou réservez votre lavage avec Bruno.</p>
@@ -234,6 +261,19 @@ html{overflow-x:hidden}
   <div class="duo"><span>🚗 Sans RDV<br><b>sur place</b></span><span>📅 Avec RDV<br><b>sans attendre</b></span></div>
 </header>
 
+<section class="offre" id="offre" style="display:none">
+  <div class="ocard anim">
+    <div class="ophoto" id="oPh"><span class="oruban" id="oAcc">🚨 PROMO DU MOIS</span><div class="oprix" id="oPrix"></div></div>
+    <div class="ocorps">
+      <h3 id="oTit"></h3>
+      <ul id="oItems"></ul>
+      <div class="cpt" id="oCpt"><div><b id="cJ">0</b><span>jours</span></div><div><b id="cH">0</b><span>heures</span></div><div><b id="cM">0</b><span>min</span></div><div><b id="cS">0</b><span>sec</span></div></div>
+      <button class="btn rouge" onclick="ouvrePack()">🛒 Je réserve mon pack</button>
+      <a class="btn o" style="margin-top:10px;display:block;text-align:center;text-decoration:none" href="https://www.google.com/maps/search/?api=1&query=Chauss%C3%A9e+de+Ciney+538B+5300+Andenne" target="_blank">📍 Itinéraire</a>
+      <div class="oinfo">Boutique : mer. & jeu. 16h–18h · sam. 11h–18h</div>
+    </div>
+  </div>
+</section>
 <section class="stats anim">
   <div><b>🏁</b><small>un patron pilote de rallye</small></div>
   <div><b data-n="4">0</b><small>pistes couvertes</small></div>
@@ -328,6 +368,9 @@ html{overflow-x:hidden}
 <footer>Site créé par Atom · islematom@gmail.com · @islem_atom · 0499 37 48 30</footer>
 <nav class="barre" id="fixe"><button class="bb r" onclick="ouvreRes()">📅 Réserver</button><a class="bb" href="tel:" onclick="return pasNum()">📞</a><a class="bb wa" href="https://wa.me/" onclick="return pasNum()">💬</a><a class="bb" href="https://www.google.com/maps/search/?api=1&query=Chauss%C3%A9e+de+Ciney+538B+5300+Andenne" target="_blank">📍</a></nav>
 
+<div class="modal" id="pack" onclick="if(event.target==this)ferme(this)">
+  <div class="box"><div id="packC"></div></div>
+</div>
 <div class="modal" id="rdv" onclick="if(event.target==this)ferme(this)">
   <div class="box res">
     <div class="rtop"><button class="rb" id="rback" onclick="pas(-1)">‹</button><div class="prog"><i id="rprog"></i></div><button class="rb" onclick="ferme(document.getElementById('rdv'))">×</button></div>
@@ -400,6 +443,37 @@ E=6;rend();const f=document.getElementById('fete');for(let i=0;i<26;i++){const b
 
 function pasNum(){const d=document.createElement('div');d.className='toast2';d.textContent='Numéro de Mat’Wash à ajouter';document.body.appendChild(d);setTimeout(()=>d.remove(),2200);return false}
 function son(){const v=document.getElementById('vmw');v.muted=!v.muted;document.getElementById('son').textContent=v.muted?'🔇':'🔊';v.play()}
+
+// ===== OFFRE DU MOIS =====
+const OFFRE_DEF={actif:true,accroche:"PROMO DU MOIS",titre:"Pack entretien hiver",items:["Double microfibre","Gant de lavage microfibre ultra-doux","Liquide lave-glace, indispensable en cette période"],prix:"35 €",fin:"2026-11-30",photos:["boutique.jpg"]};
+function montreOffre(o){if(!o||!o.actif||!o.titre)return;const fin=new Date(o.fin+'T23:59:59');if(fin<new Date())return;
+ document.getElementById('offre').style.display='';document.getElementById('promoBar').style.display='';
+ document.getElementById('oTit').textContent=o.titre;document.getElementById('oAcc').textContent='🚨 '+(o.accroche||'PROMO DU MOIS');
+ document.getElementById('pbT').textContent=(o.accroche||'PROMO DU MOIS')+' · '+o.titre+(o.prix?' '+o.prix:'');
+ const px=document.getElementById('oPrix');if(o.prix){const p=o.prix.replace(/\s*€/,'');px.innerHTML=p+(/€/.test(o.prix)?'€':'')+'<small>seulement</small>'}else px.remove();
+ document.getElementById('oItems').innerHTML=(o.items||[]).map(t=>'<li></li>').join('');[...document.querySelectorAll('#oItems li')].forEach((li,k)=>li.textContent=o.items[k]);
+ const ph=document.getElementById('oPh');(o.photos&&o.photos.length?o.photos:['boutique.jpg']).forEach((s,k)=>{const im=document.createElement('img');im.src=s;im.alt=o.titre;if(!k)im.className='on';ph.prepend(im)});
+ const ims=[...ph.querySelectorAll('img')];if(ims.length>1){let k=0;setInterval(()=>{ims[k].classList.remove('on');k=(k+1)%ims.length;ims[k].classList.add('on')},3500)}
+ const z=n=>String(n).padStart(2,'0');const tic=()=>{let s=Math.max(0,Math.floor((fin-new Date())/1000));const j=Math.floor(s/86400);s%=86400;const hh=Math.floor(s/3600);s%=3600;const m=Math.floor(s/60);s%=60;
+  document.getElementById('cJ').textContent=j;document.getElementById('cH').textContent=z(hh);document.getElementById('cM').textContent=z(m);document.getElementById('cS').textContent=z(s);
+  document.getElementById('pbC').textContent='⏳ '+(j?j+'j ':'')+z(hh)+'h'+z(m)};tic();setInterval(tic,1000);
+ const io2=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vu');io2.unobserve(x.target)}}),{threshold:.1});io2.observe(document.querySelector('.ocard'))}
+fetch('offre.php',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(o=>montreOffre(o||OFFRE_DEF)).catch(()=>montreOffre(OFFRE_DEF));
+
+
+function ouvrePack(){const t=document.getElementById('oTit').textContent,p=(document.getElementById('oPrix').firstChild||{}).textContent||'';
+ document.getElementById('packC').innerHTML=`<h3>🛒 Réserver : ${t}</h3><p class="s">On vous le met de côté, vous payez à la boutique.</p>
+ <input class="inp" id="pkPr" placeholder="Prénom"><input class="inp" id="pkTe" type="tel" inputmode="tel" placeholder="Téléphone (WhatsApp)"><input class="inp" id="pkEm" type="email" placeholder="E-mail (facultatif)">
+ <div class="err" id="pkEr"></div><button class="btn rouge" onclick="envoiePack()">Je réserve</button>`;ouvre('pack')}
+function envoiePack(){const g=i=>document.getElementById(i).value.trim();const pr=g('pkPr'),te=g('pkTe'),em=g('pkEm');
+ if(!pr||te.replace(/\D/g,'').length<9){document.getElementById('pkEr').textContent='Prénom et téléphone obligatoires';return}
+ const t=document.getElementById('oTit').textContent,px=document.getElementById('oPrix').textContent.replace('seulement','').trim();
+ try{fetch('mail.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'offre',prenom:pr,tel:te,email:em,formule:t,prix:px,date:new Date().toISOString().slice(0,10),heure:'--:--'})}).catch(()=>{})}catch(e){}
+ document.getElementById('packC').innerHTML=`<div class="fete" id="pkF"><div class="ok">✓</div><h3>C’est réservé, ${pr.replace(/[<>&]/g,'')} !</h3><p class="s">Votre pack vous attend à la boutique Mat’Wash.<br>Mer. & jeu. 16h–18h · sam. 11h–18h</p><button class="btn rouge" onclick="ferme(document.getElementById('pack'))">Parfait</button></div>`;
+ const fz=document.getElementById('pkF');for(let i=0;i<22;i++){const b=document.createElement('i');b.className='mousse';const s=10+Math.random()*30;b.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;bottom:-40px;animation-duration:${1.6+Math.random()*1.4}s;animation-delay:${Math.random()*.5}s`;fz.appendChild(b)}}
+// lien direct depuis Facebook : mat-wash.com/#offre
+if(location.hash==='#offre'){const it=document.getElementById('intro');it&&it.remove();setTimeout(()=>{const o=document.getElementById('offre');if(o.style.display!=='none'){o.scrollIntoView({behavior:'smooth'});const c=o.querySelector('.ocard');c.classList.add('vu');c.animate([{boxShadow:'0 0 0 0 rgba(227,18,27,.9)'},{boxShadow:'0 0 0 18px rgba(227,18,27,0)'}],{duration:900,iterations:3})}},700)}
+
 function ouvre(id){document.getElementById(id).classList.add('on')}
 function ferme(m){m.classList.remove('on')}
 function bascule(){document.body.classList.toggle('jour');document.getElementById('mode').textContent=document.body.classList.contains('jour')?'🌙':'☀️'}

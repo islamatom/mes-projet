@@ -925,5 +925,45 @@ if(LIVE){
 }
 render();
 </script>
+
+<script>
+/* ===== OFFRE DU MOIS (panel) ===== */
+const OFF_DEF={actif:true,accroche:"PROMO DU MOIS",titre:"Pack entretien hiver",items:["Double microfibre","Gant de lavage microfibre ultra-doux","Liquide lave-glace, indispensable en cette période"],prix:"35 €",fin:"2026-11-30",photos:["boutique.jpg"]};
+let OFF=null;
+async function chargeOffre(){if(OFF)return OFF;try{const r=await fetch('offre.php',{cache:'no-store'});const j=r.ok?await r.json():null;OFF=j||Object.assign({},OFF_DEF)}catch(e){OFF=Object.assign({},OFF_DEF)}OFF.photos=OFF.photos||[];return OFF}
+function finMois(){const d=new Date();return new Date(d.getFullYear(),d.getMonth()+1,0).toISOString().slice(0,10)}
+function petitJpeg(file){return new Promise(ok=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas'),k=Math.min(1,1100/Math.max(im.width,im.height));c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);ok(c.toDataURL('image/jpeg',.82))};im.src=fr.result};fr.readAsDataURL(file)})}
+async function carteOffre(){const o=await chargeOffre();const m=$('#main');if(!m||$('#offCard'))return;
+ const d=document.createElement('div');d.className='card';d.id='offCard';d.style.border='2px solid var(--rose)';
+ d.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:18px">🚨 Offre du mois</b>
+  <label style="display:flex;gap:6px;align-items:center;font-size:14px"><input type="checkbox" id="offOn" ${o.actif?'checked':''}> Visible sur le site</label></div>
+  <div class="lbl">Petit titre rouge</div><input class="inp" id="offAcc" maxlength="40" value="">
+  <div class="lbl">Nom de l’offre</div><input class="inp" id="offTit" maxlength="60" placeholder="Ex : Pack entretien hiver" value="">
+  <div class="lbl">Ce qu’il y a dedans (une ligne = un produit)</div><textarea class="inp" id="offItems" rows="4" placeholder="Double microfibre&#10;Gant de lavage microfibre"></textarea>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><div class="lbl">Prix</div><input class="inp" id="offPrix" maxlength="20" placeholder="35 €" value=""></div>
+  <div><div class="lbl">Jusqu’au</div><input class="inp" id="offFin" type="date" value="${o.fin||finMois()}"></div></div>
+  <div class="lbl">Photos (3 max)</div><div id="offPh" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+  <input type="file" id="offIn" accept="image/*" multiple style="display:none">
+  <button class="b b-soft b-sm" style="margin-top:8px" onclick="$('#offIn').click()">📷 Ajouter une photo</button>
+  <div style="display:flex;gap:8px;margin-top:14px"><a class="b b-line" style="flex:1;text-align:center;text-decoration:none" href="index.html#offre" target="_blank">👁 Voir le site</a>
+  <button class="b b-rose" style="flex:2" id="offPub">Publier l’offre</button></div>
+  <button class="b b-soft" style="width:100%;margin-top:10px" id="offFb">📣 Copier le lien pour Facebook</button>
+  <div style="font-size:12px;color:var(--ink2);margin-top:8px">Mettez ce lien dans votre post Facebook : le client arrive directement sur l’offre et la réserve. Le compteur s’arrête tout seul à la date de fin, et l’offre disparaît.</div>`;
+ m.prepend(d);
+ $('#offAcc').value=o.accroche||'PROMO DU MOIS';$('#offTit').value=o.titre||'';$('#offItems').value=(o.items||[]).join('\n');$('#offPrix').value=o.prix||'';
+ const dessine=()=>{$('#offPh').innerHTML=OFF.photos.map((s,k)=>`<div style="position:relative;width:84px;height:84px;border-radius:12px;overflow:hidden;border:1px solid var(--blush2)"><img src="${s}" style="width:100%;height:100%;object-fit:cover"><button onclick="OFF.photos.splice(${k},1);carteOffreDessine()" style="position:absolute;top:3px;right:3px;width:24px;height:24px;border-radius:50%;border:none;background:rgba(0,0,0,.65);color:#fff">×</button></div>`).join('')||'<small style="color:var(--ink2)">Aucune photo</small>'};
+ window.carteOffreDessine=dessine;dessine();
+ $('#offIn').onchange=async e=>{for(const fl of [...e.target.files]){if(OFF.photos.length>=3){toast('3 photos maximum');break}OFF.photos.push(await petitJpeg(fl))}e.target.value='';dessine()};
+ $('#offPub').onclick=async()=>{const o2={actif:$('#offOn').checked,accroche:$('#offAcc').value.trim()||'PROMO DU MOIS',titre:$('#offTit').value.trim(),items:$('#offItems').value.split('\n').map(x=>x.trim()).filter(Boolean),prix:$('#offPrix').value.trim(),fin:$('#offFin').value||finMois(),photos:OFF.photos};
+  if(!o2.titre)return toast('Mets un nom à ton offre');
+  $('#offPub').textContent='Publication…';
+  try{const r=await fetch('offre.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:S.code,offre:o2})});const j=await r.json();
+   if(j.ok){OFF=j.offre;dessine();toast('✅ Offre publiée sur le site')}else toast(j.raison==='code'?'⚠ Code refusé':'⚠ Erreur, réessaie')}
+  catch(e){toast('⚠ Pas de connexion : offre non publiée')}
+  $('#offPub').textContent='Publier l’offre'}}
+document.addEventListener('click',async e=>{if(e.target&&e.target.id==='offFb'){const t=`🚨 ${($('#offAcc')||{}).value||'PROMO DU MOIS'} CHEZ MAT’WASH ! 🚨\n\n🔥 ${($('#offTit')||{}).value}${$('#offPrix')&&$('#offPrix').value?' à seulement '+$('#offPrix').value:''} !\n\n👉 Réservez votre pack ici : https://mat-wash.com/#offre`;
+ try{await navigator.clipboard.writeText(t);toast('✅ Texte + lien copiés : collez-les sur Facebook')}catch(_){prompt('Copiez ce texte :',t)}}});
+const _vSiteOrig=vSite;vSite=async function(){await _vSiteOrig.apply(this,arguments);carteOffre()};
+</script>
 </body>
 </html>
