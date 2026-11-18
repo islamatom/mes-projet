@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Panel · Nafia'H</title>
+<link rel="icon" href="img/icone.png">
+<link rel="apple-touch-icon" href="img/icone.png">
+<meta property="og:image" content="img/partage.jpg">
+<meta name="theme-color" content="#fdfaf4">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--or:#c9a24b;--or2:#f3d98b;--or3:#9a7428;--vert:#2fa36b;--rouge:#d6534a}
+[data-theme=dark]{--bg:#0d0b08;--bg2:#17130d;--txt:#f6efe2;--doux:#b9ad97;--carte:#1b1710;--bord:rgba(201,162,75,.25)}
+[data-theme=light]{--bg:#fdfaf4;--bg2:#f4ece0;--txt:#2a2218;--doux:#7a6b55;--carte:#fff;--bord:rgba(154,116,40,.22)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Montserrat,sans-serif;background:var(--bg);color:var(--txt);min-height:100svh;transition:background .4s,color .4s;-webkit-tap-highlight-color:transparent}
+h1,h2,h3{font-family:'Cormorant Garamond',serif}
+button{font-family:inherit;cursor:pointer}
+.or{background:linear-gradient(100deg,var(--or3),var(--or2),var(--or),var(--or3));background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:br 5s linear infinite}
+@keyframes br{to{background-position:-200% 0}}
+/* CODE */
+#code{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:20px;transition:opacity .5s,visibility .5s}
+#code.ok{opacity:0;visibility:hidden}
+#code img{width:110px;animation:fl 4s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-8px)}}
+.points{display:flex;gap:14px;margin:6px 0}
+.points i{width:16px;height:16px;border-radius:50%;border:2px solid var(--or);transition:.2s}
+.points i.p{background:var(--or);transform:scale(1.15)}
+.points.err{animation:sec .4s}
+@keyframes sec{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.clav{display:grid;grid-template-columns:repeat(3,74px);gap:12px}
+.clav button{height:74px;border-radius:50%;border:1px solid var(--bord);background:var(--carte);color:var(--txt);font-size:26px;font-weight:500;transition:.15s}
+.clav button:active{transform:scale(.9);background:var(--or2)}
+/* BARRE */
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top));background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--bord)}
+header img{width:38px;height:38px;object-fit:contain}
+header h1{font-size:22px;flex:1;line-height:1}
+header small{display:block;font:500 11px Montserrat;color:var(--doux)}
+.rond{width:40px;height:40px;border-radius:50%;border:1px solid var(--bord);background:var(--carte);color:var(--txt);font-size:17px;position:relative}
+.rond b{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:9px;background:var(--rouge);color:#fff;font-size:11px;display:grid;place-items:center;padding:0 4px}
+main{padding:16px 14px 100px;max-width:640px;margin:auto}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.stats div{background:var(--carte);border:1px solid var(--bord);border-radius:18px;padding:14px 8px;text-align:center;animation:mt .5s both}
+.stats div:nth-child(2){animation-delay:.08s}.stats div:nth-child(3){animation-delay:.16s}
+.stats b{display:block;font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--or)}
+.stats small{font-size:11px;color:var(--doux)}
+@keyframes mt{from{opacity:0;transform:translateY(16px)}}
+h2{font-size:26px;margin:20px 0 10px;display:flex;align-items:center;justify-content:space-between}
+h2 small{font:500 12px Montserrat;color:var(--doux)}
+/* CARTES RDV */
+.rdv{background:var(--carte);border:1px solid var(--bord);border-radius:20px;padding:14px;margin-bottom:10px;animation:mt .45s both;position:relative;overflow:hidden}
+.rdv.nouveau{border-color:var(--or);box-shadow:0 0 0 3px rgba(201,162,75,.2)}
+.rdv.nouveau::before{content:"NOUVEAU";position:absolute;top:12px;right:-30px;transform:rotate(35deg);background:var(--or);color:#1a140a;font-size:9px;font-weight:700;padding:3px 34px}
+.rdv .haut{display:flex;gap:12px;align-items:center}
+.heure{min-width:62px;text-align:center;padding:8px 4px;border-radius:14px;background:linear-gradient(135deg,var(--or3),var(--or2));color:#1a140a;font-weight:700;font-size:16px;line-height:1.1}
+.heure small{display:block;font-size:10px;font-weight:600}
+.rdv .qui b{display:block;font-size:15.5px}
+.rdv .qui span{font-size:13px;color:var(--doux)}
+.etat{display:inline-block;margin-top:4px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px}
+.etat.att{background:rgba(201,162,75,.18);color:var(--or3)}
+.etat.conf{background:rgba(47,163,107,.15);color:var(--vert)}
+.etat.place{background:rgba(120,120,255,.14);color:#6a6ad8}
+[data-theme=dark] .etat.att{color:var(--or2)}
+.acts{display:flex;gap:8px;margin-top:12px}
+.acts button,.acts a{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 6px;border-radius:12px;border:1px solid var(--bord);background:transparent;color:var(--txt);font-size:13px;font-weight:600;text-decoration:none}
+.acts .wa{background:#25d366;border-color:#25d366;color:#fff}
+.acts .ann{color:var(--rouge)}
+.vide{text-align:center;color:var(--doux);padding:24px;border:1px dashed var(--bord);border-radius:20px;font-size:14px}
+/* RAPPELS */
+.rappel{display:flex;align-items:center;gap:10px;background:var(--carte);border:1px solid var(--bord);border-radius:16px;padding:12px;margin-bottom:8px}
+.rappel .t{flex:1}
+.rappel b{font-size:14.5px;display:block}
+.rappel small{font-size:12px;color:var(--vert)}
+.rappel a{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--bord);text-decoration:none;font-size:18px}
+.rappel a.w{background:#25d366;border-color:#25d366}
+/* ONGLETS BAS */
+nav{position:fixed;bottom:0;left:0;right:0;z-index:20;display:flex;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--bord);padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;padding:10px 4px 12px;border:none;background:none;color:var(--doux);font-size:11px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav button span{font-size:21px;transition:.2s}
+nav button.on{color:var(--or)}
+nav button.on span{transform:translateY(-3px) scale(1.15)}
+.page{display:none}.page.on{display:block;animation:mt .35s}
+/* BOUTONS */
+.gros{width:100%;padding:16px;border-radius:16px;border:none;background:linear-gradient(135deg,var(--or3),var(--or) 45%,var(--or2));color:#1a140a;font-size:16px;font-weight:700;box-shadow:0 10px 26px -10px rgba(201,162,75,.8);margin-bottom:10px}
+.ligne{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--carte);border:1px solid var(--bord);border-radius:16px;padding:14px;margin-bottom:8px;font-size:14.5px}
+.ligne small{display:block;color:var(--doux);font-size:12px}
+.prix{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--or);border:none;background:none;width:80px;text-align:right}
+.interr{width:50px;height:30px;border-radius:15px;background:var(--bord);position:relative;border:none;flex:none;transition:.3s}
+.interr::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.3s;box-shadow:0 2px 5px rgba(0,0,0,.2)}
+.interr.on{background:var(--vert)}.interr.on::after{left:23px}
+/* FENÊTRE */
+.voile{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;opacity:0;visibility:hidden;transition:.3s}
+.voile.on{opacity:1;visibility:visible}
+.fen{width:100%;max-width:520px;margin:auto auto 0;background:var(--bg2);border-radius:26px 26px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom));transform:translateY(100%);transition:.4s cubic-bezier(.2,.8,.2,1)}
+.voile.on .fen{transform:none}
+.fen h3{font-size:26px;margin-bottom:12px}
+.fen label{display:block;font-size:12px;font-weight:600;color:var(--doux);margin:10px 0 5px}
+.fen input,.fen select{width:100%;padding:14px;border-radius:14px;border:1px solid var(--bord);background:var(--carte);color:var(--txt);font:500 16px Montserrat}
+/* TOAST */
+#toast{position:fixed;top:14px;left:50%;z-index:70;transform:translate(-50%,-150%);width:calc(100% - 28px);max-width:420px;background:var(--carte);border:1px solid var(--or);border-radius:18px;padding:14px 16px;display:flex;gap:12px;align-items:center;box-shadow:0 18px 40px -12px rgba(0,0,0,.35);transition:.5s cubic-bezier(.2,.8,.2,1)}
+#toast.on{transform:translate(-50%,0)}
+#toast .ic{font-size:26px;animation:son .5s 3}
+@keyframes son{50%{transform:rotate(-18deg) scale(1.2)}}
+#toast b{display:block;font-size:14.5px}#toast small{color:var(--doux);font-size:12.5px}
+</style>
+</head>
+<body>
+
+<div id="code">
+  <img src="img/logo.png" alt="">
+  <h2 class="or" style="margin:0">Espace Nafia</h2>
+  <p style="color:var(--doux);font-size:14px">Entrez votre code (aperçu : 0000)</p>
+  <div class="points" id="pts"><i></i><i></i><i></i><i></i></div>
+  <div class="clav" id="clav"></div>
+  <a href="index.html" style="color:var(--doux);font-size:13px;margin-top:6px">← Retour au site</a>
+</div>
+
+<header>
+  <img src="img/logo.png" alt="">
+  <h1 class="or">Nafia'H<small id="dateJ"></small></h1>
+  <button class="rond" onclick="testNotif()" aria-label="Tester une notification">🔔<b id="nbNew" hidden>0</b></button>
+  <button class="rond" id="theme" aria-label="Mode jour ou nuit">🌙</button>
+</header>
+
+<main>
+  <!-- AUJOURD'HUI -->
+  <section class="page on" id="p-jour">
+    <div class="stats">
+      <div><b id="sJour">0</b><small>RDV aujourd'hui</small></div>
+      <div><b id="sAtt">0</b><small>à confirmer</small></div>
+      <div><b id="sCa">0 €</b><small>prévu aujourd'hui</small></div>
+    </div>
+    <button class="gros" onclick="ouvrirAjout()">➕ Cliente sur place / nouveau RDV</button>
+    <h2>Aujourd'hui <small id="hJour"></small></h2>
+    <div id="lJour"></div>
+    <h2>Demandes à confirmer</h2>
+    <div id="lAtt"></div>
+  </section>
+
+  <!-- RAPPELS -->
+  <section class="page" id="p-rappels">
+    <h2>Rappels de demain <small id="hDem"></small></h2>
+    <p style="color:var(--doux);font-size:13.5px;margin-bottom:12px">Le rappel par e-mail part tout seul 24 h avant. Vous pouvez aussi l'envoyer par WhatsApp ou SMS d'un seul clic.</p>
+    <div id="lRap"></div>
+  </section>
+
+  <!-- CLIENTES -->
+  <section class="page" id="p-clientes">
+    <h2>Mes clientes <small id="nbCl"></small></h2>
+    <input id="cherche" placeholder="🔍 Rechercher une cliente…" style="width:100%;padding:14px;border-radius:14px;border:1px solid var(--bord);background:var(--carte);color:var(--txt);font:500 16px Montserrat;margin-bottom:10px">
+    <div id="lCl"></div>
+  </section>
+
+  <!-- RÉGLAGES -->
+  <section class="page" id="p-reglages">
+    <h2>Mes prix</h2>
+    <div id="lPrix"></div>
+    <h2>Notifications</h2>
+    <div class="ligne"><div>🔔 Notification + son sur ce téléphone<small>À chaque nouvelle demande de RDV</small></div><button class="interr on" onclick="this.classList.toggle('on');demanderNotif()"></button></div>
+    <div class="ligne"><div>✈️ Alerte Telegram<small>Aussi sur Telegram, même panel fermé</small></div><button class="interr on" onclick="this.classList.toggle('on')"></button></div>
+    <div class="ligne"><div>📧 Rappel e-mail la veille<small>Envoyé automatiquement à la cliente</small></div><button class="interr on" onclick="this.classList.toggle('on')"></button></div>
+    <button class="gros" style="margin-top:12px" onclick="testNotif()">🔊 Tester une notification</button>
+    <p style="text-align:center;color:var(--doux);font-size:12px;margin-top:10px">Aperçu de démonstration · les données restent sur cet appareil</p>
+  </section>
+</main>
+
+<nav>
+  <button class="on" data-p="jour"><span>📅</span>Aujourd'hui</button>
+  <button data-p="rappels"><span>⏰</span>Rappels</button>
+  <button data-p="clientes"><span>👩</span>Clientes</button>
+  <button data-p="reglages"><span>⚙️</span>Réglages</button>
+</nav>
+
+<div class="voile" id="voile" onclick="if(event.target===this)fermer()">
+  <div class="fen">
+    <h3 class="or">Nouveau rendez-vous</h3>
+    <label>Nom de la cliente</label><input id="fNom" placeholder="Ex. Sarah">
+    <label>Téléphone</label><input id="fTel" type="tel" placeholder="04xx xx xx xx">
+    <label>Soin</label><select id="fSoin"></select>
+    <div style="display:flex;gap:10px"><div style="flex:1"><label>Jour</label><input id="fJour" type="date"></div><div style="flex:1"><label>Heure</label><input id="fHeure" type="time" value="14:00"></div></div>
+    <label style="display:flex;align-items:center;gap:10px;margin-top:14px;font-size:14px;color:var(--txt)"><input id="fPlace" type="checkbox" style="width:22px;height:22px"> Cliente sur place (déjà au salon)</label>
+    <button class="gros" style="margin-top:16px" onclick="ajouter()">Enregistrer</button>
+  </div>
+</div>
+
+<div id="toast"><span class="ic">🔔</span><div><b id="tT"></b><small id="tS"></small></div></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const ADR="136 chaussée Roosevelt, 4420 Saint-Nicolas",MAPS="https://www.google.com/maps/dir/?api=1&destination=136+chauss%C3%A9e+Roosevelt+4420+Saint-Nicolas";
+const PRIX=[["Lissage brésilien court",120],["Lissage brésilien mi-long",150],["Lissage brésilien long",160],["Lissage brésilien très long",180],["Cryothérapie capillaire",70],["Quintessence bot capillaire",70],["Lifting capillaire",70],["Bot lissant",85],["Cure cryo + bot lissant",120],["Soin + coupe + brushing",50],["Shampooing + soin + brushing",25],["Brushing wavy + soin",40],["Coupe",20]];
+const iso=d=>d.toISOString().slice(0,10),auj=new Date(),dem=new Date(Date.now()+864e5);
+const J=iso(auj),D=iso(dem);
+const fmt=d=>new Date(d+'T12:00').toLocaleDateString('fr-BE',{weekday:'long',day:'numeric',month:'long'});
+// --- données (démo) ---
+function charger(){try{return JSON.parse(localStorage.getItem('nafia-rdv'))||null}catch(e){return null}}
+function sauver(){try{localStorage.setItem('nafia-rdv',JSON.stringify(R))}catch(e){}}
+const DEMO=[
+ {id:1,nom:"Sarah M.",tel:"0471234567",soin:"Cryothérapie capillaire",prix:70,jour:J,heure:"11:00",etat:"conf"},
+ {id:2,nom:"Yasmine B.",tel:"0485112233",soin:"Lissage brésilien long",prix:160,jour:J,heure:"13:00",etat:"conf"},
+ {id:3,nom:"Julie D.",tel:"0498765432",soin:"Shampooing + soin + brushing",prix:25,jour:J,heure:"15:30",etat:"att"},
+ {id:4,nom:"Inès K.",tel:"0476554433",soin:"Bot lissant",prix:85,jour:D,heure:"11:30",etat:"conf",mail:1},
+ {id:5,nom:"Laura P.",tel:"0479887766",soin:"Lissage brésilien mi-long",prix:150,jour:D,heure:"14:00",etat:"conf",mail:1},
+ {id:6,nom:"Amina R.",tel:"0467223344",soin:"Lifting capillaire",prix:70,jour:D,heure:"16:00",etat:"att"}].map(r=>({...r,demo:1}));
+let R=charger();if(!R||!R.some(r=>r.demo))R=[...DEMO,...(R||[])];sauver();
+const tel32=t=>'32'+t.replace(/\D/g,'').replace(/^0/,'');
+function waConf(r){return 'https://wa.me/'+tel32(r.tel)+'?text='+encodeURIComponent(`Bonjour ${r.nom.split(' ')[0]} 😊\nVotre rendez-vous chez Nafia'H est confirmé ✅\n📅 ${fmt(r.jour)} à ${r.heure.replace(':','h')}\n✂️ ${r.soin}\n📍 ${ADR}\n🧭 ${MAPS}\nÀ très vite ! Nafia`)}
+function waRap(r){return encodeURIComponent(`Bonjour ${r.nom.split(' ')[0]} 😊 Petit rappel : votre rendez-vous chez Nafia'H est demain à ${r.heure.replace(':','h')} (${r.soin}). 📍 ${ADR}. À demain ! Nafia`)}
+// --- affichage ---
+function carte(r){const lab={att:'⏳ À confirmer',conf:'✅ Confirmé',place:'🪑 Sur place'}[r.etat];
+ return `<div class="rdv ${r.nouveau?'nouveau':''}"><div class="haut"><div class="heure">${r.heure.replace(':','h')}<small>${r.jour===J?"auj.":new Date(r.jour+'T12:00').toLocaleDateString('fr-BE',{day:'numeric',month:'short'})}</small></div><div class="qui"><b>${r.nom}</b><span>${r.soin} · ${r.prix} €</span><br><span class="etat ${r.etat}">${lab}</span></div></div>
+ <div class="acts">${r.etat==='att'?`<a class="wa" href="${waConf(r)}" target="_blank" onclick="confirmer(${r.id})">💬 Confirmer</a>`:`<a href="tel:${r.tel}">📞 Appeler</a>`}<button class="ann" onclick="annuler(${r.id})">✕ Annuler</button></div></div>`}
+function rendre(){
+ const jr=R.filter(r=>r.jour===J&&r.etat!=='att').sort((a,b)=>a.heure.localeCompare(b.heure)),at=R.filter(r=>r.etat==='att');
+ $('#lJour').innerHTML=jr.map(carte).join('')||'<div class="vide">Aucun rendez-vous aujourd\'hui ✨</div>';
+ $('#lAtt').innerHTML=at.map(carte).join('')||'<div class="vide">Rien à confirmer 👌</div>';
+ $('#sJour').textContent=jr.length;$('#sAtt').textContent=at.length;$('#sCa').textContent=jr.reduce((s,r)=>s+r.prix,0)+' €';
+ const n=R.filter(r=>r.nouveau).length;$('#nbNew').hidden=!n;$('#nbNew').textContent=n;
+ const rp=R.filter(r=>r.jour===D&&r.etat==='conf').sort((a,b)=>a.heure.localeCompare(b.heure));
+ $('#lRap').innerHTML=rp.map(r=>`<div class="rappel"><div class="t"><b>${r.heure.replace(':','h')} · ${r.nom}</b><small>📧 Rappel e-mail envoyé automatiquement ✓</small></div><a class="w" href="https://wa.me/${tel32(r.tel)}?text=${waRap(r)}" target="_blank" aria-label="WhatsApp">💬</a><a href="sms:${r.tel}?&body=${waRap(r)}" aria-label="SMS">✉️</a></div>`).join('')||'<div class="vide">Aucun rendez-vous demain</div>';
+ const cl={};R.forEach(r=>{(cl[r.tel]=cl[r.tel]||{nom:r.nom,tel:r.tel,n:0,der:r.soin}).n++});
+ const q=($('#cherche').value||'').toLowerCase(),L=Object.values(cl).filter(c=>c.nom.toLowerCase().includes(q));
+ $('#nbCl').textContent=Object.keys(cl).length+' clientes';
+ $('#lCl').innerHTML=L.map(c=>`<div class="ligne"><div><b>${c.nom}</b><small>${c.n} visite${c.n>1?'s':''} · ${c.der}</small></div><a class="rond" style="display:grid;place-items:center;text-decoration:none;background:#25d366;border-color:#25d366" href="https://wa.me/${tel32(c.tel)}" target="_blank">💬</a></div>`).join('');
+}
+function confirmer(id){const r=R.find(x=>x.id===id);r.etat='conf';r.nouveau=0;sauver();setTimeout(rendre,300)}
+function annuler(id){if(!confirm('Annuler ce rendez-vous ?'))return;R=R.filter(x=>x.id!==id);sauver();rendre()}
+// --- ajout ---
+$('#fSoin').innerHTML=PRIX.map(([n,p])=>`<option>${n} · ${p} €</option>`).join('');
+function ouvrirAjout(){$('#fJour').value=J;$('#voile').classList.add('on')}
+function fermer(){$('#voile').classList.remove('on')}
+function ajouter(){const nom=$('#fNom').value.trim();if(!nom){$('#fNom').focus();return}
+ const [s,p]=PRIX[$('#fSoin').selectedIndex],pl=$('#fPlace').checked;
+ R.push({id:Date.now(),nom,tel:$('#fTel').value||'',soin:s,prix:p,jour:pl?J:$('#fJour').value,heure:pl?new Date().toTimeString().slice(0,5):$('#fHeure').value,etat:pl?'place':'conf'});
+ sauver();fermer();rendre();$('#fNom').value=$('#fTel').value=''}
+// --- notifications + son ---
+let ac;function bip(){try{ac=ac||new(window.AudioContext||webkitAudioContext)();[0,.18,.36].forEach((t,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=[880,1175,1568][i];g.gain.setValueAtTime(1,ac.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+t+.35);o.connect(g).connect(ac.destination);o.start(ac.currentTime+t);o.stop(ac.currentTime+t+.4)})}catch(e){}navigator.vibrate&&navigator.vibrate([200,100,200])}
+function toast(t,s){$('#tT').textContent=t;$('#tS').textContent=s;$('#toast').classList.add('on');bip();setTimeout(()=>$('#toast').classList.remove('on'),4500);
+ try{if(Notification.permission==='granted')new Notification(t,{body:s,icon:'img/icone.png'})}catch(e){}}
+function demanderNotif(){try{Notification.requestPermission()}catch(e){}}
+function testNotif(){demanderNotif();const r={id:Date.now(),nom:"Nouvelle cliente",tel:"0470000000",soin:"Cryothérapie capillaire",prix:70,jour:D,heure:"12:00",etat:"att",nouveau:1};R.push(r);sauver();rendre();toast('📅 Nouvelle demande de RDV',`${r.nom} · ${r.soin} · demain 12h`)}
+// RDV pris sur le site (même appareil, démo)
+addEventListener('storage',e=>{if(e.key!=='nafia-rdv')return;const av=R.length;R=charger()||R;if(!R.some(r=>r.demo))R=[...DEMO,...R];rendre();if(R.length>av){const r=R[R.length-1];toast('📅 Nouvelle demande de RDV',`${r.nom} · ${r.soin} · ${fmt(r.jour)} ${r.heure.replace(':','h')}`)}});
+// --- code ---
+let saisi='';const pts=[...document.querySelectorAll('#pts i')];
+$('#clav').innerHTML=[1,2,3,4,5,6,7,8,9,'',0,'⌫'].map(k=>k===''?'<span></span>':`<button data-k="${k}">${k}</button>`).join('');
+$('#clav').onclick=e=>{const k=e.target.dataset.k;if(k===undefined)return;saisi=k==='⌫'?saisi.slice(0,-1):(saisi+k).slice(0,4);pts.forEach((p,i)=>p.classList.toggle('p',i<saisi.length));
+ if(saisi.length===4){if(saisi==='0000'){setTimeout(()=>{$('#code').classList.add('ok');try{sessionStorage.setItem('nafia-ok',1)}catch(e){}},200)}else{$('#pts').classList.add('err');setTimeout(()=>{$('#pts').classList.remove('err');saisi='';pts.forEach(p=>p.classList.remove('p'))},450)}}};
+try{if(sessionStorage.getItem('nafia-ok'))$('#code').classList.add('ok')}catch(e){}
+// --- navigation / thème ---
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id==='p-'+b.dataset.p));scrollTo(0,0)});
+const th=$('#theme');function setT(m){document.documentElement.dataset.theme=m;th.textContent=m==='dark'?'☀️':'🌙';try{localStorage.setItem('nafia-theme',m)}catch(e){}}
+try{const s=localStorage.getItem('nafia-theme');if(s)setT(s)}catch(e){}
+th.onclick=()=>setT(document.documentElement.dataset.theme==='dark'?'light':'dark');
+$('#cherche').oninput=rendre;
+$('#dateJ').textContent=auj.toLocaleDateString('fr-BE',{weekday:'long',day:'numeric',month:'long'});
+$('#hJour').textContent=fmt(J);$('#hDem').textContent=fmt(D);
+$('#lPrix').innerHTML=PRIX.map(([n,p])=>`<div class="ligne"><span>${n}</span><span><input class="prix" value="${p}" inputmode="numeric"> €</span></div>`).join('');
+rendre();
+</script>
+</body>
+</html>
