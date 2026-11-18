@@ -445,7 +445,7 @@ setTimeout(async()=>{
   if(!db){try{const x=localStorage.getItem(LS);if(x){const v=JSON.parse(x);D.moi=Object.assign(D.moi,v.moi||{});if(v.code)D.code=v.code;D.clients=v.clients||[]}}catch(e){}
     if(!D.clients.length&&window.APERCU)D.clients=window.APERCU;D.clients.forEach(norm);if(window.APERCU)$('#pv').hidden=false;ready=true;clearTimeout(t);render();return}
   DB=db;online=true;
-  db.collection('clients').onSnapshot(snap=>{D.clients=snap.docs.map(d=>norm(d.data()));ready=true;clearTimeout(t);render();cloche()},()=>{ready=true;render();toast('Connexion impossible, réessaie plus tard')});
+  db.collection('clients').onSnapshot(snap=>{D.clients=snap.docs.map(d=>norm(d.data()));ready=true;clearTimeout(t);render();cloche();ajoutMatWash(db)},()=>{ready=true;render();toast('Connexion impossible, réessaie plus tard')});
   db.doc('reglages/moi').onSnapshot(sn=>{if(sn.exists){const v=sn.data();D.moi=Object.assign(D.moi,v.moi||{});if(v.code)D.code=v.code}render()});
 },0);
 
@@ -637,6 +637,20 @@ function theme(t){const r=document.documentElement;if(!t)t=r.dataset.theme==='da
 /* ---------- réglages d'un client ---------- */
 const prixTxt=c=>{const m=totalLignes(c);const t=[];if(m)t.push(eur(m)+' mise en place');const f=fmTxt(c);if(f)t.push(f);return t.join(' + ')||'prix à mettre'};
 const aPayer=c=>reste(c)||c.abo||totalLignes(c);
+
+/* ===== Mat'Wash : vendu le 18/11/2026 (ajout automatique une seule fois) ===== */
+let _mwFait=false;
+function ajoutMatWash(db){if(_mwFait)return;_mwFait=true;
+ if(D.clients.some(c=>String(c.id)==='1795016000001'||/mat.?wash/i.test(c.nom||'')))return;
+ const c={id:1795016000001,nom:"Mat'Wash",secteur:'voiture',etape:'actif',statut:'actif',contact:'Bruno Mathieu',tel:'',email:'bruno@mat-wash.com',
+  adresse:'Chaussée de Ciney 538 B, zoning industriel de Coutisse, 5300 Andenne',tva:'',site:'https://mat-wash.com',fb:'https://www.facebook.com/profile.php?id=61585736434096',
+  debut:'2026-12-01',periode:1,abo:45.45,abo2:0,lignes:[["Création site + panel Mat'Wash (725 € TVAC)",599.17]],
+  paiements:[{date:'2026-11-18',montant:82.64,mode:'Acompte (100 € TVAC)'}],echeance:'',
+  sp:{site:'https://mat-wash.com',panel:'https://mat-wash.com/panel.html',domaine:'mat-wash.com'},
+  notes:"Vendu le 18/11/2026 : 725 € TVAC (599,17 € HTVA) + 55 €/mois TVAC (45,45 € HTVA).\nAcompte reçu : 100 € TVAC le 18/11/2026.\nReste sur la création : 625 € TVAC.\nAbonnement mensuel à partir du 1er décembre 2026 (à confirmer).\nSite : mat-wash.com · panel : mat-wash.com/panel.html · e-mail : bruno@mat-wash.com\nHébergement Hostinger · domaine mat-wash.com chez Hostinger (expire le 17/11/2027).",
+  envois:[{date:'2026-11-18',type:'✅ Vendu · acompte 100 € TVAC',txt:''}]};
+ norm(c);D.clients.push(c);render();
+ db.collection('clients').doc(String(c.id)).set(JSON.parse(JSON.stringify(c))).then(()=>toast("✅ Mat'Wash ajouté dans tes clients")).catch(()=>toast("Mat'Wash pas enregistré : vérifie ta connexion"))}
 function journal(c,type,txt){c.envois=c.envois||[];c.envois.push({date:T,type,txt:(txt||'').slice(0,500)});if(c.envois.length>30)c.envois=c.envois.slice(-30)}
 function envoyerWA(c,txt){if(waNum(c)){location.href=waLink(c,txt);return true}copier(txt);toast('Pas de téléphone pour ce client : message copié');return false}
 function reglClient(id,zone){const c=D.clients.find(x=>x.id===id);const [et,cl]=etat(c);const s=c.sp||{};const site=s.site||c.site;const E=etp(c),A=E==='actif';
