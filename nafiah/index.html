@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Nafia'H · La spécialiste en soins capillaires · Saint-Nicolas</title>
+<meta name="description" content="Lissage brésilien, cryothérapie capillaire, bot lissant et soins profonds à Saint-Nicolas (Liège). Sur rendez-vous ou sur place.">
+<meta property="og:title" content="Nafia'H · La spécialiste en soins capillaires">
+<meta property="og:description" content="Lissage brésilien, cryothérapie capillaire et soins profonds · Saint-Nicolas">
+<meta property="og:image" content="img/partage.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="img/icone.png">
+<link rel="apple-touch-icon" href="img/icone.png">
+<meta name="theme-color" content="#0d0b08">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--or:#c9a24b;--or2:#f3d98b;--or3:#9a7428}
+[data-theme=dark]{--bg:#0d0b08;--bg2:#17130d;--txt:#f6efe2;--doux:#b9ad97;--carte:rgba(255,255,255,.04);--bord:rgba(201,162,75,.25)}
+[data-theme=light]{--bg:#fdfaf4;--bg2:#f4ece0;--txt:#2a2218;--doux:#7a6b55;--carte:#fff;--bord:rgba(154,116,40,.25)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Montserrat,sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;transition:background .5s,color .5s;-webkit-tap-highlight-color:transparent}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600}
+a{color:inherit;text-decoration:none}
+.or{background:linear-gradient(100deg,var(--or3),var(--or2) 40%,var(--or) 60%,var(--or2) 80%,var(--or3));background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:brille 5s linear infinite}
+@keyframes brille{to{background-position:-250% 0}}
+
+/* INTRO */
+#intro{position:fixed;inset:0;z-index:100;background:#0d0b08;display:grid;place-items:center;transition:opacity .8s,visibility .8s}
+#intro.fin{opacity:0;visibility:hidden}
+#intro img{width:150px;filter:drop-shadow(0 0 30px rgba(201,162,75,.6));animation:apparait 1.4s cubic-bezier(.2,.8,.2,1) both}
+#intro .ligne{position:absolute;bottom:38%;width:0;height:1px;background:linear-gradient(90deg,transparent,var(--or2),transparent);animation:trait 1.4s .3s ease forwards}
+@keyframes apparait{from{opacity:0;transform:scale(.6) translateY(20px);filter:blur(12px)}to{opacity:1;transform:none}}
+@keyframes trait{to{width:70%}}
+
+/* BARRE */
+header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top));transition:.4s}
+header.fond{background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--bord)}
+.rond{width:42px;height:42px;border-radius:50%;border:1px solid var(--bord);background:var(--carte);display:grid;place-items:center;font-size:18px;cursor:pointer;color:var(--txt);backdrop-filter:blur(8px)}
+header .nom{font-family:'Cormorant Garamond',serif;font-size:22px;opacity:0;transition:.4s}
+header.fond .nom{opacity:1}
+
+/* HERO */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 22px 60px;overflow:hidden}
+.hero .photo{position:absolute;inset:0;background:url(img/resultat.jpg) center/cover;opacity:.22;animation:kenburns 22s ease-in-out infinite alternate}
+[data-theme=light] .hero .photo{opacity:.15}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 20%,var(--bg) 78%)}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.18) translate(-2%,2%)}}
+#paillettes{position:absolute;inset:0;z-index:1;pointer-events:none}
+.hero>*:not(.photo):not(canvas){position:relative;z-index:2}
+.hero .logo{width:min(170px,44vw);filter:drop-shadow(0 8px 30px rgba(201,162,75,.45));animation:flotte 5s ease-in-out infinite}
+[data-theme=light] .hero .logo{filter:drop-shadow(0 6px 18px rgba(154,116,40,.35))}
+@keyframes flotte{50%{transform:translateY(-10px)}}
+.hero h1{font-size:clamp(38px,11vw,72px);line-height:1;margin:18px 0 10px}
+.hero h1 span{display:inline-block;opacity:0;transform:translateY(40px) rotate(8deg);animation:lettre .8s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes lettre{to{opacity:1;transform:none}}
+.hero p.sous{color:var(--doux);font-size:15px;letter-spacing:.18em;text-transform:uppercase;opacity:0;animation:monte 1s 1.6s forwards}
+.badge{display:inline-flex;gap:8px;align-items:center;margin:20px 0 26px;padding:9px 16px;border-radius:40px;border:1px solid var(--bord);background:var(--carte);font-size:13px;opacity:0;animation:monte 1s 1.9s forwards}
+.badge b{color:var(--or)}
+@keyframes monte{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.boutons{display:flex;flex-direction:column;gap:12px;width:100%;max-width:340px;opacity:0;animation:monte 1s 2.1s forwards}
+.btn{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:10px;padding:17px 22px;border-radius:16px;font-weight:600;font-size:16px;cursor:pointer;border:none;font-family:inherit;transition:transform .2s}
+.btn:active{transform:scale(.96)}
+.btn.plein{background:linear-gradient(135deg,var(--or3),var(--or) 45%,var(--or2));color:#1a140a;box-shadow:0 10px 30px -8px rgba(201,162,75,.7)}
+.btn.plein::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);animation:eclat 3.2s 3s infinite}
+@keyframes eclat{0%{left:-80%}35%,100%{left:140%}}
+.btn.vide{border:1px solid var(--bord);background:var(--carte);color:var(--txt)}
+.fleche{position:absolute;bottom:22px;z-index:2;width:26px;height:42px;border:1.5px solid var(--bord);border-radius:14px}
+.fleche::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:var(--or);animation:souris 1.8s infinite}
+@keyframes souris{to{transform:translateY(14px);opacity:0}}
+
+/* SECTIONS */
+section{padding:70px 20px;max-width:1000px;margin:auto}
+.titre{text-align:center;margin-bottom:34px}
+.titre small{color:var(--or);letter-spacing:.3em;text-transform:uppercase;font-size:11px;font-weight:600}
+.titre h2{font-size:clamp(34px,9vw,52px);margin-top:6px}
+.apparait{opacity:0;transform:translateY(50px);transition:1s cubic-bezier(.2,.8,.2,1)}
+.apparait.vu{opacity:1;transform:none}
+
+/* STAR CRYO */
+.cryo{position:relative;border-radius:26px;padding:30px 22px;overflow:hidden;background:linear-gradient(160deg,#0f1c26,#0b1218);color:#eaf6ff;border:1px solid rgba(150,210,255,.25)}
+.cryo h3{font-size:34px;line-height:1.05;margin:10px 0}
+.cryo p{color:#a9c6d8;font-size:14.5px;line-height:1.6}
+.cryo .temp{font-family:'Cormorant Garamond',serif;font-size:70px;line-height:1;background:linear-gradient(180deg,#fff,#7fd0ff);-webkit-background-clip:text;color:transparent}
+.cryo .prix{margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.cryo .prix b{font-size:22px;color:#fff}
+.flocon{position:absolute;color:#bfe6ff;opacity:.7;animation:tombe linear infinite;pointer-events:none;top:-20px}
+@keyframes tombe{to{transform:translateY(520px) rotate(360deg)}}
+.pastille{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border-radius:30px;background:rgba(127,208,255,.15);color:#9fdcff}
+
+/* PRESTATIONS */
+.onglets{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin:30px 0 18px;scrollbar-width:none}
+.onglets button{flex:none;padding:11px 18px;border-radius:30px;border:1px solid var(--bord);background:var(--carte);color:var(--txt);font:600 14px Montserrat;cursor:pointer;transition:.3s}
+.onglets button.actif{background:linear-gradient(135deg,var(--or3),var(--or2));color:#1a140a;border-color:transparent}
+.liste{display:grid;gap:10px}
+.ligne-p{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;background:var(--carte);border:1px solid var(--bord);animation:glisse .5s both}
+.ligne-p:nth-child(2){animation-delay:.06s}.ligne-p:nth-child(3){animation-delay:.12s}.ligne-p:nth-child(4){animation-delay:.18s}.ligne-p:nth-child(5){animation-delay:.24s}
+@keyframes glisse{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:none}}
+.ligne-p b{display:block;font-weight:600;font-size:15px}
+.ligne-p small{color:var(--doux);font-size:12.5px}
+.ligne-p .p{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--or);white-space:nowrap}
+.note{text-align:center;color:var(--doux);font-size:13px;margin-top:14px}
+
+/* GALERIE */
+.galerie{overflow:hidden;padding:10px 0;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.piste{display:flex;gap:14px;width:max-content;animation:defile 40s linear infinite}
+.galerie:hover .piste{animation-play-state:paused}
+.piste img{width:220px;height:280px;object-fit:cover;border-radius:20px;border:1px solid var(--bord);transition:transform .4s}
+.piste img:nth-child(odd){transform:translateY(18px)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* ETAPES */
+.etapes{display:grid;gap:14px}
+.etape{display:flex;gap:14px;align-items:center;padding:12px;border-radius:20px;background:var(--carte);border:1px solid var(--bord)}
+.etape img{width:86px;height:86px;border-radius:14px;object-fit:cover;flex:none}
+.etape .n{font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--or);line-height:1}
+.etape p{color:var(--doux);font-size:13.5px;line-height:1.5}
+
+/* NAFIA */
+.moi{display:grid;gap:22px;align-items:center}
+.moi .cadre{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:1;border:1px solid var(--bord)}
+.moi .cadre img{width:100%;height:100%;object-fit:cover;transition:transform 8s}
+.moi .cadre:hover img{transform:scale(1.08)}
+.moi .cadre::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.6))}
+.moi .cadre span{position:absolute;bottom:16px;left:18px;z-index:2;color:#fff;font-family:'Cormorant Garamond',serif;font-size:26px}
+.moi p{color:var(--doux);line-height:1.75;font-size:15px}
+.chiffres{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.chiffres div{text-align:center;padding:16px 6px;border-radius:18px;background:var(--carte);border:1px solid var(--bord)}
+.chiffres b{display:block;font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--or)}
+.chiffres small{font-size:11.5px;color:var(--doux)}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.mini img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:18px;border:1px solid var(--bord)}
+
+/* INFOS */
+.infos{display:grid;gap:12px}
+.info{padding:20px;border-radius:20px;background:var(--carte);border:1px solid var(--bord)}
+.info h3{font-size:24px;margin-bottom:8px}
+.info p,.info li{color:var(--doux);font-size:14.5px;line-height:1.7;list-style:none}
+.info li{display:flex;justify-content:space-between}
+.info li.auj{color:var(--or);font-weight:600}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.actions .btn{padding:14px 10px;font-size:14px}
+footer{text-align:center;padding:40px 20px 110px;color:var(--doux);font-size:12px}
+footer img{width:70px;opacity:.8;margin-bottom:10px}
+
+/* BARRE BAS TÉLÉPHONE */
+.bas{position:fixed;bottom:0;left:0;right:0;z-index:40;display:flex;gap:10px;padding:10px 14px;padding-bottom:max(10px,env(safe-area-inset-bottom));background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);border-top:1px solid var(--bord);transform:translateY(110%);transition:.5s}
+.bas.on{transform:none}
+.bas .btn{flex:1;padding:14px;font-size:15px}
+.bas .btn.vide{flex:0 0 54px}
+
+/* FENÊTRE */
+.voile{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);display:flex;align-items:flex-end;justify-content:center;opacity:0;visibility:hidden;transition:.35s}
+.voile.on{opacity:1;visibility:visible}
+.fen{width:100%;max-width:480px;background:var(--bg2);border:1px solid var(--bord);border-radius:28px 28px 0 0;padding:26px 22px calc(26px + env(safe-area-inset-bottom));transform:translateY(100%);transition:.45s cubic-bezier(.2,.8,.2,1);text-align:center}
+.voile.on .fen{transform:none}
+.fen h3{font-size:30px;margin:8px 0}
+.fen p{color:var(--doux);font-size:14.5px;line-height:1.6}
+.fen ul{text-align:left;margin:16px 0;display:grid;gap:8px}
+.fen li{list-style:none;padding:12px 14px;border-radius:14px;background:var(--carte);border:1px solid var(--bord);font-size:14px}
+.fen .btn{width:100%;margin-top:8px}
+@media(min-width:760px){.moi{grid-template-columns:1fr 1fr}.infos{grid-template-columns:1fr 1fr}.etapes{grid-template-columns:1fr 1fr}.voile{align-items:center}.fen{border-radius:28px}.bas{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.apparait{opacity:1;transform:none}.hero h1 span,.hero p.sous,.badge,.boutons{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div id="intro"><img src="img/logo.png" alt=""><div class="ligne"></div></div>
+
+<header id="barre">
+  <button class="rond" onclick="ouvrir('panel')" aria-label="Espace gérante">🔒</button>
+  <span class="nom or">Nafia'H</span>
+  <button class="rond" id="theme" aria-label="Mode jour ou nuit">☀️</button>
+</header>
+
+<div class="hero">
+  <div class="photo"></div>
+  <canvas id="paillettes"></canvas>
+  <img class="logo" src="img/logo.png" alt="Logo Nafia'H">
+  <h1 id="titre">Nafia'H</h1>
+  <p class="sous">La spécialiste en soins capillaires</p>
+  <div class="badge">✨ <span>Sur <b>rendez-vous</b> ou <b>sur place</b></span></div>
+  <div class="boutons">
+    <button class="btn plein" onclick="ouvrir('rdv')">📅 Prendre rendez-vous</button>
+    <a class="btn vide" href="tel:+32494288845">📞 0494 28 88 45</a>
+  </div>
+</div>
+
+<section>
+  <div class="cryo apparait" id="cryo">
+    <span class="pastille">❄️ N°1 en région liégeoise</span>
+    <div class="temp">-16°</div>
+    <h3>La cryothérapie capillaire</h3>
+    <p>Un soin au collagène, à l'acide hyaluronique et à l'açaï, scellé dans la fibre avec un fer froid. Vos cheveux en ressortent plus remplis, plus doux et brillants, pendant 4 à 7 semaines.</p>
+    <div class="prix"><b>70 € · 1h30</b><button class="btn plein" style="padding:12px 18px;font-size:14px" onclick="ouvrir('rdv')">Je réserve</button></div>
+  </div>
+</section>
+
+<section id="prestations">
+  <div class="titre apparait"><small>La carte</small><h2>Mes prestations</h2></div>
+  <div class="onglets apparait" id="onglets"></div>
+  <div class="liste" id="liste"></div>
+  <p class="note">🎁 Bons cadeaux disponibles, de 25 € à 180 €</p>
+</section>
+
+<div class="galerie apparait"><div class="piste" id="piste"></div></div>
+
+<section>
+  <div class="titre apparait"><small>Mon savoir-faire</small><h2>Un soin, étape par étape</h2></div>
+  <div class="etapes">
+    <div class="etape apparait"><img src="img/diagnostic.jpg" alt="" loading="lazy"><div><span class="n">01</span><b> Diagnostic</b><p>J'analyse la nature de vos cheveux pour choisir le soin qui leur convient.</p></div></div>
+    <div class="etape apparait"><img src="img/sechage.jpg" alt="" loading="lazy"><div><span class="n">02</span><b> Séchage à 100 %</b><p>Le cheveu est parfaitement sec pour bien fixer la kératine.</p></div></div>
+    <div class="etape apparait"><img src="img/plaque.jpg" alt="" loading="lazy"><div><span class="n">03</span><b> Passage de plaque</b><p>Mèche par mèche, pour sceller le soin au cœur de la fibre.</p></div></div>
+    <div class="etape apparait"><img src="img/resultat.jpg" alt="" loading="lazy"><div><span class="n">04</span><b> Résultat</b><p>Des cheveux lisses, lumineux et en pleine santé.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="moi">
+    <div class="cadre apparait"><img src="img/nafia.jpg" alt="Nafia" loading="lazy"><span>Nafia</span></div>
+    <div class="apparait">
+      <div class="titre" style="text-align:left;margin-bottom:14px"><small>Qui suis-je ?</small><h2>Votre coiffeuse, rien que pour vous</h2></div>
+      <p>Je vous accueille seule dans mon salon au cœur de Saint-Nicolas. Pas de chaîne, pas d'attente : chaque cliente a toute mon attention. Je me suis spécialisée dans les lissages et les soins profonds, et je forme aussi d'autres coiffeuses à mes techniques.</p>
+      <div class="chiffres">
+        <div><b data-compte="5" data-dec="1">0</b><small>★ sur Planity</small></div>
+        <div><b data-compte="59">0</b><small>avis clientes</small></div>
+        <div><b data-compte="7">0</b><small>semaines de résultat</small></div>
+      </div>
+      <div class="mini"><img src="img/formation1.jpg" alt="Formation" loading="lazy"><img src="img/formation2.jpg" alt="Formation" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section id="infos">
+  <div class="titre apparait"><small>Me trouver</small><h2>Le salon</h2></div>
+  <div class="infos">
+    <div class="info apparait">
+      <h3>📍 Adresse</h3>
+      <p>136 chaussée Roosevelt<br>4420 Saint-Nicolas</p>
+      <div class="actions">
+        <a class="btn plein" href="https://www.google.com/maps/dir/?api=1&destination=136+chauss%C3%A9e+Roosevelt+4420+Saint-Nicolas+Belgique" target="_blank">🧭 Itinéraire</a>
+        <a class="btn vide" href="https://wa.me/32494288845" target="_blank">💬 WhatsApp</a>
+      </div>
+    </div>
+    <div class="info apparait">
+      <h3>🕐 Horaires</h3>
+      <ul id="horaires"></ul>
+    </div>
+  </div>
+</section>
+
+<footer><img src="img/logo.png" alt=""><br>Nafia'H · La spécialiste en soins capillaires<br>Saint-Nicolas · 0494 28 88 45</footer>
+
+<div class="bas" id="bas">
+  <a class="btn vide" href="tel:+32494288845" aria-label="Appeler">📞</a>
+  <button class="btn plein" onclick="ouvrir('rdv')">📅 Prendre rendez-vous</button>
+</div>
+
+<div class="voile" id="voile" onclick="if(event.target===this)fermer()">
+  <div class="fen" id="fen"></div>
+</div>
+
+<script>
+// Intro
+addEventListener('load',()=>setTimeout(()=>document.getElementById('intro').classList.add('fin'),1700));
+// Titre lettre par lettre
+const t=document.getElementById('titre');t.innerHTML=[...t.textContent].map((c,i)=>`<span class="or" style="animation-delay:${1.2+i*.08}s">${c}</span>`).join('');
+// Thème
+const th=document.getElementById('theme');
+function setTheme(m){document.documentElement.dataset.theme=m;th.textContent=m==='dark'?'☀️':'🌙';try{localStorage.setItem('nafia-theme',m)}catch(e){}}
+try{const s=localStorage.getItem('nafia-theme');if(s)setTheme(s)}catch(e){}
+th.onclick=()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark');
+// Barre
+const barre=document.getElementById('barre'),bas=document.getElementById('bas');
+addEventListener('scroll',()=>{barre.classList.toggle('fond',scrollY>60);bas.classList.toggle('on',scrollY>innerHeight*.7)},{passive:true});
+// Prestations
+const P={"Lissage brésilien":[["Cheveux courts","2h","120 €"],["Mi-longs","2h","150 €"],["Longs","2h","160 €"],["Très longs","2h","180 €"]],
+"Soins profonds":[["Cryothérapie capillaire ❄️","1h30","70 €"],["Quintessence bot capillaire","1h30","70 €"],["Lifting capillaire","1h30","70 €"],["Bot lissant","2h","85 €"],["Cure cryo + bot lissant","4 séances · 1 tous les 15 jours","120 €"]],
+"Coiffure":[["Soin + coupe + brushing","1h","50 €"],["Shampooing + soin + brushing","1h","25 €"],["Shampooing + soin + brushing wavy","1h","40 €"],["Coupe","1h","20 €"]],
+"Formations":[["Formation 1 jour","Lissage brésilien + bot lissant","Sur devis"],["Formation 2 jours","Lissage, bot, lifting, cryothérapie, quintessence","Sur devis"]]};
+const og=document.getElementById('onglets'),li=document.getElementById('liste');
+function montre(k){[...og.children].forEach(b=>b.classList.toggle('actif',b.textContent===k));li.innerHTML=P[k].map(([n,d,p])=>`<div class="ligne-p"><div><b>${n}</b><small>${d}</small></div><span class="p">${p}</span></div>`).join('')}
+Object.keys(P).forEach(k=>{const b=document.createElement('button');b.textContent=k;b.onclick=()=>montre(k);og.appendChild(b)});montre("Lissage brésilien");
+// Galerie
+const imgs=['resultat','cliente','boucles','plaque','gelee','londres','sechage','diagnostic'];
+document.getElementById('piste').innerHTML=[...imgs,...imgs].map(i=>`<img src="img/${i}.jpg" alt="" loading="lazy">`).join('');
+// Horaires
+const H=[["Lundi","Fermé"],["Mardi","11h – 17h"],["Mercredi","11h – 17h"],["Jeudi","11h – 17h"],["Vendredi","11h – 17h"],["Samedi","14h – 18h"],["Dimanche","Fermé"]];
+const j=(new Date().getDay()+6)%7;
+document.getElementById('horaires').innerHTML=H.map(([a,b],i)=>`<li class="${i===j?'auj':''}"><span>${a}${i===j?' · aujourd\'hui':''}</span><span>${b}</span></li>`).join('');
+// Apparition au scroll + compteurs
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');e.target.querySelectorAll('[data-compte]').forEach(compte);io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.apparait').forEach(e=>io.observe(e));
+function compte(el){const fin=+el.dataset.compte,dec=+el.dataset.dec||0,t0=performance.now();(function f(t){const k=Math.min((t-t0)/1400,1),v=fin*(1-Math.pow(1-k,3));el.textContent=v.toFixed(dec).replace('.',',');if(k<1)requestAnimationFrame(f)})(t0)}
+// Flocons cryo
+const cr=document.getElementById('cryo');for(let i=0;i<14;i++){const s=document.createElement('span');s.className='flocon';s.textContent='❄';s.style.left=Math.random()*100+'%';s.style.fontSize=8+Math.random()*12+'px';s.style.animationDuration=5+Math.random()*6+'s';s.style.animationDelay=-Math.random()*8+'s';cr.appendChild(s)}
+// Paillettes dorées
+const cv=document.getElementById('paillettes'),cx=cv.getContext('2d');let W,Hh,pts=[];
+function taille(){W=cv.width=cv.offsetWidth*devicePixelRatio;Hh=cv.height=cv.offsetHeight*devicePixelRatio}
+taille();addEventListener('resize',taille);
+for(let i=0;i<55;i++)pts.push({x:Math.random(),y:Math.random(),r:Math.random()*2+.6,v:Math.random()*.0012+.0004,a:Math.random()*6.28});
+(function anim(){cx.clearRect(0,0,W,Hh);pts.forEach(p=>{p.y-=p.v;p.a+=.03;if(p.y<0){p.y=1;p.x=Math.random()}const o=.35+.35*Math.sin(p.a);cx.beginPath();cx.arc(p.x*W+Math.sin(p.a)*8,p.y*Hh,p.r*devicePixelRatio,0,7);cx.fillStyle=`rgba(243,217,139,${o})`;cx.shadowBlur=12;cx.shadowColor='#f3d98b';cx.fill()});requestAnimationFrame(anim)})();
+// Fenêtres
+const voile=document.getElementById('voile'),fen=document.getElementById('fen');
+const F={rdv:`<div style="font-size:40px">📅</div><h3 class="or">Réservation en ligne</h3><p>Bientôt, vous pourrez réserver ici directement, en quelques secondes :</p><ul><li>✂️ Choisir votre soin et votre créneau</li><li>📩 Recevoir la confirmation par e-mail</li><li>⏰ Un rappel automatique la veille du rendez-vous</li></ul><p>En attendant, appelez-moi ou passez au salon : <b>sur rendez-vous ou sur place</b>.</p><a class="btn plein" href="tel:+32494288845">📞 Appeler Nafia</a><button class="btn vide" onclick="fermer()">Fermer</button>`,
+panel:`<div style="font-size:40px">🔒</div><h3 class="or">Espace de gestion</h3><p>Votre panel de gestion sera ici : vos rendez-vous, vos clientes, les notifications et les rappels, tout au même endroit.</p><button class="btn plein" onclick="fermer()">Compris</button>`};
+function ouvrir(k){fen.innerHTML=F[k];voile.classList.add('on')}
+function fermer(){voile.classList.remove('on')}
+</script>
+</body>
+</html>
