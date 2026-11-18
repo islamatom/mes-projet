@@ -397,7 +397,7 @@ main{padding-bottom:90px!important}
     <div class="sig-l">Atom · Hassani Mohamed Islam · Rue du Commerce 9, 5300 Andenne<br>TVA BE0748661737 · <a href="tel:+32499374830">0499 37 48 30</a></div>
     <a class="credit" href="https://www.hassanimohamedislam.com" target="_blank" rel="noopener">Développé avec <span>♡</span> par le développeur <b>Atom</b></a>
     <div class="atom-ct"><a href="https://www.instagram.com/islem_atom/" target="_blank" rel="noopener">📷 @islem_atom</a><a href="mailto:islematom@gmail.com">✉️ islematom@gmail.com</a><a href="tel:+32499374830">📞 0499 37 48 30</a></div>
-    <div class="sig-v">Atom · v5.21 · site privé, synchronisé sur ton PC et ton téléphone</div>
+    <div class="sig-v">Atom · v5.22 · site privé, synchronisé sur ton PC et ton téléphone</div>
   </footer>
 </main>
 
@@ -963,6 +963,8 @@ function render(){const h=$('#hint');if(h)h.hidden=D.code!=='0000';
   // ---------- 📌 à faire ----------
   const td=[];
   D.clients.forEach(c=>{const E=etp(c);
+    {const s0=c.sp||{},lien=s0.site||c.site;if((E==='mission'||E==='dort')&&lien){if(!c.testLe){c.testLe=T;saveC(c)}const j=Math.round((TODAY-parse(c.testLe))/864e5);
+      if(j>=5&&!(c.relance&&c.relance>T))td.push({c,t:addD(c.testLe,5),ic:'🧪',tx:`Site de test envoyé il y a ${j} jours, pas de réponse : relance-le`,z:'relance',urg:1})}}
     if(c.relance&&E!=='actif'&&c.relance<=addD(T,2))td.push({c,t:c.relance,ic:'⏰',tx:(c.relance<T?'Relance en retard':c.relance===T?'Relancer aujourd\'hui':'Relancer le '+fmt(c.relance))+(c.relanceNote?' · '+c.relanceNote:''),z:'relance'});
     {const s=c.sp||{};if(s.domaine&&s.domaineFin&&s.domaineFin<=addD(T,30))td.push({c,t:s.domaineFin,ic:'🌐',tx:`Payer le domaine ${s.domaine}${s.domainePrix?' ('+eur(+s.domainePrix)+')':''} ${s.domaineFin<T?'· expiré depuis le '+fmt(s.domaineFin):'avant le '+fmt(s.domaineFin)}`,z:'dns'})}
     if(E==='actif'){const j=mensOn(c)?null:aboJours(c);if(j!==null&&j<=30)td.push({c,t:aboFin(c),ic:'⏳',tx:j<0?'Abonnement fini depuis '+(-j)+' j':'Abonnement fini dans '+j+' j',z:'mois'});
