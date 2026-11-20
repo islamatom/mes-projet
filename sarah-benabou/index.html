@@ -48,6 +48,13 @@ footer{text-align:center;padding:30px 20px 40px;color:var(--soft);font-size:13px
 .modal{position:fixed;inset:0;background:#0007;display:none;align-items:flex-end;justify-content:center;z-index:20}
 .modal.on{display:flex}
 .box{background:var(--card);color:var(--txt);width:100%;max-width:480px;border-radius:26px 26px 0 0;padding:26px 22px 30px;animation:slide .4s ease}
+.box{max-height:92vh;overflow:auto}
+.box label{display:block;font-size:13px;font-weight:600;margin:12px 0 5px}
+.box input,.box select{width:100%;padding:13px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--txt);font:15px Poppins}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choix{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ch{padding:12px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--txt);font:600 14px Poppins;cursor:pointer}
+.ch.on{border-color:var(--rose);background:#b76e7922}
 .box h3{font-family:'Playfair Display';font-size:22px;margin-bottom:10px}
 .box li{margin:6px 0 6px 18px}
 .galerie{overflow:hidden}
@@ -123,10 +130,19 @@ footer{text-align:center;padding:30px 20px 40px;color:var(--soft);font-size:13px
 
 <div class="modal" id="rdv" onclick="ferme(event)">
   <div class="box">
-    <h3>Bientôt disponible ✨</h3>
-    <p>Sur votre vrai site, vos clientes pourront :</p>
-    <ul><li>Réserver en ligne en 30 secondes</li><li>Choisir la date, la prestation, à domicile ou sur place</li><li>Recevoir un rappel la veille</li><li>Vous, vous recevez une notification avec le son</li></ul>
-    <button class="btn b1" style="animation:none" onclick="ferme()">OK</button>
+    <h3>Prendre RDV ✨</h3>
+    <form id="frdv" onsubmit="envoie(event)">
+      <label>Prestation</label>
+      <select id="fp" required><option value="">Choisir…</option><option>Pack mariée (coiffure + maquillage)</option><option>Coiffure mariée</option><option>Maquillage mariée</option><option>Coiffure soirée / fête</option><option>Maquillage soirée</option><option>Brushing & lissage</option></select>
+      <label>Où ?</label>
+      <div class="choix"><button type="button" class="ch on" onclick="lieu(this,'domicile')">🚗 Chez moi</button><button type="button" class="ch" onclick="lieu(this,'place')">🏠 Chez Sarah</button></div>
+      <div id="zadr"><label>Votre adresse / quartier</label><input id="fa" placeholder="Ex. : Bab Ezzouar, cité 2000…"></div>
+      <div class="deux"><div><label>Date</label><input type="date" id="fd" required></div><div><label>Heure</label><input type="time" id="fh" required></div></div>
+      <label>Votre prénom</label><input id="fn" required placeholder="Votre prénom">
+      <label>Votre téléphone</label><input id="ft" type="tel" required placeholder="05 / 06 / 07…">
+      <button class="btn b1" style="animation:none" type="submit">Envoyer ma demande 💬</button>
+      <p style="font-size:12px;color:var(--soft);text-align:center;margin-top:8px">Sarah vous confirme votre RDV sur WhatsApp.</p>
+    </form>
   </div>
 </div>
 <div class="modal" id="panel" onclick="ferme(event)">
@@ -145,6 +161,13 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.targe
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 const h=document.getElementById('hero');
 for(let i=0;i<14;i++){const p=document.createElement('div');p.className='paillette';p.style.left=Math.random()*100+'%';p.style.top=(80+Math.random()*30)+'%';p.style.animationDuration=(6+Math.random()*8)+'s';p.style.animationDelay=(-Math.random()*8)+'s';h.appendChild(p)}
+let LIEU='domicile';
+function lieu(b,v){LIEU=v;document.querySelectorAll('.ch').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.getElementById('zadr').style.display=v==='domicile'?'block':'none'}
+document.getElementById('fd').min=new Date().toISOString().slice(0,10);
+function envoie(e){e.preventDefault();const v=id=>document.getElementById(id).value.trim();
+const d=new Date(v('fd')).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+let m=`Bonjour Sarah 🌸\nJe voudrais un RDV :\n• ${v('fp')}\n• ${d} à ${v('fh')}\n• ${LIEU==='domicile'?'À domicile'+(v('fa')?' : '+v('fa'):''):'Chez vous (sur place)'}\n• ${v('fn')} – ${v('ft')}`;
+window.open('https://wa.me/213771366457?text='+encodeURIComponent(m),'_blank');ferme()}
 </script>
 </body>
 </html>
