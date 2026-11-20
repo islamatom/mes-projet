@@ -6,6 +6,8 @@
 <title>Sarah Benabou · Coiffure & Make-up</title>
 <meta name="description" content="Coiffeuse et maquilleuse certifiée, à domicile ou sur place. Mariées, soirées, fêtes.">
 <meta property="og:title" content="Sarah Benabou · Coiffure & Make-up">
+<meta property="og:image" content="https://islamatom.github.io/mes-projet/sarah-benabou/img/sarah.jpg">
+<link rel="apple-touch-icon" href="img/sarah.jpg">
 <meta property="og:description" content="À domicile ou sur place · Réservez votre RDV">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23b76e79'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='white' font-family='Georgia'>SB</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -17,7 +19,7 @@ body{font-family:Poppins,sans-serif;background:var(--bg);color:var(--txt);transi
 .top{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:12px 14px;z-index:10}
 .ic{width:42px;height:42px;border-radius:50%;border:none;background:var(--card);color:var(--txt);font-size:18px;box-shadow:0 2px 10px #0002;cursor:pointer}
 header{min-height:88vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:90px 22px 40px;background:radial-gradient(circle at 30% 20%,#f3c9c9aa,transparent 60%),radial-gradient(circle at 80% 80%,#e9cf9f88,transparent 55%);position:relative;overflow:hidden}
-.logo{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--gold));display:grid;place-items:center;color:#fff;font-family:'Playfair Display';font-size:40px;box-shadow:0 10px 30px #b76e7955;animation:pop 1s ease both}
+.logo{width:120px;height:120px;border-radius:50%;object-fit:cover;border:4px solid #fff;outline:3px solid var(--gold);box-shadow:0 10px 30px #b76e7955;animation:pop 1s ease both}
 h1{font-family:'Playfair Display';font-size:34px;margin-top:18px;animation:up .9s .2s both}
 .sub{color:var(--rose);font-weight:600;letter-spacing:2px;font-size:13px;text-transform:uppercase;margin-top:6px;animation:up .9s .35s both}
 .accroche{font-family:'Playfair Display';font-style:italic;font-size:19px;margin:18px auto 0;max-width:330px;animation:up .9s .5s both}
@@ -48,6 +50,11 @@ footer{text-align:center;padding:30px 20px 40px;color:var(--soft);font-size:13px
 .box{background:var(--card);color:var(--txt);width:100%;max-width:480px;border-radius:26px 26px 0 0;padding:26px 22px 30px;animation:slide .4s ease}
 .box h3{font-family:'Playfair Display';font-size:22px;margin-bottom:10px}
 .box li{margin:6px 0 6px 18px}
+.galerie{overflow:hidden}
+.piste{display:flex;gap:12px;width:max-content;animation:defile 28s linear infinite}
+.galerie:hover .piste{animation-play-state:paused}
+.piste img{width:220px;height:320px;object-fit:cover;border-radius:20px;box-shadow:0 8px 20px #0002}
+@keyframes defile{to{transform:translateX(-50%)}}
 .paillette{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--gold);opacity:.6;animation:flotte linear infinite}
 @keyframes up{from{opacity:0;transform:translateY(25px)}}
 @keyframes pop{from{opacity:0;transform:scale(.5)}}
@@ -63,7 +70,7 @@ footer{text-align:center;padding:30px 20px 40px;color:var(--soft);font-size:13px
 </div>
 
 <header id="hero">
-  <div class="logo">SB</div>
+  <img class="logo" src="img/sarah.jpg" alt="Sarah Benabou">
   <h1>Sarah Benabou</h1>
   <div class="sub">Coiffure & Make-up</div>
   <p class="accroche">Sublime pour chaque grand jour, chez vous ou chez moi.</p>
@@ -72,6 +79,15 @@ footer{text-align:center;padding:30px 20px 40px;color:var(--soft);font-size:13px
   <a class="btn b2" href="https://wa.me/213771366457">💬 WhatsApp</a>
   <a class="btn b3" href="https://instagram.com/sarah_benabouu">📸 Mes réalisations · 96 k abonnés</a>
 </header>
+
+<section class="reveal" style="max-width:none;padding-left:0;padding-right:0">
+  <h2>Mes réalisations</h2><div class="trait"></div>
+  <div class="galerie"><div class="piste">
+    <img src="img/g1.jpg" alt="Chedda tlemcenienne"><img src="img/g2.jpg" alt="Tenue de fête"><img src="img/g3.jpg" alt="Soirée"><img src="img/g4.jpg" alt="Anniversaire">
+    <img src="img/g1.jpg" alt=""><img src="img/g2.jpg" alt=""><img src="img/g3.jpg" alt=""><img src="img/g4.jpg" alt="">
+  </div></div>
+  <p style="text-align:center;margin-top:14px;font-size:14px"><a href="https://instagram.com/sarah_benabouu" style="color:var(--rose);font-weight:600">Voir tout sur Instagram →</a></p>
+</section>
 
 <section class="reveal">
   <h2>Mes prestations</h2><div class="trait"></div>
