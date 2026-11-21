@@ -299,6 +299,14 @@ body:not([data-v=a]) main>[data-v=a],body:not([data-v=m]) main>[data-v=m],body:n
 .pj .tx{flex:1;min-width:0}
 .pj .tx b{display:block;font-family:var(--display);font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pj .tx small{display:block;color:var(--ink2);font-size:13.5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pj .tx small.ctr{font-size:12.5px;font-weight:800}.pj .tx small.ctr.ok{color:var(--ok)}.pj .tx small.ctr.no{color:var(--bad)}
+.ctr-b{background:none;border:0;padding:0;cursor:pointer;font:inherit}
+.ctr-z.ok{border-left:6px solid var(--ok)}.ctr-z.no{border-left:6px solid var(--bad)}
+.ctr-st{font-size:18px;font-weight:800;margin:2px 0 6px}.ctr-z.ok .ctr-st{color:var(--ok)}.ctr-z.no .ctr-st{color:var(--bad)}
+.ctr-f{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:14px;text-decoration:none;color:inherit;margin-top:6px}
+.ctr-f b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ctr-f small{color:var(--ink2);font-size:12.5px}
+.ctr-pick{display:flex;gap:10px;align-items:center;width:100%;padding:10px 12px;margin-top:6px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;cursor:pointer;text-align:left}
+.ctr-pick b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}.ctr-pick i{font-style:normal;font-size:12px;font-weight:800;color:var(--ok);flex:0 0 auto}
 .pj .bd{min-width:30px;height:30px;border-radius:99px;display:grid;place-items:center;font-weight:800;font-size:13px;padding:0 8px;flex:0 0 auto}
 .bd.g{background:var(--okbg);color:var(--ok)}.bd.y{background:#FFF4C2;color:#8A6400}.bd.r{background:var(--badbg);color:var(--bad)}.bd.p{background:var(--probg);color:var(--pro)}.bd.s{background:var(--line);color:var(--ink2)}
 .pj .ch{color:var(--ink2);font-size:22px;line-height:1;flex:0 0 auto}
@@ -397,7 +405,7 @@ main{padding-bottom:90px!important}
     <div class="sig-l">Atom · Hassani Mohamed Islam · Rue du Commerce 9, 5300 Andenne<br>TVA BE0748661737 · <a href="tel:+32499374830">0499 37 48 30</a></div>
     <a class="credit" href="https://www.hassanimohamedislam.com" target="_blank" rel="noopener">Développé avec <span>♡</span> par le développeur <b>Atom</b></a>
     <div class="atom-ct"><a href="https://www.instagram.com/islem_atom/" target="_blank" rel="noopener">📷 @islem_atom</a><a href="mailto:islematom@gmail.com">✉️ islematom@gmail.com</a><a href="tel:+32499374830">📞 0499 37 48 30</a></div>
-    <div class="sig-v">Atom · v5.22 · site privé, synchronisé sur ton PC et ton téléphone</div>
+    <div class="sig-v">Atom · v5.23 · site privé, synchronisé sur ton PC et ton téléphone</div>
   </footer>
 </main>
 
@@ -617,6 +625,11 @@ function bientot(){const l=D.clients.filter(c=>c.statut==='actif'&&(c.echeance||
      <div class="i"><b>${esc(c.nom)}</b><small>${fmt(e)} · ${eur(c.abo||totalLignes(c))} ${c.abo?perTxt(c):''}</small><small style="color:${col};font-weight:700">${j<0?'En retard de '+(-j)+' jour'+(-j>1?'s':''):j===0?'Aujourd\'hui':'Dans '+j+' jour'+(j>1?'s':'')}</small></div>
      <div class="cd" style="width:100%" data-t="${t}"></div></div>`}).join('')||'<div class="box" style="text-align:center;padding:30px"><b>Aucun paiement prévu</b></div>'}</div>`;
   ov.classList.add('open');tick()}
+/* ---------- 📝 contrat signé ou pas ---------- */
+const ctrOn=c=>etp(c)!=='mission';
+const ctrOk=c=>!!(c.contrat&&c.contrat.url);
+const ctrTxt=c=>ctrOk(c)?'📝 Contrat signé':'📝 Contrat pas encore signé';
+const ctrTag=c=>`<span class="tag ${ctrOk(c)?'t-paye':'t-ret'}" style="margin:0">${ctrOk(c)?'✅':'❌'} ${ctrOk(c)?'Contrat signé':'Contrat pas signé'}</span>`;
 /* ---------- carte client (liste) ---------- */
 const EMO={garage:'🔧',voiture:'🚗',robe:'👰',autre:'💼'};
 const emo=c=>c.emoji||EMO[c.secteur]||'💼';
@@ -624,8 +637,8 @@ function carteClient(c){const [et,cl]=etat(c);const s=c.sp||{};const nd=(c.deman
   const rel=c.relance&&etp(c)!=='actif'?`⏰ ${c.relance<T?'relance en retard':c.relance===T?'relancer aujourd\'hui':'relancer le '+fmt(c.relance).replace(/ \d{4}$/,'')}`:'';
   const quoi=c.sousTitre||(etp(c)==='mission'?[c.adresse,c.fb?'📘 Facebook':'',c.tel].filter(Boolean).join(' · ')||'Mission à démarcher':etp(c)==='dort'&&c.resteAFaire?'Reste : '+c.resteAFaire:[SECT[c.secteur][0],s.panel?'site + panel':(s.site||c.site)?'site':''].filter(Boolean).join(' · '));
   const E=etp(c);const bd=E==='mission'?['p','🎯','Mission']:E==='dort'?['s','💤','Il dort']:s.etat==='bloque'?['r','⛔','Panel bloqué']:nd?['r',nd,nd+' message(s)']:cl==='t-ret'?['r','!',et]:cl==='t-jaune'?['y','€',et]:cl==='t-paye'?['g','✓','Payé']:cl==='t-pro'?['p','…','Prospect']:['s','–',et];
-  return `<button class="pj" onclick="reglClient(${c.id})" aria-label="${esc(c.nom)} : ${esc(bd[2])}"><span class="em" aria-hidden="true">${esc(emo(c))}</span>
-   <span class="tx"><b>${esc(c.nom)}</b><small>${esc(quoi)}</small>${rel?`<small style="color:${c.relance<=T?'var(--bad)':'var(--accent2)'};font-weight:700">${rel}</small>`:''}${reste(c)>0&&c.statut==='actif'?`<small style="color:${cl==='t-ret'?'var(--bad)':'#C8960C'};font-weight:700">${eur(reste(c))} à payer</small>`:''}</span>
+  return `<button class="pj" onclick="reglClient(${c.id})" aria-label="${esc(c.nom)} : ${esc(bd[2])}${ctrOn(c)?' · '+ctrTxt(c).slice(3):''}"><span class="em" aria-hidden="true">${esc(emo(c))}</span>
+   <span class="tx"><b>${esc(c.nom)}</b><small>${esc(quoi)}</small>${ctrOn(c)?`<small class="ctr ${ctrOk(c)?'ok':'no'}">${ctrTxt(c)}</small>`:''}${rel?`<small style="color:${c.relance<=T?'var(--bad)':'var(--accent2)'};font-weight:700">${rel}</small>`:''}${reste(c)>0&&c.statut==='actif'?`<small style="color:${cl==='t-ret'?'var(--bad)':'#C8960C'};font-weight:700">${eur(reste(c))} à payer</small>`:''}</span>
    ${(()=>{if(E==='actif'&&mensOn(c)){const a=(c.mensuel.liste||[]).some(f=>f.statut!=='payé');return `<span class="num" style="flex:0 0 auto;font-size:12px;font-weight:800;color:${a?'#C8960C':'var(--ok)'}">${a?'⏳ à payer':'✅ Actif'}</span>`}const j=E==='actif'?aboJours(c):null;if(j===null)return '';const col=j<0?'var(--bad)':j<=30?'#C8960C':'var(--ok)';return `<span class="num" style="flex:0 0 auto;font-family:var(--display);font-weight:700;font-size:13px;color:${col};text-align:right;line-height:1.1">${j<0?'J+'+(-j):'J-'+j}<br><small style="font-family:var(--body);font-weight:600;font-size:10.5px;color:var(--ink2)">${j<0?'fini':'restants'}</small></span>`})()}
    <span class="bd ${bd[0]}" title="${esc(bd[2])}">${bd[1]}</span><span class="ch" aria-hidden="true">›</span></button>`}
 const PGT={a:'Accueil',c:'Clients',m:'Paiements',p:'Projets'};
@@ -669,7 +682,7 @@ function envoyerWA(c,txt){if(waNum(c)){location.href=waLink(c,txt);return true}c
 function reglClient(id,zone){const c=D.clients.find(x=>x.id===id);const [et,cl]=etat(c);const s=c.sp||{};const site=s.site||c.site;const E=etp(c),A=E==='actif';
   const nd=(c.demandes||[]).filter(d=>d.statut!=='terminée').length;const B=(k,ic,t,x='')=>`<button class="rgb ${zone===k?'on':''} ${x}" onclick="reglClient(${c.id},'${k}')"><span>${ic}</span>${t}</button>`;
   $('#sheet').innerHTML=`<div class="sh-h"><div class="row"><div class="ic s-${c.secteur}">${SECT[c.secteur][1]}</div><h3>${esc(c.nom)}</h3><button class="btn b-ghost b-sm" aria-label="Fermer" onclick="ov.classList.remove('open')">✕</button></div>
-   <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;align-items:center"><span class="tag ${cl}" style="margin:0">${et}</span>${s.etat==='bloque'?'<span class="tag t-ret" style="margin:0">⛔ Panel bloqué</span>':s.etat==='averti'?'<span class="tag t-jaune" style="margin:0">⚠ Averti</span>':''}</div>
+   <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;align-items:center"><span class="tag ${cl}" style="margin:0">${et}</span>${ctrOn(c)?`<button class="ctr-b" onclick="reglClient(${c.id},'contrat')" aria-label="Voir le contrat">${ctrTag(c)}</button>`:''}${s.etat==='bloque'?'<span class="tag t-ret" style="margin:0">⛔ Panel bloqué</span>':s.etat==='averti'?'<span class="tag t-jaune" style="margin:0">⚠ Averti</span>':''}</div>
    <div style="margin-top:10px;font-size:13.5px;color:#AFC0E0">${A?'':`${ETP3[E][0]} ${ETP3[E][1]}${c.notes?' · '+esc(c.notes.slice(0,80)):''}`}</div><div ${A?'':'hidden'} style="margin-top:4px;font-size:13.5px;color:#AFC0E0">Prix : <b style="color:#fff">${prixTxt(c)}</b>${reste(c)?` · <b style="color:#FFB4A8">${eur(reste(c))} à payer</b>`:''}</div></div>
   <div class="sh-b">
    ${c.sp&&c.sp.aboDebut&&!mensOn(c)?`<div class="box">${compteur(c,1)}</div>`:''}
@@ -678,7 +691,7 @@ function reglClient(id,zone){const c=D.clients.find(x=>x.id===id);const [et,cl]=
     ${A&&mensOn(c)?`<button class="qkb ${zone==='mensuel'?'on':''}" onclick="reglClient(${c.id},'mensuel')"><span>🗓</span>Factures${(()=>{const n=(c.mensuel.liste||[]).filter(f=>f.statut!=='payé').length;return n?`<i>${n}</i>`:''})()}</button>`:A&&reste(c)>0?`<button class="qkb ok" onclick="confPayer(${c.id})"><span>✅</span>Payé</button>`:A?'':`<button class="qkb ok" onclick="ranger(${c.id},'actif')"><span>🟢</span>Actif</button>`}
     ${A?`<button class="qkb ${zone==='demandes'?'on':''}" onclick="reglClient(${c.id},'demandes')"><span>📩</span>Demandes${nd?`<i>${nd}</i>`:''}</button>`:`<button class="qkb" onclick="editClient(${c.id})"><span>✏️</span>Modifier</button>`}
    </div>
-   <details class="opts"${zone&&!['mensuel','demandes'].includes(zone)?' open':''}><summary>☰ Toutes les options<span>›</span></summary>
+   <details class="opts"${zone&&!['mensuel','demandes','contrat'].includes(zone)?' open':''}><summary>☰ Toutes les options<span>›</span></summary>
    <div class="rg">
     ${site?`<a class="rgb" target="_blank" rel="noopener" href="${esc(site)}"><span>🌐</span>Voir son site</a>`:A?`<button class="rgb off"><span>🌐</span>Pas de site</button>`:''}
     ${s.panel?`<a class="rgb" target="_blank" rel="noopener" href="${esc(s.panel)}"><span>🗂</span>Voir son panel</a>`:A?`<button class="rgb off"><span>🗂</span>Pas de panel</button>`:''}
@@ -692,6 +705,7 @@ function reglClient(id,zone){const c=D.clients.find(x=>x.id===id);const [et,cl]=
     ${A&&!mensOn(c)?B('per','📅',fmTxt(c)?FM[fm(c)]?.[1]||PERN[+c.periode]:'Formule à choisir'):''}
     ${A&&c.sp&&c.sp.aboDebut?B('mois','⏱','Prolonger'):''}
     ${c.sp&&c.sp.domaine?B('dns','🌐','Domaine '+(c.sp.domaineFin?'jusqu\'au '+fmt(c.sp.domaineFin).replace(/ \d{4}$/,''):'à noter')):''}
+    ${ctrOn(c)?B('contrat','📝',ctrOk(c)?'Son contrat ✓':'Contrat à joindre',ctrOk(c)?'ok':'bad'):''}
     ${B('msg','💬','Envoyer un message')}
     ${A?B('sumup','💳','Lien SumUp pour payer'):''}
     ${A?B('notif','🔔','Envoyer une notification'):''}
@@ -713,6 +727,16 @@ function reglClient(id,zone){const c=D.clients.find(x=>x.id===id);const [et,cl]=
   </div>`;
   ov.classList.add('open');tick();if(zone==='per')fBind('z');if(zone)setTimeout(()=>{const z=$('#rgz');if(z&&z.scrollIntoView)z.scrollIntoView({behavior:'smooth',block:'start'})},60)}
 function zoneRegl(c,z){const m=D.moi,id=c.id;
+  if(z==='contrat'){const k=c.contrat||{};const autres=(c.docs||[]).filter(d=>d.id!==k.id);
+    return `<div class="box ctr-z ${ctrOk(c)?'ok':'no'}"><h4>📝 Contrat</h4>
+    <div class="ctr-st">${ctrOk(c)?'✅ Contrat signé':'❌ Pas encore signé'}</div>
+    ${ctrOk(c)?`<a class="ctr-f" href="${esc(k.url)}" target="_blank" rel="noopener"><span style="font-size:24px">${docIc(k.type||'',k.name||'')}</span><span style="min-width:0;flex:1"><b>${esc(k.name||'Contrat')}</b><small>Ajouté le ${fmt(k.date||T)} · touche pour l'ouvrir</small></span><span aria-hidden="true">›</span></a>
+      <label class="btn b-line" style="width:100%;margin-top:10px;cursor:pointer" for="ctrup">🔄 Remplacer le contrat</label>
+      <button class="btn b-bad" style="width:100%;margin-top:8px" onclick="ctrRetirer(${id},this)">Retirer (repasse en rouge)</button>`
+    :`<p class="meta" style="font-size:14px;margin:4px 0 12px">Quand le client a signé, joins son contrat (PDF ou photo). Il est rangé dans son dossier et le client passe en vert.</p>
+      <label class="btn b-ok" style="width:100%;padding:14px;cursor:pointer;color:#fff" for="ctrup">📎 Joindre le contrat signé</label>
+      ${autres.length?`<p class="meta" style="font-size:13px;margin:14px 0 6px">Ou choisis un fichier déjà dans son dossier :</p>${autres.slice().reverse().map(d=>`<button class="ctr-pick" onclick="ctrChoisir(${id},'${esc(d.id)}')"><span>${docIc(d.type||'',d.name||'')}</span><b>${esc(d.name)}</b><i>C'est le contrat</i></button>`).join('')}`:''}`}
+    <input type="file" id="ctrup" accept="application/pdf,image/*" hidden onchange="ctrJoindre(${id},this)"><div id="ctrst" class="meta" style="font-size:13px;margin-top:6px"></div></div>`}
   if(z==='dns'){const s=c.sp||{};const j=s.domaineFin?Math.round((parse(s.domaineFin)-TODAY)/864e5):null;
     return `<div class="box"><h4>🌐 Nom de domaine</h4><p style="font-size:17px;font-weight:800">${esc(s.domaine)}</p>
     <p class="meta" style="font-size:14px;margin:4px 0 12px">${s.domaineFin?`Payé jusqu'au <b>${fmt(s.domaineFin)}</b> · <span style="color:${j<0?'var(--bad)':j<=30?'#C8960C':'var(--ok)'};font-weight:700">${j<0?'expiré':'J-'+j}</span>`:'Date de fin pas encore notée.'}${s.domainePrix?' · '+eur(+s.domainePrix)+' / an':''}</p>
@@ -848,7 +872,22 @@ async function ajDocs(id,inp){const c=D.clients.find(x=>x.id===id);const files=[
 let supDocArm='';
 async function supDoc(id,did,btn){if(supDocArm!==did){supDocArm=did;btn.textContent='Sûr ?';setTimeout(()=>{supDocArm='';if(btn.isConnected)btn.textContent='✕'},3000);return}
   const c=D.clients.find(x=>x.id===id);const A=window.SB_ASSETS||(window.claude&&window.claude.use?await window.claude.use('assets'):null);
-  try{if(A)await A.delete(did)}catch(e){}c.docs=(c.docs||[]).filter(d=>d.id!==did);await saveC(c);fiche(id);toast('Fichier supprimé')}
+  try{if(A)await A.delete(did)}catch(e){}c.docs=(c.docs||[]).filter(d=>d.id!==did);if(c.contrat&&c.contrat.id===did)delete c.contrat;await saveC(c);render();fiche(id);toast('Fichier supprimé')}
+/* ---------- 📝 contrat ---------- */
+async function ctrJoindre(id,inp){const c=D.clients.find(x=>x.id===id);const f=inp.files[0];if(!f)return;
+  const A=window.SB_ASSETS||(window.claude&&window.claude.use?await window.claude.use('assets'):null);
+  if(!A){toast('Envoi de fichiers indisponible ici');return}
+  $('#ctrst').textContent='Envoi du contrat…';
+  try{const r=await A.upload(f,{type:f.type||undefined});const d={id:r.id,url:r.url,name:f.name,type:r.contentType||f.type,size:r.sizeBytes||f.size,date:T,contrat:true};
+    c.docs=(c.docs||[]).map(x=>{delete x.contrat;return x});c.docs.push(d);c.contrat={id:d.id,url:d.url,name:d.name,type:d.type,date:T};
+    await saveC(c);render();reglClient(id,'contrat');toast('✅ Contrat signé : '+c.nom+' passe en vert')}
+  catch(e){$('#ctrst').textContent='';toast(e&&e.code==='too_large'?'Trop lourd (max 20 Mo)':'Envoi impossible, réessaie')}}
+async function ctrChoisir(id,did){const c=D.clients.find(x=>x.id===id);const d=(c.docs||[]).find(x=>x.id===did);if(!d)return;
+  c.docs.forEach(x=>delete x.contrat);d.contrat=true;c.contrat={id:d.id,url:d.url,name:d.name,type:d.type,date:T};
+  await saveC(c);render();reglClient(id,'contrat');toast('✅ Contrat signé : '+c.nom+' passe en vert')}
+let ctrArm=0;
+async function ctrRetirer(id,btn){if(ctrArm!==id){ctrArm=id;btn.textContent='Sûr ? Touche encore';setTimeout(()=>{ctrArm=0;if(btn.isConnected)btn.textContent='Retirer (repasse en rouge)'},3000);return}
+  const c=D.clients.find(x=>x.id===id);(c.docs||[]).forEach(x=>delete x.contrat);delete c.contrat;await saveC(c);render();reglClient(id,'contrat');toast('Contrat retiré · le fichier reste dans son dossier')}
 /* ---------- connexion ---------- */
 (function(){let code='';const dots=[...$('#dots').children];
   [1,2,3,4,5,6,7,8,9,'',0,'⌫'].forEach(k=>{const b=document.createElement('button');b.textContent=k;if(k==='')b.style.visibility='hidden';if(k==='⌫')b.className='g';
@@ -1105,7 +1144,8 @@ function fiche(id){const c=D.clients.find(x=>x.id===id);const [et,cl]=etat(c);
      <button class="btn b-ok" style="width:100%;margin-top:8px" onclick="confPayer(${c.id},true)">✓ Marquer comme payé</button></div>
    ${(c.factures||[]).length?`<div class="box"><h4>Factures et demandes</h4>${c.factures.slice().reverse().map(x=>`<div class="pay"><span>${x.no} · ${fmt(x.date)}${x.peppolNo?' · Peppol '+esc(x.peppolNo):''}</span><span>${c.peppol?(x.peppolOk?'<span class="tag t-paye">Peppol ✓</span>':'<span class="tag" style="background:#E7EEFF;color:#2F4FB8">Peppol à faire</span>'):''} <b class="num">${eur(x.ht)}</b></span></div>`).join('')}</div>`:''}
    <div class="box"><h4>📁 Dossier du client</h4>
-     ${(c.docs||[]).length?(c.docs||[]).slice().reverse().map(d=>`<div class="pay"><a href="${esc(d.url)}" target="_blank" rel="noopener" style="display:flex;gap:10px;align-items:center;text-decoration:none;color:inherit;min-width:0;flex:1"><span style="font-size:22px">${docIc(d.type,d.name)}</span><span style="min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(d.name)}</b><small style="color:var(--ink2)">${fmt(d.date)} · ${taille(d.size)}</small></span></a><button class="btn b-bad b-sm" onclick="supDoc(${c.id},'${d.id}',this)">✕</button></div>`).join(''):'<p style="color:var(--ink2);font-size:14px">Range ici son contrat, son logo, ses photos, ses factures Peppol…</p>'}
+     ${ctrOn(c)?`<button class="ctr-b" style="margin-bottom:10px" onclick="reglClient(${c.id},'contrat')">${ctrTag(c)}</button>`:''}
+     ${(c.docs||[]).length?(c.docs||[]).slice().reverse().map(d=>`<div class="pay"><a href="${esc(d.url)}" target="_blank" rel="noopener" style="display:flex;gap:10px;align-items:center;text-decoration:none;color:inherit;min-width:0;flex:1"><span style="font-size:22px">${docIc(d.type,d.name)}</span><span style="min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(d.name)}</b><small style="color:var(--ink2)">${c.contrat&&c.contrat.id===d.id?'<b style="color:var(--ok)">📝 Contrat · </b>':''}${fmt(d.date)} · ${taille(d.size)}</small></span></a><button class="btn b-bad b-sm" onclick="supDoc(${c.id},'${d.id}',this)">✕</button></div>`).join(''):'<p style="color:var(--ink2);font-size:14px">Range ici son contrat, son logo, ses photos, ses factures Peppol…</p>'}
      <label class="btn b-line" style="width:100%;margin-top:10px;cursor:pointer" for="up${c.id}">+ Ajouter des fichiers</label><input type="file" id="up${c.id}" multiple hidden onchange="ajDocs(${c.id},this)">
      <div id="upst" style="font-size:13px;color:var(--ink2);margin-top:6px"></div></div>
    ${c.notes?`<div class="box"><h4>Notes</h4><p style="font-size:14px;line-height:1.6;white-space:pre-line">${esc(c.notes)}</p></div>`:''}
