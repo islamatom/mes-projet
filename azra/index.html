@@ -8,6 +8,9 @@
 <meta property="og:title" content="AZRA Parfums — Le parfum à l'état pur">
 <meta property="og:description" content="Plus de 250 fragrances · Bar à parfum · Recharge ton flacon">
 <meta name="theme-color" content="#0b0906">
+<meta property="og:image" content="https://islamatom.github.io/mes-projet/azra/img/icone.png">
+<link rel="icon" href="img/icone.png">
+<link rel="apple-touch-icon" href="img/icone.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -29,7 +32,8 @@ body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--txt
 /* barre du haut */
 header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:color-mix(in srgb,var(--bg) 75%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .ico{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--txt);font-size:17px;display:grid;place-items:center;cursor:pointer}
-.logo{font-size:24px;letter-spacing:.32em;font-weight:700}
+.logoimg{height:34px;filter:invert(1) sepia(1) saturate(2.5) hue-rotate(5deg) brightness(.95)}
+body.jour .logoimg{filter:none}
 .droite{display:flex;gap:8px}
 .panier{position:relative}
 .panier b{position:absolute;top:-4px;right:-4px;background:var(--gold);color:#120e08;font-size:11px;min-width:18px;height:18px;border-radius:9px;display:grid;place-items:center;transform:scale(0);transition:.3s}
@@ -37,6 +41,11 @@ header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:c
 
 /* héros */
 .hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 20px 40px;position:relative;overflow:hidden}
+.fondphoto{position:absolute;inset:0;background:url(img/boutique.jpg) center/cover;opacity:.28;transform:scale(1.15);animation:zoom 18s ease-in-out infinite alternate}
+body.jour .fondphoto{opacity:.18}
+.fondphoto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--bg) 0%,transparent 35%,transparent 55%,var(--bg) 100%)}
+@keyframes zoom{to{transform:scale(1)}}
+.photoflacons{width:min(78vw,330px);border-radius:26px;position:relative;z-index:2;animation:flotte 5s ease-in-out infinite;box-shadow:0 30px 60px rgba(0,0,0,.5),0 0 0 1px var(--line)}
 .halo{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(214,180,106,.28),transparent 65%);top:50%;left:50%;transform:translate(-50%,-55%);animation:respire 6s ease-in-out infinite}
 @keyframes respire{50%{transform:translate(-50%,-55%) scale(1.15);opacity:.7}}
 .flacon{width:150px;height:auto;position:relative;z-index:2;animation:flotte 5s ease-in-out infinite;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45))}
@@ -103,6 +112,15 @@ section{padding:64px 18px;max-width:720px;margin:auto}
 .atout b{display:block;margin-top:8px;font-size:14px}
 .atout p{font-size:12px;color:var(--mut);margin-top:4px}
 
+.tarifs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tarifs .col{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px 16px}
+.tarifs .or-col{background:linear-gradient(160deg,color-mix(in srgb,var(--gold) 22%,var(--card)),var(--card));border-color:var(--gold)}
+.tarifs h4{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.px{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.px:last-child{border:0}.px b{font-family:"Cormorant Garamond",serif;font-size:22px}
+.eco{text-align:center;color:var(--mut);font-size:14px;margin-top:16px}
+.photoboutique{width:100%;border-radius:24px;margin-bottom:14px;box-shadow:0 20px 40px rgba(0,0,0,.35)}
+.carte .prix{font-family:"Cormorant Garamond",serif;font-size:24px;color:var(--gold);margin-top:6px}
 /* infos */
 .infos{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;display:grid;gap:12px}
 .ligne{display:flex;gap:12px;align-items:center;font-size:14px}
@@ -110,6 +128,12 @@ section{padding:64px 18px;max-width:720px;margin:auto}
 
 footer{text-align:center;padding:30px 18px 110px;color:var(--mut);font-size:12px}
 
+/* ingrédients qui volent */
+#ciel{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+#ciel i{position:absolute;top:-60px;display:block;opacity:0;animation:tombe linear infinite;will-change:transform}
+#ciel svg{width:100%;height:100%;filter:drop-shadow(0 4px 6px rgba(0,0,0,.25))}
+@keyframes tombe{0%{opacity:0;transform:translate(0,0) rotate(0)}8%{opacity:var(--o)}50%{transform:translate(var(--dx),55vh) rotate(calc(var(--r)/2))}92%{opacity:var(--o)}100%{opacity:0;transform:translate(calc(var(--dx)*-1),112vh) rotate(var(--r))}}
+header,section,.hero,.marques,footer{position:relative;z-index:2}
 /* bouton WhatsApp flottant */
 .wa{position:fixed;right:16px;bottom:18px;z-index:60;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 10px 25px rgba(0,0,0,.35);animation:pulse 2.5s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}70%{box-shadow:0 0 0 18px rgba(37,211,102,0)}}
@@ -129,9 +153,10 @@ footer{text-align:center;padding:30px 18px 110px;color:var(--mut);font-size:12px
 </head>
 <body>
 
+<div id="ciel"></div>
 <header>
   <button class="ico" onclick="ouvrir('panel')" aria-label="Panel">🔒</button>
-  <div class="logo serif or">AZRA</div>
+  <img class="logoimg" src="img/logo-azra.png" alt="AZRA Parfums">
   <div class="droite">
     <button class="ico" id="theme" aria-label="Mode jour / nuit">☀️</button>
     <button class="ico panier" onclick="ouvrir('commande')" aria-label="Panier">🛍️<b id="nb">0</b></button>
@@ -139,22 +164,11 @@ footer{text-align:center;padding:30px 18px 110px;color:var(--mut);font-size:12px
 </header>
 
 <div class="hero">
-  <div class="halo"></div>
+  <div class="fondphoto"></div><div class="halo"></div>
   <div class="vapeur" id="vapeur"></div>
-  <svg class="flacon" viewBox="0 0 120 200">
-    <defs>
-      <linearGradient id="verre" x1="0" x2="1"><stop offset="0" stop-color="#3a2c14"/><stop offset=".45" stop-color="#d6b46a"/><stop offset=".55" stop-color="#f3dfa2"/><stop offset="1" stop-color="#5a431c"/></linearGradient>
-      <linearGradient id="bouchon" x1="0" x2="1"><stop offset="0" stop-color="#111"/><stop offset=".5" stop-color="#444"/><stop offset="1" stop-color="#111"/></linearGradient>
-    </defs>
-    <rect x="44" y="6" width="32" height="40" rx="6" fill="url(#bouchon)"/>
-    <rect x="50" y="44" width="20" height="14" fill="#8a6a2e"/>
-    <path d="M20 70 Q20 58 34 58 H86 Q100 58 100 70 V178 Q100 194 84 194 H36 Q20 194 20 178Z" fill="url(#verre)" opacity=".95"/>
-    <path d="M30 74 V176" stroke="#fff" stroke-opacity=".35" stroke-width="5" stroke-linecap="round"/>
-    <text x="60" y="132" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" font-weight="700" fill="#1a1208" letter-spacing="3">AZRA</text>
-    <text x="60" y="148" text-anchor="middle" font-family="Inter" font-size="6" fill="#1a1208" letter-spacing="2">EAU DE PARFUM</text>
-  </svg>
+  <img class="photoflacons" src="img/flacons.jpg" alt="Flacons AZRA 100, 50, 30 et 15 ml">
   <h1 class="serif">Le parfum<br><em class="or">à l'état pur</em></h1>
-  <p>Plus de 250 fragrances à 30 % d'essence, et un bar à parfum où tu recharges ton flacon moins cher.</p>
+  <p>Plus de 250 fragrances à 30 % d'essence. Ton parfum dès <b style="color:var(--gold)">6 €</b>, et ta recharge encore moins chère.</p>
   <div class="btns">
     <a class="btn plein" href="#collection">Découvrir les parfums</a>
     <a class="btn vide" href="#bar">Recharger mon flacon</a>
@@ -184,6 +198,17 @@ footer{text-align:center;padding:30px 18px 110px;color:var(--mut);font-size:12px
   <div class="grille" id="grille"></div>
 </section>
 
+<section id="tarifs">
+  <div class="titre rev"><small>Prix uniques, toutes fragrances</small><h2 class="serif">Nos <em class="or">tarifs</em></h2></div>
+  <div class="tarifs rev">
+    <div class="col"><h4>Nouveau flacon</h4>
+      <div class="px"><span>100 ml</span><b>20 €</b></div><div class="px"><span>50 ml</span><b>15 €</b></div><div class="px"><span>30 ml</span><b>9 €</b></div><div class="px"><span>15 ml</span><b>6 €</b></div></div>
+    <div class="col or-col"><h4>Recharge ♻️</h4>
+      <div class="px"><span>100 ml</span><b>18 €</b></div><div class="px"><span>50 ml</span><b>13 €</b></div><div class="px"><span>30 ml</span><b>8 €</b></div><div class="px"><span>15 ml</span><b>5 €</b></div></div>
+  </div>
+  <p class="eco rev">Ramène ton flacon AZRA : <b>tu économises jusqu'à 2 €</b> à chaque recharge.</p>
+</section>
+
 <section id="bar">
   <div class="bar rev">
     <div class="titre" style="margin:0"><small>Exclusif en boutique</small><h2 class="serif">Le <em class="or">Bar à parfum</em></h2></div>
@@ -192,7 +217,7 @@ footer{text-align:center;padding:30px 18px 110px;color:var(--mut);font-size:12px
       <div class="etape"><i>2</i><p><b>Choisis ta fragrance</b>Parmi plus de 250, ou garde la même.</p></div>
       <div class="etape"><i>3</i><p><b>On le recharge devant toi</b>Et tu paies moins cher qu'un flacon neuf.</p></div>
     </div>
-    <p style="font-size:13px;color:var(--mut);text-align:left">Concentration en essence</p>
+    <p style="font-size:13px;color:var(--mut);text-align:left">Concentration en essence : 30 %</p>
     <div class="jauge"><div id="jauge"></div></div>
     <a class="btn plein" href="https://wa.me/32488992087?text=Bonjour%20AZRA%2C%20je%20voudrais%20recharger%20mon%20flacon" target="_blank">Réserver ma recharge</a>
   </div>
@@ -209,6 +234,7 @@ footer{text-align:center;padding:30px 18px 110px;color:var(--mut);font-size:12px
 
 <section>
   <div class="titre rev"><small>Viens nous voir</small><h2 class="serif">La <em class="or">boutique</em></h2></div>
+  <img class="photoboutique rev" src="img/boutique.jpg" alt="Boutique AZRA Parfums">
   <div class="infos rev">
     <div class="ligne"><span>📍</span>Adresse du magasin (à compléter)</div>
     <div class="ligne"><span>🕐</span>Horaires (à compléter)</div>
@@ -218,7 +244,7 @@ footer{text-align:center;padding:30px 18px 110px;color:var(--mut);font-size:12px
   </div>
 </section>
 
-<footer>© AZRA Parfums · Le parfum à l'état pur</footer>
+<footer>© AZRA Parfums · Grossiste et personnalisation de parfum</footer>
 
 <a class="wa" href="https://wa.me/32488992087" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3 1 2.6 1.1 2.8.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3z"/></svg></a>
 
@@ -261,19 +287,20 @@ function afficher(f){
   <div class="carte rev" style="transition-delay:${i%2*.12}s">
     ${x.b?`<span class="badge">${x.b}</span>`:""}
     <div class="img" style="background:linear-gradient(150deg,${x.c[0]},${x.c[1]}55)">${flacon(...x.c)}</div>
-    <h3>${x.n}</h3><p>${x.d}</p>
-    <div class="tailles">${[15,30,50,100].map((t,j)=>`<span class="${j==2?'on':''}" onclick="taille(this)">${t}</span>`).join("")}</div>
+    <h3>${x.n}</h3><p>${x.d}</p><div class="prix">${x.f=="maison"?"Prix en boutique":"15 €"}</div>
+    <div class="tailles">${[15,30,50,100].map((t,j)=>`<span class="${j==2?'on':''}" onclick="taille(this,${x.f=='maison'?0:1})">${t}</span>`).join("")}</div>
     <button class="ajout" onclick="ajouter('${x.n}',this)">Ajouter</button>
   </div>`).join("");
   voir();
 }
-function taille(el){el.parentNode.querySelectorAll('span').forEach(s=>s.classList.remove('on'));el.classList.add('on')}
+const P={15:6,30:9,50:15,100:20};
+function taille(el,p){el.parentNode.querySelectorAll('span').forEach(s=>s.classList.remove('on'));el.classList.add('on');if(p){const z=el.closest('.carte').querySelector('.prix');z.textContent=P[el.textContent]+' €';z.animate([{transform:'scale(1.3)'},{transform:'scale(1)'}],300)}}
 let nb=0;
 function ajouter(n,b){
   const t=b.parentNode.querySelector('.tailles .on').textContent;
   nb++;const e=document.getElementById('nb');e.textContent=nb;e.classList.add('on');
-  b.textContent="✓ Ajouté";setTimeout(()=>b.textContent="Ajouter",1400);
-  toast(`${n} · ${t} ml ajouté au panier`);
+  b.textContent="✓ Ajouté";const R=b.getBoundingClientRect();pluie(R.left+R.width/2,R.top);setTimeout(()=>b.textContent="Ajouter",1400);
+  toast(`${n} · ${t} ml ajouté ✓`);
 }
 document.getElementById('filtres').onclick=e=>{
   if(e.target.tagName!="BUTTON")return;
@@ -299,6 +326,29 @@ setTimeout(()=>document.querySelectorAll('[data-n]').forEach(el=>{const n=+el.da
 // Apparitions au défilement
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');if(e.target.classList.contains('bar'))document.getElementById('jauge').style.width='30%'}}),{threshold:.15});
 function voir(){document.querySelectorAll('.rev:not(.vu)').forEach(el=>obs.observe(el))}
+
+// Ingrédients du parfum qui volent : pétales de rose, fleurs de jasmin, gouttes d'huile, feuilles, bâtons de vanille, grains d'ambre, étincelles
+const ING=[
+ c=>`<svg viewBox="0 0 40 40"><path d="M20 3C30 10 34 22 20 37 6 22 10 10 20 3Z" fill="${c}"/><path d="M20 8V32" stroke="#fff" stroke-opacity=".3"/></svg>`,
+ c=>`<svg viewBox="0 0 40 40"><g fill="${c}">${[0,72,144,216,288].map(a=>`<ellipse cx="20" cy="10" rx="5" ry="9" transform="rotate(${a} 20 20)"/>`).join('')}</g><circle cx="20" cy="20" r="4" fill="#f3d27a"/></svg>`,
+ c=>`<svg viewBox="0 0 30 40"><path d="M15 2C15 2 27 18 27 26A12 12 0 0 1 3 26C3 18 15 2 15 2Z" fill="url(#goutte)"/><ellipse cx="10" cy="25" rx="3" ry="5" fill="#fff" opacity=".55"/><defs><linearGradient id="goutte" x1="0" x2="1"><stop offset="0" stop-color="#b8862b"/><stop offset="1" stop-color="#f6dc93"/></linearGradient></defs></svg>`,
+ c=>`<svg viewBox="0 0 40 40"><path d="M5 35C5 15 20 5 37 4 36 22 25 35 5 35Z" fill="#5f7d3a"/><path d="M6 34L30 10" stroke="#a8c47a" stroke-width="1.5"/></svg>`,
+ c=>`<svg viewBox="0 0 40 40"><rect x="17" y="2" width="6" height="36" rx="3" fill="#3d2414" transform="rotate(25 20 20)"/><rect x="23" y="4" width="4" height="32" rx="2" fill="#5a3620" transform="rotate(25 20 20)"/></svg>`,
+ c=>`<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="10" fill="#c7862c"/><circle cx="16" cy="16" r="3.5" fill="#fff" opacity=".5"/></svg>`,
+ c=>`<svg viewBox="0 0 40 40"><path d="M20 2L23 17 38 20 23 23 20 38 17 23 2 20 17 17Z" fill="#f3dfa2"/></svg>`
+];
+const COUL=['#c9748f','#e8a3b5','#f6f0e6','#e9c9d6','#d6b46a'];
+const ciel=document.getElementById('ciel');
+const tel=innerWidth<600;const N=tel?22:34;
+for(let k=0;k<N;k++){
+  const t=k%ING.length, el=document.createElement('i');
+  const taille=(t==6?14:t==5?18:24)+Math.random()*(t<2?22:14);
+  el.style.cssText=`left:${Math.random()*100}%;width:${taille}px;height:${taille}px;animation-duration:${11+Math.random()*12}s;animation-delay:${-Math.random()*20}s;--dx:${(Math.random()*120-60)}px;--r:${(Math.random()>.5?1:-1)*(200+Math.random()*400)}deg;--o:${t==6?1:.75+Math.random()*.25}`;
+  el.innerHTML=ING[t](COUL[Math.floor(Math.random()*COUL.length)]);
+  ciel.appendChild(el);
+}
+// Pluie de pétales quand on ajoute un parfum
+function pluie(x,y){for(let k=0;k<10;k++){const p=document.createElement('i');p.style.cssText=`position:fixed;left:${x}px;top:${y}px;width:16px;height:16px;z-index:99;pointer-events:none`;p.innerHTML=ING[k%3](COUL[k%5]);document.body.appendChild(p);const a=Math.random()*6.28,d=60+Math.random()*70;p.animate([{transform:'translate(0,0) scale(.4)',opacity:1},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d+60}px) rotate(${Math.random()*360}deg) scale(1)`,opacity:0}],{duration:1100,easing:'cubic-bezier(.2,.7,.3,1)'}).onfinish=()=>p.remove()}}
 afficher('tout');
 </script>
 </body>
