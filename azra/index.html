@@ -95,7 +95,7 @@ section{padding:64px 18px;max-width:720px;margin:auto}
 .tailles span{font-size:11px;padding:4px 7px;border-radius:8px;border:1px solid var(--line);cursor:pointer}
 .tailles span.on{background:var(--gold);color:#120e08}
 .ajout{width:100%;padding:10px;border-radius:14px;border:0;background:var(--txt);color:var(--bg);font-weight:600;font-size:13px;cursor:pointer}
-.badge{position:absolute;top:22px;left:22px;z-index:2;font-size:10px;padding:4px 8px;border-radius:10px;background:var(--gold);color:#120e08;font-weight:600}
+.badge{position:absolute;top:10px;left:10px;z-index:2;font-size:10px;padding:4px 8px;border-radius:10px;background:var(--gold);color:#120e08;font-weight:600}
 
 /* bar à parfum */
 .bar{background:linear-gradient(160deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:28px;padding:28px 22px;text-align:center;position:relative;overflow:hidden}
@@ -125,12 +125,13 @@ section{padding:64px 18px;max-width:720px;margin:auto}
 .recherche input{flex:1;background:none;border:0;outline:0;color:var(--txt);font:inherit;font-size:15px;padding:14px 0}
 .filtres button em{font-style:normal;opacity:.6;font-size:11px;margin-left:3px}
 .nbres{color:var(--mut);font-size:12px;margin:-6px 0 12px}
-.carte .img{background:#fff!important;cursor:pointer}
-.carte .img img{width:100%;height:100%;object-fit:contain;transition:transform .5s}
+.carte .img{background:#fff!important;cursor:pointer;margin:-14px -14px 12px;height:175px;border-radius:22px 22px 0 0}
+.carte .img::after{display:none}
+.carte .img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
 .carte:hover .img img{transform:scale(1.06)}
 .carte h3{min-height:38px}
 .fenetre{max-height:88vh;overflow:auto}
-.fiche .grande{width:100%;max-height:340px;object-fit:contain;background:#fff;border-radius:20px;margin-bottom:14px}
+.fiche .grande{display:block;width:calc(100% + 44px);margin:-26px -22px 16px;height:340px;object-fit:cover;border-radius:28px 28px 0 0}
 .fiche .tailles span{font-size:14px;padding:8px 14px}
 /* infos */
 .infos{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;display:grid;gap:12px}
