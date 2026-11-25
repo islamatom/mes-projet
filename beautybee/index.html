@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beautybee · Institut & centre de formation · Estaimpuis</title>
+<meta property="og:title" content="Beautybee · Institut & centre de formation · Estaimpuis">
+<meta property="og:image" content="img/exec-86020f91-7ec5-4772-ad17-6fc16ef4969b.png">
+<meta name="description" content="Institut de beauté haut de gamme et centre de formation à Estaimpuis.">
+<link rel="icon" href="img/cropped-03AE0B0D-145E-4CB8-94CE-20FD6E9DD170-32x32.png"><link rel="apple-touch-icon" href="img/cropped-03AE0B0D-145E-4CB8-94CE-20FD6E9DD170-32x32.png"><text y='.9em' font-size='90'>🐝</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6efe6;--bg2:#ece0d0;--card:#fffaf4;--txt:#3a2a20;--mut:#8a7565;--gold:#b08a4a;--gold2:#d4b06a;--line:#e2d3bf}
+body.nuit{--bg:#16110d;--bg2:#211912;--card:#251c15;--txt:#f3e7d6;--mut:#b29e88;--gold:#d4b06a;--gold2:#e9cd8e;--line:#3a2c20}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Jost,sans-serif;background:var(--bg);color:var(--txt);transition:background .4s,color .4s;overflow-x:hidden}
+h1,h2,h3,.logo{font-family:'Cormorant Garamond',serif}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.ic{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--txt);font-size:17px;cursor:pointer;display:grid;place-items:center}
+.logo{font-size:26px;letter-spacing:4px;font-weight:600;color:var(--gold)}
+.logo span{display:inline-block;animation:vole 3s ease-in-out infinite}
+@keyframes vole{0%,100%{transform:translate(0,0) rotate(-6deg)}50%{transform:translate(3px,-5px) rotate(6deg)}}
+.hero{position:relative;padding:60px 22px 50px;text-align:center;background:radial-gradient(circle at 50% 0%,var(--bg2),var(--bg) 70%);overflow:hidden}
+.hero small{letter-spacing:3px;font-size:12px;color:var(--gold);text-transform:uppercase}
+.hero h1{font-size:44px;line-height:1.05;margin:14px 0;font-weight:600}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero p{color:var(--mut);font-size:13px;letter-spacing:2px}
+.btn{display:inline-block;margin-top:26px;padding:16px 30px;border-radius:40px;border:none;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;font:500 15px Jost;letter-spacing:1px;cursor:pointer;box-shadow:0 8px 24px rgba(176,138,74,.35);animation:pulse 2.5s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 8px 24px rgba(176,138,74,.35)}50%{box-shadow:0 8px 34px rgba(176,138,74,.6)}}
+.abeille{position:absolute;font-size:20px;opacity:.75;animation:balade 14s linear infinite}
+@keyframes balade{0%{transform:translate(-40px,0)}25%{transform:translate(25vw,-30px)}50%{transform:translate(55vw,20px)}75%{transform:translate(80vw,-20px)}100%{transform:translate(110vw,0)}}
+.tabs{display:flex;gap:8px;justify-content:center;margin:18px 16px 0}
+.tab{flex:1;max-width:200px;padding:12px;border-radius:30px;border:1px solid var(--line);background:var(--card);color:var(--txt);font:500 14px Jost;cursor:pointer}
+.tab.on{background:var(--txt);color:var(--bg)}
+section{padding:30px 18px;max-width:900px;margin:auto}
+h2{font-size:32px;text-align:center;margin-bottom:6px}
+.sous{text-align:center;color:var(--mut);font-size:14px;margin-bottom:22px}
+.grid{display:grid;gap:12px;grid-template-columns:1fr}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+.carte{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;gap:14px;align-items:center;opacity:0;transform:translateY(25px);transition:.6s}
+.carte.vu{opacity:1;transform:none}
+.carte .em{font-size:28px;width:52px;height:52px;border-radius:50%;background:var(--bg2);display:grid;place-items:center;flex-shrink:0}
+.carte h3{font-size:21px}
+.carte p{font-size:13px;color:var(--mut);margin-top:2px}
+.carte .tag{margin-left:auto;font-size:11px;color:var(--gold);border:1px solid var(--gold);padding:4px 9px;border-radius:20px;white-space:nowrap}
+.mini{font-size:12px;color:var(--gold);margin-top:6px;cursor:pointer;background:none;border:none;font-family:Jost;text-decoration:underline}
+.atouts{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
+.atouts div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 8px;font-size:13px}
+.atouts b{display:block;font-family:'Cormorant Garamond';font-size:24px;color:var(--gold)}
+.dz{margin:10px 18px;border-radius:20px;padding:20px;text-align:center;background:linear-gradient(135deg,#1f6b3a,#0f3d22);color:#fff}
+.dz small{opacity:.8;font-size:12px;letter-spacing:2px}
+.dz h3{font-size:24px;margin:6px 0}
+.infos{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;text-align:center}
+.infos p{margin:6px 0;color:var(--mut)}
+.rangee{display:flex;gap:10px;margin-top:16px}
+.rangee a{flex:1;padding:14px;border-radius:14px;text-decoration:none;font-weight:500;font-size:14px;color:#fff;background:var(--gold)}
+.rangee a.wa{background:#25d366}
+footer{text-align:center;padding:30px 16px 90px;color:var(--mut);font-size:12px}
+.fixe{position:fixed;bottom:14px;left:14px;right:14px;z-index:30}
+.fixe .btn{width:100%;margin:0;animation:none}
+.voile{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center;z-index:50}
+.voile.ouvert{display:flex}
+.fenetre{background:var(--card);width:100%;max-width:480px;border-radius:24px 24px 0 0;padding:24px 20px 30px;animation:monte .35s ease}
+@keyframes monte{from{transform:translateY(100%)}to{transform:none}}
+.fenetre h3{font-size:26px;text-align:center}
+.etapes{display:flex;gap:6px;margin:16px 0}
+.etapes span{flex:1;height:4px;border-radius:4px;background:var(--line)}
+.etapes span.on{background:var(--gold)}
+.choix{display:grid;gap:8px}
+.choix button{padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--txt);font:15px Jost;text-align:left;cursor:pointer}
+.choix button:hover{border-color:var(--gold)}
+.creneaux{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ok{text-align:center;padding:10px 0}
+.ok div{font-size:54px;animation:vole 2s infinite}
+.fermer{display:block;margin:16px auto 0;background:none;border:none;color:var(--mut);font:14px Jost;cursor:pointer}
+.cache{display:none}
+#intro{position:fixed;inset:0;z-index:99;background:#16110d;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
+#intro.fin{opacity:0;visibility:hidden}
+#intro .b{font-size:60px;animation:arrive 1.6s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes arrive{0%{transform:translate(-60vw,30vh) rotate(-30deg) scale(.4)}60%{transform:translate(10px,-10px) rotate(10deg) scale(1.1)}100%{transform:none}}
+#intro .n{font-family:'Cormorant Garamond',serif;font-size:40px;letter-spacing:10px;color:#d4b06a;margin-top:8px;overflow:hidden;white-space:nowrap;width:0;animation:ecrit 1.2s 1.2s steps(9) forwards}
+@keyframes ecrit{to{width:9.5ch}}
+#intro .l{width:0;height:1px;background:#d4b06a;margin-top:10px;animation:trait 1s 2.2s forwards}
+@keyframes trait{to{width:180px}}
+#intro small{color:#b29e88;letter-spacing:3px;font-size:11px;margin-top:12px;opacity:0;animation:apparait .8s 2.6s forwards}
+@keyframes apparait{to{opacity:1}}
+.paillette{position:absolute;width:4px;height:4px;border-radius:50%;background:#d4b06a;opacity:0;animation:brille 2.5s infinite}
+@keyframes brille{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1)}}
+.hero>*:not(.abeille):not(.paillette){opacity:0;transform:translateY(20px);animation:monteH .9s forwards}
+.hero small{animation-delay:3.6s!important}.hero h1{animation-delay:3.8s!important}.hero p{animation-delay:4s!important}.hero .btn{animation:monteH .9s 4.2s forwards,pulse 2.5s 5s infinite!important}
+@keyframes monteH{to{opacity:1;transform:none}}
+.carte:active{transform:scale(.97)}
+.em{transition:transform .4s}.carte:hover .em{transform:rotate(-12deg) scale(1.1)}
+.logoimg{height:30px;filter:none}body.nuit .logoimg{filter:brightness(1.6)}
+#intro img{width:220px;margin-top:6px;opacity:0;animation:apparait 1s 1.1s forwards;filter:brightness(1.6)}
+.hero{color:#fff;min-height:88svh;display:flex;flex-direction:column;justify-content:center;padding:90px 22px 70px;background:#16110d}
+.slides{position:absolute;inset:0;z-index:0}.slides div{position:absolute;inset:0;background:center/cover;opacity:0;animation:diapo 30s infinite}
+.slides::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,17,13,.35),rgba(22,17,13,.55) 50%,rgba(22,17,13,.92))}
+@keyframes diapo{0%{opacity:0;transform:scale(1.18)}3%{opacity:1}17%{opacity:1}20%{opacity:0;transform:scale(1)}100%{opacity:0}}
+.hero>*{position:relative;z-index:1}.hero .slides{position:absolute}
+.points{display:flex;gap:6px;justify-content:center;margin-top:22px}.points i{width:22px;height:3px;border-radius:3px;background:rgba(255,255,255,.3);overflow:hidden;position:relative}
+.points i::after{animation-delay:calc(var(--d)*6s)!important;content:"";position:absolute;inset:0;background:#e9cd8e;transform:scaleX(0);transform-origin:left;animation:barreP 30s infinite}
+@keyframes barreP{0%{transform:scaleX(0)}20%{transform:scaleX(1)}20.01%,100%{transform:scaleX(0)}}
+.hero p{color:#e9dcc8}.hero h1 em{color:var(--gold2)}
+.carte{padding:10px;align-items:stretch}.carte .ph{width:92px;min-height:92px;border-radius:14px;background:center/cover var(--bg2);flex-shrink:0;transition:transform .5s}
+.carte:hover .ph{transform:scale(1.05)}.carte .tx{flex:1}.carte p{color:var(--gold)}.carte .tag{align-self:flex-start}
+.note{grid-column:1/-1;text-align:center;font-size:13px;color:var(--mut)}
+.gal{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 18px 6px}
+.gal .g{flex:0 0 88%;max-width:520px;height:min(110vw,520px);border-radius:18px;background:center/cover var(--bg2);scroll-snap-align:center}
+.dz{display:block;text-decoration:none;background:linear-gradient(135deg,#1f6b3a,#0f3d22)}
+.dz b{display:inline-block;margin-top:10px;padding:8px 18px;border-radius:20px;background:rgba(255,255,255,.18);font-weight:500}
+.insta{display:grid;gap:10px}
+.ig{display:flex;align-items:center;gap:14px;padding:16px;border-radius:18px;text-decoration:none;color:#fff;background:linear-gradient(135deg,#833ab4,#e1306c 55%,#f77737)}
+.ig svg{width:38px;height:38px;flex-shrink:0}.ig .nb{font-family:'Cormorant Garamond';font-size:30px;font-weight:700;line-height:1}
+.ig small{display:block;font-size:12px;opacity:.9}.ig .go{margin-left:auto;font-size:13px;background:rgba(255,255,255,.2);padding:7px 12px;border-radius:20px;white-space:nowrap}
+.noel{margin:10px 18px;border-radius:24px;padding:26px 18px;background:linear-gradient(150deg,#5c0f1a,#2a0a10);color:#fff;position:relative;overflow:hidden;text-align:center}
+.noel h2{color:#e9cd8e}.noel .sous{color:#f1d9c0}
+.noel .of{display:grid;gap:10px;text-align:left;position:relative;z-index:1}
+.noel .o{background:rgba(255,255,255,.08);border:1px solid rgba(233,205,142,.35);border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center}
+.noel .o b{font-family:'Cormorant Garamond';font-size:21px;display:block}.noel .o span{font-size:13px;opacity:.85}
+.noel .o button{margin-left:auto;background:#e9cd8e;color:#2a0a10;border:none;border-radius:20px;padding:9px 13px;font:500 13px Jost;cursor:pointer;white-space:nowrap}
+.flocon{position:absolute;top:-20px;color:#e9cd8e;opacity:.8;animation:tombe linear infinite;z-index:0}
+@keyframes tombe{to{transform:translateY(560px) rotate(360deg)}}
+.noel .ex{font-size:11px;opacity:.6;margin-top:12px;position:relative}
+</style>
+</head>
+<body>
+<div id="intro"><div class="b">🐝</div><img src="img/exec-86020f91-7ec5-4772-ad17-6fc16ef4969b.png" alt="Beautybee"><div class="l"></div><small>INSTITUT · ESTAIMPUIS</small></div>
+
+<header>
+  <button class="ic" onclick="ouvrir('panel')" aria-label="Espace gérante">🔒</button>
+  <img class="logoimg" src="img/exec-86020f91-7ec5-4772-ad17-6fc16ef4969b.png" alt="Beautybee">
+  <button class="ic" id="mode" onclick="basculer()" aria-label="Mode jour / nuit">🌙</button>
+</header>
+
+<div class="hero">
+  <div class="slides"><div style="background-image:url(img/beautybee-reference-accueil.jpeg);animation-delay:0s"></div><div style="background-image:url(img/IMG_7908.jpeg);animation-delay:6s"></div><div style="background-image:url(img/IMG_7907.jpeg);animation-delay:12s"></div><div style="background-image:url(img/IMG_7903.jpeg);animation-delay:18s"></div><div style="background-image:url(img/extension-cils.jpeg);animation-delay:24s"></div></div>
+  <div class="paillette" style="top:20%;left:15%"></div><div class="paillette" style="top:35%;right:12%;animation-delay:.8s"></div><div class="paillette" style="top:75%;left:25%;animation-delay:1.5s"></div><div class="paillette" style="top:60%;right:22%;animation-delay:2s"></div>
+  <div class="abeille" style="top:30%">🐝</div>
+  <div class="abeille" style="top:70%;animation-delay:-7s;font-size:15px">🐝</div>
+  <small>Institut haut de gamme · Estaimpuis</small>
+  <h1>L'excellence<br>au service de <em>votre beauté</em></h1>
+  <p>EXPERTISE · TECHNOLOGIES AVANCÉES · BIEN-ÊTRE</p>
+  <button class="btn" onclick="ouvrir('rdv')">Prendre rendez-vous →</button>
+  <div class="points"><i style="--d:0"></i><i style="--d:1"></i><i style="--d:2"></i><i style="--d:3"></i><i style="--d:4"></i></div>
+</div>
+
+<div class="noel" id="noel"><span class="flocon" style="left:8%;font-size:12px;animation-duration:7s;animation-delay:-1s">✦</span><span class="flocon" style="left:22%;font-size:9px;animation-duration:9s;animation-delay:-4s">✦</span><span class="flocon" style="left:40%;font-size:14px;animation-duration:8s;animation-delay:-2s">✦</span><span class="flocon" style="left:58%;font-size:10px;animation-duration:10s;animation-delay:-6s">✦</span><span class="flocon" style="left:75%;font-size:13px;animation-duration:7s;animation-delay:-3s">✦</span><span class="flocon" style="left:90%;font-size:9px;animation-duration:9s;animation-delay:-0s">✦</span>
+  <small style="letter-spacing:3px;font-size:12px;color:#e9cd8e;position:relative">🎄 JUSQU'AU 31 DÉCEMBRE</small>
+  <h2 style="position:relative">Offres de Noël</h2>
+  <p class="sous" style="position:relative">Le cadeau qui fait toujours plaisir</p>
+  <div class="of">
+    <div class="o">🎁<div><b>Carte cadeau</b><span>Montant au choix · envoyée par e-mail</span></div><button onclick="ouvrir('rdv','Carte cadeau')">Offrir</button></div>
+    <div class="o">✨<div><b>Pack regard de fête</b><span>Extensions de cils + sourcils</span></div><button onclick="ouvrir('rdv','Pack regard de fête')">Réserver</button></div>
+    <div class="o">💅<div><b>Pack mains de fête</b><span>Semi-permanent + nail art doré</span></div><button onclick="ouvrir('rdv','Pack mains de fête')">Réserver</button></div>
+  </div>
+  <p class="ex">Exemples d'offres, à personnaliser avec vous</p>
+</div>
+<div class="tabs">
+  <button class="tab on" onclick="onglet('soins',this)">✨ Soins</button>
+  <button class="tab" onclick="onglet('forma',this)">🎓 Formations</button>
+</div>
+
+<section id="soins">
+  <h2>Nos prestations</h2>
+  <p class="sous">Réservez en 30 secondes, directement ici.</p>
+  <div class="grid">
+    <div class="carte"><div class="ph" style="background-image:url(img/article-beautybee.png)"></div><div class="tx"><h3>Soins visage</h3><p>Hydrafacial 85 € · Microneedling 80 €</p><button class="mini" onclick="ouvrir('rdv','Soins visage')">Réserver</button></div></div><div class="carte"><div class="ph" style="background-image:url(img/LASERDIODE.jpeg)"></div><div class="tx"><h3>Épilation laser</h3><p>Aisselles 40 € · Jambes complètes 150 €</p><button class="mini" onclick="ouvrir('rdv','Épilation laser')">Réserver</button></div></div><div class="carte"><div class="ph" style="background-image:url(img/ongleimage.jpeg)"></div><div class="tx"><h3>Onglerie</h3><p>Semi-permanent 30 € · Gel 50 €</p><button class="mini" onclick="ouvrir('rdv','Onglerie')">Réserver</button></div></div><div class="carte"><div class="ph" style="background-image:url(img/extension-cils.jpeg)"></div><div class="tx"><h3>Extensions de cils</h3><p>Naturel 50 € · Volume russe 75 €</p><button class="mini" onclick="ouvrir('rdv','Extensions de cils')">Réserver</button></div></div><div class="carte"><div class="ph" style="background-image:url(img/1B6A1B43-B5C7-4CB4-B3C0-05E739568460.jpeg)"></div><div class="tx"><h3>Microblading</h3><p>Microblading 275 € · Retouche 120 €</p><button class="mini" onclick="ouvrir('rdv','Microblading')">Réserver</button></div></div><div class="carte"><div class="ph" style="background-image:url(img/BLANCHIMENT-DENTAIRE-e.jpeg)"></div><div class="tx"><h3>Blanchiment dentaire</h3><p>150 € · 2 séances</p><button class="mini" onclick="ouvrir('rdv','Blanchiment dentaire')">Réserver</button></div></div><div class="carte"><div class="ph" style="background-image:url(img/candy-lips.jpeg)"></div><div class="tx"><h3>Candy lips</h3><p>250 €</p><button class="mini" onclick="ouvrir('rdv','Candy lips')">Réserver</button></div></div>
+  </div>
+</section>
+
+<section id="forma" class="cache">
+  <h2>Apprenez un métier</h2>
+  <p class="sous">Théorie, pratique et accompagnement. Inscription en ligne.</p>
+  <div class="grid">
+    <div class="carte"><div class="ph" style="background-image:url(img/ongleimage.jpeg)"></div><div class="tx"><h3>Onglerie</h3><p>Formation individuelle · Tarif sur demande</p><button class="mini" onclick="ouvrir('rdv','Onglerie')">S'inscrire</button></div><span class=tag>2 jours</span></div><div class="carte"><div class="ph" style="background-image:url(img/CIL-FORMATION-2.png)"></div><div class="tx"><h3>Extensions de cils</h3><p>Formation privée · kit compris · Tarif sur demande</p><button class="mini" onclick="ouvrir('rdv','Extensions de cils')">S'inscrire</button></div><span class=tag>2 jours</span></div><div class="carte"><div class="ph" style="background-image:url(img/article-beautybee.png)"></div><div class="tx"><h3>Hydrafacial</h3><p>Théorie et pratique · Tarif sur demande</p><button class="mini" onclick="ouvrir('rdv','Hydrafacial')">S'inscrire</button></div><span class=tag>1 jour</span></div><div class="carte"><div class="ph" style="background-image:url(img/BLANCHIMENT-DENTAIRE-e.jpeg)"></div><div class="tx"><h3>Blanchiment dentaire</h3><p>Kit de démarrage compris · Tarif sur demande</p><button class="mini" onclick="ouvrir('rdv','Blanchiment dentaire')">S'inscrire</button></div><span class=tag>1 jour</span></div>
+  </div>
+</section>
+
+<div class="gal"><div class="g" style="background-image:url(img/IMG_7908.jpeg)"></div><div class="g" style="background-image:url(img/IMG_7907.jpeg)"></div><div class="g" style="background-image:url(img/IMG_7903.jpeg)"></div><div class="g" style="background-image:url(img/LASERDIODE.jpeg)"></div><div class="g" style="background-image:url(img/ongleimage.jpeg)"></div><div class="g" style="background-image:url(img/candy-lips.jpeg)"></div><div class="g" style="background-image:url(img/1B6A1B43-B5C7-4CB4-B3C0-05E739568460.jpeg)"></div></div>
+<section>
+  <div class="atouts">
+    <div><b>10 ans+</b>d'expérience</div>
+    <div><b>✦</b>Technologies avancées</div>
+    <div><b>100aines</b>de clientes ravies</div>
+    <div><b>Pro</b>Produits professionnels</div>
+  </div>
+</section>
+
+<section>
+  <h2>Rejoignez la communauté</h2>
+  <p class="sous">Plus de 108 000 personnes nous suivent déjà</p>
+  <div class="insta">
+    <a class="ig" href="https://www.instagram.com/beautybee.institut/" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg><div><span class="nb" data-n="103000">0</span><small>abonnés · @beautybee.institut 🇧🇪</small></div><span class="go">Suivre</span></a>
+    <a class="ig" href="https://www.instagram.com/beautybee.dz/" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg><div><span class="nb" data-n="5814">0</span><small>abonnés · @beautybee.dz 🇩🇿</small></div><span class="go">Suivre</span></a>
+  </div>
+</section>
+<a class="dz" href="algerie/"><small>🇩🇿 Aussi en Algérie</small><h3>Beautybee Academy · Mostaganem</h3><p style="font-size:13px;opacity:.85">Formations en esthétique · prix en DA</p><b>Découvrir →</b></a>
+
+<script>
+function basculer(){document.body.classList.toggle('nuit');document.getElementById('mode').textContent=document.body.classList.contains('nuit')?'☀️':'🌙'}
+function onglet(id,b){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));b.classList.add('on');['soins','forma'].forEach(s=>document.getElementById(s).classList.toggle('cache',s!==id));voir()}
+const fen=document.getElementById('fen'),voile=document.getElementById('voile');
+let choixFait='';
+function fermer(){voile.classList.remove('ouvert')}
+function barre(n){return '<div class="etapes">'+[1,2,3].map(i=>'<span class="'+(i<=n?'on':'')+'"></span>').join('')+'</div>'}
+function ouvrir(t,presta){
+  voile.classList.add('ouvert');
+  if(t==='panel'){fen.innerHTML='<h3>🔒 Espace gérante</h3><p style="text-align:center;color:var(--mut);margin:14px 0">Votre panel sera ici : tous vos RDV et inscriptions (Belgique 🇧🇪 et Algérie 🇩🇿), notifications avec son, confirmation WhatsApp en 1 clic, rappels automatiques la veille.</p><button class="fermer" onclick="fermer()">Fermer</button>';return}
+  if(presta){choixFait=presta;return creneau()}
+  fen.innerHTML='<h3>Votre rendez-vous</h3>'+barre(1)+'<div class="choix">'+['Soins visage','Épilation laser','Onglerie','Extensions de cils','Microblading','Blanchiment dentaire','Candy lips'].map(p=>'<button onclick="choixFait=\''+p+'\';creneau()">'+p+'</button>').join('')+'</div><button class="fermer" onclick="fermer()">Fermer</button>';
+}
+function creneau(){
+  fen.innerHTML='<h3>'+choixFait+'</h3>'+barre(2)+'<p style="text-align:center;color:var(--mut);margin-bottom:10px">Choisissez votre heure (demain)</p><div class="choix creneaux">'+['09:30','10:30','11:30','13:00','14:30','16:00'].map(h=>'<button style="text-align:center" onclick="fini(\''+h+'\')">'+h+'</button>').join('')+'</div><button class="fermer" onclick="fermer()">Fermer</button>';
+}
+function fini(h){
+  fen.innerHTML='<h3>C\'est noté !</h3>'+barre(3)+'<div class="ok"><div>🐝</div><p><b>'+choixFait+'</b> · demain à '+h+'</p><p style="color:var(--mut);font-size:13px;margin-top:10px">Vous recevrez une confirmation par e-mail et un rappel la veille.</p><p style="font-size:11px;color:var(--gold);margin-top:14px">Aperçu : aucune réservation réelle n\'est envoyée.</p></div><button class="fermer" onclick="fermer()">Fermer</button>';
+}
+function voir(){document.querySelectorAll('.carte').forEach(c=>{if(c.getBoundingClientRect().top<innerHeight-30)c.classList.add('vu')})}
+setTimeout(()=>document.getElementById('intro').classList.add('fin'),3400);document.getElementById('intro').onclick=function(){this.classList.add('fin')};let compte=0;function compter(){document.querySelectorAll('.nb').forEach(e=>{if(e.dataset.f||e.getBoundingClientRect().top>innerHeight)return;e.dataset.f=1;const n=+e.dataset.n,t0=performance.now();(function f(t){const p=Math.min((t-t0)/1500,1),v=Math.round(n*(1-Math.pow(1-p,3)));e.textContent=v>=10000?(v/1000).toFixed(v>=100000?0:1).replace('.',',')+' k':v.toLocaleString('fr-BE');if(p<1)requestAnimationFrame(f)})(t0)})}
+addEventListener('scroll',compter);setTimeout(compter,3600);
+const gal=document.querySelector('.gal');setInterval(()=>{if(!gal)return;const w=gal.firstElementChild.offsetWidth+10;gal.scrollTo({left:gal.scrollLeft+w>=gal.scrollWidth-gal.clientWidth+5?0:gal.scrollLeft+w,behavior:'smooth'})},3500);
+addEventListener('scroll',voir);addEventListener('load',voir);setTimeout(voir,100);
+</script>
+</body>
+</html>
