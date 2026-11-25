@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AZRA Parfums — Le parfum à l'état pur</title>
+<meta name="description" content="Plus de 250 fragrances, bar à parfum et recharge de flacon. Vendeur officiel Lattafa, El Nabil, Fragranza, Blu Home.">
+<meta property="og:title" content="AZRA Parfums — Le parfum à l'état pur">
+<meta property="og:description" content="Plus de 250 fragrances · Bar à parfum · Recharge ton flacon">
+<meta name="theme-color" content="#0b0906">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0906; --bg2:#15110b; --card:#1b160f; --txt:#f4ecdd; --mut:#b5a78f;
+  --gold:#d6b46a; --gold2:#f3dfa2; --line:rgba(214,180,106,.22);
+}
+body.jour{
+  --bg:#faf6ee; --bg2:#f1e9da; --card:#ffffff; --txt:#1d1810; --mut:#6e624f;
+  --gold:#a97f2c; --gold2:#c99a3e; --line:rgba(169,127,44,.25);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--txt);transition:background .5s,color .5s;overflow-x:hidden}
+.serif{font-family:"Cormorant Garamond",serif}
+.or{background:linear-gradient(110deg,var(--gold) 20%,var(--gold2) 40%,var(--gold) 60%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:brille 4s linear infinite}
+@keyframes brille{to{background-position:-200% center}}
+
+/* barre du haut */
+header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:color-mix(in srgb,var(--bg) 75%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.ico{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--txt);font-size:17px;display:grid;place-items:center;cursor:pointer}
+.logo{font-size:24px;letter-spacing:.32em;font-weight:700}
+.droite{display:flex;gap:8px}
+.panier{position:relative}
+.panier b{position:absolute;top:-4px;right:-4px;background:var(--gold);color:#120e08;font-size:11px;min-width:18px;height:18px;border-radius:9px;display:grid;place-items:center;transform:scale(0);transition:.3s}
+.panier b.on{transform:scale(1)}
+
+/* héros */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 20px 40px;position:relative;overflow:hidden}
+.halo{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(214,180,106,.28),transparent 65%);top:50%;left:50%;transform:translate(-50%,-55%);animation:respire 6s ease-in-out infinite}
+@keyframes respire{50%{transform:translate(-50%,-55%) scale(1.15);opacity:.7}}
+.flacon{width:150px;height:auto;position:relative;z-index:2;animation:flotte 5s ease-in-out infinite;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45))}
+@keyframes flotte{50%{transform:translateY(-14px) rotate(-2deg)}}
+.vapeur{position:absolute;top:28%;left:50%;z-index:1}
+.vapeur span{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--gold2);opacity:0;filter:blur(1px);animation:monte 4s ease-out infinite}
+@keyframes monte{0%{opacity:0;transform:translate(0,0) scale(.4)}20%{opacity:.8}100%{opacity:0;transform:translate(var(--x),-170px) scale(1.6)}}
+.hero h1{font-size:clamp(44px,13vw,92px);line-height:.95;margin-top:26px;position:relative;z-index:2;opacity:0;animation:apparait 1s .3s forwards}
+.hero p{color:var(--mut);margin:14px auto 0;max-width:340px;font-size:15px;line-height:1.6;opacity:0;animation:apparait 1s .6s forwards}
+@keyframes apparait{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+.btns{display:flex;flex-direction:column;gap:10px;width:100%;max-width:330px;margin-top:28px;opacity:0;animation:apparait 1s .9s forwards}
+.btn{display:block;text-align:center;padding:16px;border-radius:40px;font-weight:600;font-size:15px;text-decoration:none;cursor:pointer;border:0;transition:transform .2s}
+.btn:active{transform:scale(.96)}
+.plein{background:linear-gradient(120deg,var(--gold),var(--gold2));color:#120e08;box-shadow:0 10px 30px rgba(214,180,106,.3)}
+.vide{border:1px solid var(--gold);color:var(--gold);background:transparent}
+.chiffres{display:flex;gap:26px;margin-top:34px;opacity:0;animation:apparait 1s 1.2s forwards}
+.chiffres div{font-size:12px;color:var(--mut)}
+.chiffres strong{display:block;font-size:28px;color:var(--gold);font-family:"Cormorant Garamond",serif}
+
+/* bandeau marques */
+.marques{border-block:1px solid var(--line);overflow:hidden;padding:16px 0;background:var(--bg2)}
+.defile{display:flex;gap:46px;width:max-content;animation:defile 18s linear infinite;font-family:"Cormorant Garamond",serif;font-size:22px;letter-spacing:.15em;color:var(--mut)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+section{padding:64px 18px;max-width:720px;margin:auto}
+.titre{text-align:center;margin-bottom:28px}
+.titre small{color:var(--gold);letter-spacing:.3em;font-size:11px;text-transform:uppercase}
+.titre h2{font-size:38px;margin-top:6px}
+.rev{opacity:0;transform:translateY(40px);transition:1s cubic-bezier(.2,.7,.2,1)}
+.rev.vu{opacity:1;transform:none}
+
+/* catégories */
+.filtres{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:18px;scrollbar-width:none}
+.filtres button{flex:none;padding:9px 16px;border-radius:30px;border:1px solid var(--line);background:transparent;color:var(--txt);font-size:13px;cursor:pointer}
+.filtres button.on{background:var(--gold);color:#120e08;border-color:var(--gold)}
+.grille{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.carte{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px;position:relative;overflow:hidden;transition:transform .3s}
+.carte:active{transform:scale(.97)}
+.carte .img{height:130px;border-radius:16px;display:grid;place-items:center;margin-bottom:12px;position:relative;overflow:hidden}
+.carte .img svg{width:58px;transition:transform .5s}
+.carte:hover .img svg{transform:rotate(-8deg) scale(1.08)}
+.carte .img::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.25) 50%,transparent 60%);transform:translateX(-100%);animation:reflet 3.5s infinite}
+@keyframes reflet{60%,100%{transform:translateX(100%)}}
+.carte h3{font-size:15px;font-weight:600}
+.carte p{font-size:12px;color:var(--mut);margin-top:3px}
+.tailles{display:flex;gap:4px;margin:10px 0}
+.tailles span{font-size:11px;padding:4px 7px;border-radius:8px;border:1px solid var(--line);cursor:pointer}
+.tailles span.on{background:var(--gold);color:#120e08}
+.ajout{width:100%;padding:10px;border-radius:14px;border:0;background:var(--txt);color:var(--bg);font-weight:600;font-size:13px;cursor:pointer}
+.badge{position:absolute;top:22px;left:22px;z-index:2;font-size:10px;padding:4px 8px;border-radius:10px;background:var(--gold);color:#120e08;font-weight:600}
+
+/* bar à parfum */
+.bar{background:linear-gradient(160deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:28px;padding:28px 22px;text-align:center;position:relative;overflow:hidden}
+.bar .etapes{display:grid;gap:14px;margin:24px 0;text-align:left}
+.etape{display:flex;gap:14px;align-items:center}
+.etape i{flex:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;font-style:normal;color:var(--gold);font-family:"Cormorant Garamond",serif;font-size:22px}
+.etape p{font-size:14px;color:var(--mut)}
+.etape b{color:var(--txt);display:block;font-size:15px}
+.jauge{height:12px;border-radius:6px;background:var(--line);overflow:hidden;margin:6px 0 20px}
+.jauge div{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:6px;transition:width 2.2s ease}
+.atouts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.atout{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;text-align:center}
+.atout span{font-size:26px}
+.atout b{display:block;margin-top:8px;font-size:14px}
+.atout p{font-size:12px;color:var(--mut);margin-top:4px}
+
+/* infos */
+.infos{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;display:grid;gap:12px}
+.ligne{display:flex;gap:12px;align-items:center;font-size:14px}
+.ligne span{font-size:20px}
+
+footer{text-align:center;padding:30px 18px 110px;color:var(--mut);font-size:12px}
+
+/* bouton WhatsApp flottant */
+.wa{position:fixed;right:16px;bottom:18px;z-index:60;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 10px 25px rgba(0,0,0,.35);animation:pulse 2.5s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}70%{box-shadow:0 0 0 18px rgba(37,211,102,0)}}
+.wa svg{width:30px;fill:#fff}
+
+/* fenêtres */
+.fond{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center}
+.fond.on{display:flex}
+.fenetre{background:var(--card);color:var(--txt);width:100%;max-width:480px;border-radius:28px 28px 0 0;padding:26px 22px 34px;animation:glisse .4s ease}
+@keyframes glisse{from{transform:translateY(100%)}}
+.fenetre h3{font-size:28px;margin-bottom:8px}
+.fenetre p,.fenetre li{color:var(--mut);font-size:14px;line-height:1.7}
+.fenetre ul{margin:12px 0 18px 18px}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(30px);opacity:0;background:var(--gold);color:#120e08;padding:12px 20px;border-radius:30px;font-weight:600;font-size:14px;z-index:95;transition:.35s;white-space:nowrap}
+.toast.on{opacity:1;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+
+<header>
+  <button class="ico" onclick="ouvrir('panel')" aria-label="Panel">🔒</button>
+  <div class="logo serif or">AZRA</div>
+  <div class="droite">
+    <button class="ico" id="theme" aria-label="Mode jour / nuit">☀️</button>
+    <button class="ico panier" onclick="ouvrir('commande')" aria-label="Panier">🛍️<b id="nb">0</b></button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="halo"></div>
+  <div class="vapeur" id="vapeur"></div>
+  <svg class="flacon" viewBox="0 0 120 200">
+    <defs>
+      <linearGradient id="verre" x1="0" x2="1"><stop offset="0" stop-color="#3a2c14"/><stop offset=".45" stop-color="#d6b46a"/><stop offset=".55" stop-color="#f3dfa2"/><stop offset="1" stop-color="#5a431c"/></linearGradient>
+      <linearGradient id="bouchon" x1="0" x2="1"><stop offset="0" stop-color="#111"/><stop offset=".5" stop-color="#444"/><stop offset="1" stop-color="#111"/></linearGradient>
+    </defs>
+    <rect x="44" y="6" width="32" height="40" rx="6" fill="url(#bouchon)"/>
+    <rect x="50" y="44" width="20" height="14" fill="#8a6a2e"/>
+    <path d="M20 70 Q20 58 34 58 H86 Q100 58 100 70 V178 Q100 194 84 194 H36 Q20 194 20 178Z" fill="url(#verre)" opacity=".95"/>
+    <path d="M30 74 V176" stroke="#fff" stroke-opacity=".35" stroke-width="5" stroke-linecap="round"/>
+    <text x="60" y="132" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="17" font-weight="700" fill="#1a1208" letter-spacing="3">AZRA</text>
+    <text x="60" y="148" text-anchor="middle" font-family="Inter" font-size="6" fill="#1a1208" letter-spacing="2">EAU DE PARFUM</text>
+  </svg>
+  <h1 class="serif">Le parfum<br><em class="or">à l'état pur</em></h1>
+  <p>Plus de 250 fragrances à 30 % d'essence, et un bar à parfum où tu recharges ton flacon moins cher.</p>
+  <div class="btns">
+    <a class="btn plein" href="#collection">Découvrir les parfums</a>
+    <a class="btn vide" href="#bar">Recharger mon flacon</a>
+  </div>
+  <div class="chiffres">
+    <div><strong data-n="250">0</strong>fragrances</div>
+    <div><strong data-n="30">0</strong>% d'essence</div>
+    <div><strong data-n="4">0</strong>contenances</div>
+  </div>
+</div>
+
+<div class="marques"><div class="defile">
+  <span>LATTAFA</span><span>✦</span><span>EL NABIL</span><span>✦</span><span>FRAGRANZA</span><span>✦</span><span>BLU HOME</span><span>✦</span><span>ESSENZA</span><span>✦</span><span>PROFUMIAMO</span><span>✦</span>
+  <span>LATTAFA</span><span>✦</span><span>EL NABIL</span><span>✦</span><span>FRAGRANZA</span><span>✦</span><span>BLU HOME</span><span>✦</span><span>ESSENZA</span><span>✦</span><span>PROFUMIAMO</span><span>✦</span>
+</div></div>
+
+<section id="collection">
+  <div class="titre rev"><small>Nos collections</small><h2 class="serif">Trouve <em class="or">ton</em> parfum</h2></div>
+  <div class="filtres" id="filtres">
+    <button class="on" data-f="tout">Tout</button>
+    <button data-f="femme">Femme</button>
+    <button data-f="homme">Homme</button>
+    <button data-f="mixte">Mixte</button>
+    <button data-f="dubai">Dubaï</button>
+    <button data-f="maison">Maison</button>
+  </div>
+  <div class="grille" id="grille"></div>
+</section>
+
+<section id="bar">
+  <div class="bar rev">
+    <div class="titre" style="margin:0"><small>Exclusif en boutique</small><h2 class="serif">Le <em class="or">Bar à parfum</em></h2></div>
+    <div class="etapes">
+      <div class="etape"><i>1</i><p><b>Ramène ton flacon AZRA</b>Vide, n'importe quelle taille.</p></div>
+      <div class="etape"><i>2</i><p><b>Choisis ta fragrance</b>Parmi plus de 250, ou garde la même.</p></div>
+      <div class="etape"><i>3</i><p><b>On le recharge devant toi</b>Et tu paies moins cher qu'un flacon neuf.</p></div>
+    </div>
+    <p style="font-size:13px;color:var(--mut);text-align:left">Concentration en essence</p>
+    <div class="jauge"><div id="jauge"></div></div>
+    <a class="btn plein" href="https://wa.me/32488992087?text=Bonjour%20AZRA%2C%20je%20voudrais%20recharger%20mon%20flacon" target="_blank">Réserver ma recharge</a>
+  </div>
+</section>
+
+<section>
+  <div class="atouts">
+    <div class="atout rev"><span>💎</span><b>Vendeur officiel</b><p>Lattafa, El Nabil, Fragranza, Blu Home</p></div>
+    <div class="atout rev"><span>🧪</span><b>30 % d'essence</b><p>Un parfum qui tient toute la journée</p></div>
+    <div class="atout rev"><span>♻️</span><b>Recharge</b><p>Ton flacon, rechargé moins cher</p></div>
+    <div class="atout rev"><span>🏠</span><b>Pour la maison</b><p>Parfums de linge, diffuseurs, ambiance</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="titre rev"><small>Viens nous voir</small><h2 class="serif">La <em class="or">boutique</em></h2></div>
+  <div class="infos rev">
+    <div class="ligne"><span>📍</span>Adresse du magasin (à compléter)</div>
+    <div class="ligne"><span>🕐</span>Horaires (à compléter)</div>
+    <div class="ligne"><span>💬</span>+32 488 99 20 87</div>
+    <a class="btn plein" href="https://wa.me/32488992087" target="_blank">Écrire sur WhatsApp</a>
+    <a class="btn vide" href="tel:+32488992087">Appeler</a>
+  </div>
+</section>
+
+<footer>© AZRA Parfums · Le parfum à l'état pur</footer>
+
+<a class="wa" href="https://wa.me/32488992087" target="_blank" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3 1 2.6 1.1 2.8.1.2 1.9 2.9 4.6 4 1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3z"/></svg></a>
+
+<div class="fond" id="f-commande" onclick="fermer(event)"><div class="fenetre">
+  <h3 class="serif">Ton panier 🛍️</h3>
+  <p>Dans le vrai site, ta cliente pourra :</p>
+  <ul>
+    <li>Commander et <b>Payer en ligne</b></li>
+    <li>Choisir <b>Retrait en boutique</b> ou <b>Livraison en point relais</b></li>
+    <li>Recevoir un bel e-mail de confirmation avec le logo AZRA</li>
+  </ul>
+  <p>Et toi, tu reçois une notification avec le son sur ton téléphone pour chaque commande.</p>
+  <button class="btn plein" style="width:100%;margin-top:16px" onclick="toutFermer()">Compris</button>
+</div></div>
+
+<div class="fond" id="f-panel" onclick="fermer(event)"><div class="fenetre">
+  <h3 class="serif">Ton panel AZRA 🔒</h3>
+  <p>Ton panel de gestion sera ici : tes commandes, tes stocks, tes prix et tes clientes, le tout depuis ton téléphone, avec un code secret.</p>
+  <button class="btn plein" style="width:100%;margin-top:16px" onclick="toutFermer()">Fermer</button>
+</div></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Collections (exemples pour l'aperçu)
+const C=[
+ {f:"femme",n:"Collection Femme",d:"Florale, sucrée, poudrée",c:["#4a1f2e","#c9748f"],b:"Best-seller"},
+ {f:"homme",n:"Collection Homme",d:"Boisée, épicée, fraîche",c:["#14202e","#4f7fa8"]},
+ {f:"mixte",n:"Collection Privée",d:"Mixte · signature AZRA",c:["#2a1d0c","#d6b46a"],b:"Exclusif"},
+ {f:"mixte",n:"Azra Prestige",d:"Nos créations haut de gamme",c:["#1a1a1a","#e9d9a8"]},
+ {f:"dubai",n:"Collection Dubaï",d:"Lattafa · Musk",c:["#3b220c","#e0a548"],b:"Officiel"},
+ {f:"dubai",n:"Collection El Nabil",d:"Musc et oud d'Orient",c:["#2c1408","#b9733a"]},
+ {f:"maison",n:"Parfums de linge",d:"Essenza · Profumiamo · Blu Home",c:["#16302c","#7fc4b3"]},
+ {f:"maison",n:"Diffuseurs d'intérieur",d:"Appareils et huiles",c:["#262014","#bfa77a"]}
+];
+const flacon=(a,b)=>`<svg viewBox="0 0 60 100"><rect x="22" y="2" width="16" height="18" rx="3" fill="#111"/><rect x="25" y="19" width="10" height="7" fill="${b}"/><rect x="8" y="26" width="44" height="70" rx="10" fill="${b}" opacity=".9"/><rect x="13" y="32" width="4" height="56" rx="2" fill="#fff" opacity=".35"/></svg>`;
+const G=document.getElementById('grille');
+function afficher(f){
+  G.innerHTML=C.filter(x=>f=="tout"||x.f==f).map((x,i)=>`
+  <div class="carte rev" style="transition-delay:${i%2*.12}s">
+    ${x.b?`<span class="badge">${x.b}</span>`:""}
+    <div class="img" style="background:linear-gradient(150deg,${x.c[0]},${x.c[1]}55)">${flacon(...x.c)}</div>
+    <h3>${x.n}</h3><p>${x.d}</p>
+    <div class="tailles">${[15,30,50,100].map((t,j)=>`<span class="${j==2?'on':''}" onclick="taille(this)">${t}</span>`).join("")}</div>
+    <button class="ajout" onclick="ajouter('${x.n}',this)">Ajouter</button>
+  </div>`).join("");
+  voir();
+}
+function taille(el){el.parentNode.querySelectorAll('span').forEach(s=>s.classList.remove('on'));el.classList.add('on')}
+let nb=0;
+function ajouter(n,b){
+  const t=b.parentNode.querySelector('.tailles .on').textContent;
+  nb++;const e=document.getElementById('nb');e.textContent=nb;e.classList.add('on');
+  b.textContent="✓ Ajouté";setTimeout(()=>b.textContent="Ajouter",1400);
+  toast(`${n} · ${t} ml ajouté au panier`);
+}
+document.getElementById('filtres').onclick=e=>{
+  if(e.target.tagName!="BUTTON")return;
+  document.querySelectorAll('#filtres button').forEach(b=>b.classList.remove('on'));
+  e.target.classList.add('on');afficher(e.target.dataset.f);
+};
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2000)}
+function ouvrir(id){document.getElementById('f-'+id).classList.add('on')}
+function toutFermer(){document.querySelectorAll('.fond').forEach(f=>f.classList.remove('on'))}
+function fermer(e){if(e.target.classList.contains('fond'))toutFermer()}
+
+// Mode jour / nuit
+const th=document.getElementById('theme');
+th.onclick=()=>{document.body.classList.toggle('jour');th.textContent=document.body.classList.contains('jour')?'🌙':'☀️'};
+
+// Vapeur du flacon
+const v=document.getElementById('vapeur');
+for(let i=0;i<9;i++){const s=document.createElement('span');s.style.setProperty('--x',(Math.random()*120-60)+'px');s.style.left=(Math.random()*40-20)+'px';s.style.animationDelay=(i*.45)+'s';v.appendChild(s)}
+
+// Compteurs
+setTimeout(()=>document.querySelectorAll('[data-n]').forEach(el=>{const n=+el.dataset.n;let k=0;const p=setInterval(()=>{k+=Math.ceil(n/40);if(k>=n){k=n;clearInterval(p)}el.textContent=(n==250?'+':'')+k},35)}),1300);
+
+// Apparitions au défilement
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');if(e.target.classList.contains('bar'))document.getElementById('jauge').style.width='30%'}}),{threshold:.15});
+function voir(){document.querySelectorAll('.rev:not(.vu)').forEach(el=>obs.observe(el))}
+afficher('tout');
+</script>
+</body>
+</html>
